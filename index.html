@@ -17,492 +17,432 @@
 </head>
 
 <body style="padding-top: 0;">
+  <!-- include html -->
+  <script>
+    /* W3.JS 1.03 December 2017 by w3schools.com */
+    "use strict";
+    var w3 = {};
+    w3.hide = function (sel) {
+      w3.hideElements(w3.getElements(sel));
+    };
+    w3.hideElements = function (elements) {
+      var i, l = elements.length;
+      for (i = 0; i < l; i++) {
+        w3.hideElement(elements[i]);
+      }
+    };
+    w3.hideElement = function (element) {
+      w3.styleElement(element, "display", "none");
+    };
+    w3.show = function (sel, a) {
+      var elements = w3.getElements(sel);
+      if (a) { w3.hideElements(elements); }
+      w3.showElements(elements);
+    };
+    w3.showElements = function (elements) {
+      var i, l = elements.length;
+      for (i = 0; i < l; i++) {
+        w3.showElement(elements[i]);
+      }
+    };
+    w3.showElement = function (element) {
+      w3.styleElement(element, "display", "block");
+    };
+    w3.addStyle = function (sel, prop, val) {
+      w3.styleElements(w3.getElements(sel), prop, val);
+    };
+    w3.styleElements = function (elements, prop, val) {
+      var i, l = elements.length;
+      for (i = 0; i < l; i++) {
+        w3.styleElement(elements[i], prop, val);
+      }
+    };
+    w3.styleElement = function (element, prop, val) {
+      element.style.setProperty(prop, val);
+    };
+    w3.toggleShow = function (sel) {
+      var i, x = w3.getElements(sel), l = x.length;
+      for (i = 0; i < l; i++) {
+        if (x[i].style.display == "none") {
+          w3.styleElement(x[i], "display", "block");
+        } else {
+          w3.styleElement(x[i], "display", "none");
+        }
+      }
+    };
+    w3.addClass = function (sel, name) {
+      w3.addClassElements(w3.getElements(sel), name);
+    };
+    w3.addClassElements = function (elements, name) {
+      var i, l = elements.length;
+      for (i = 0; i < l; i++) {
+        w3.addClassElement(elements[i], name);
+      }
+    };
+    w3.addClassElement = function (element, name) {
+      var i, arr1, arr2;
+      arr1 = element.className.split(" ");
+      arr2 = name.split(" ");
+      for (i = 0; i < arr2.length; i++) {
+        if (arr1.indexOf(arr2[i]) == -1) { element.className += " " + arr2[i]; }
+      }
+    };
+    w3.removeClass = function (sel, name) {
+      w3.removeClassElements(w3.getElements(sel), name);
+    };
+    w3.removeClassElements = function (elements, name) {
+      var i, l = elements.length, arr1, arr2, j;
+      for (i = 0; i < l; i++) {
+        w3.removeClassElement(elements[i], name);
+      }
+    };
+    w3.removeClassElement = function (element, name) {
+      var i, arr1, arr2;
+      arr1 = element.className.split(" ");
+      arr2 = name.split(" ");
+      for (i = 0; i < arr2.length; i++) {
+        while (arr1.indexOf(arr2[i]) > -1) {
+          arr1.splice(arr1.indexOf(arr2[i]), 1);
+        }
+      }
+      element.className = arr1.join(" ");
+    };
+    w3.toggleClass = function (sel, c1, c2) {
+      w3.toggleClassElements(w3.getElements(sel), c1, c2);
+    };
+    w3.toggleClassElements = function (elements, c1, c2) {
+      var i, l = elements.length;
+      for (i = 0; i < l; i++) {
+        w3.toggleClassElement(elements[i], c1, c2);
+      }
+    };
+    w3.toggleClassElement = function (element, c1, c2) {
+      var t1, t2, t1Arr, t2Arr, j, arr, allPresent;
+      t1 = (c1 || "");
+      t2 = (c2 || "");
+      t1Arr = t1.split(" ");
+      t2Arr = t2.split(" ");
+      arr = element.className.split(" ");
+      if (t2Arr.length == 0) {
+        allPresent = true;
+        for (j = 0; j < t1Arr.length; j++) {
+          if (arr.indexOf(t1Arr[j]) == -1) { allPresent = false; }
+        }
+        if (allPresent) {
+          w3.removeClassElement(element, t1);
+        } else {
+          w3.addClassElement(element, t1);
+        }
+      } else {
+        allPresent = true;
+        for (j = 0; j < t1Arr.length; j++) {
+          if (arr.indexOf(t1Arr[j]) == -1) { allPresent = false; }
+        }
+        if (allPresent) {
+          w3.removeClassElement(element, t1);
+          w3.addClassElement(element, t2);
+        } else {
+          w3.removeClassElement(element, t2);
+          w3.addClassElement(element, t1);
+        }
+      }
+    };
+    w3.getElements = function (id) {
+      if (typeof id == "object") {
+        return [id];
+      } else {
+        return document.querySelectorAll(id);
+      }
+    };
+    w3.filterHTML = function (id, sel, filter) {
+      var a, b, c, i, ii, iii, hit;
+      a = w3.getElements(id);
+      for (i = 0; i < a.length; i++) {
+        b = w3.getElements(sel);
+        for (ii = 0; ii < b.length; ii++) {
+          hit = 0;
+          if (b[ii].innerHTML.toUpperCase().indexOf(filter.toUpperCase()) > -1) {
+            hit = 1;
+          }
+          c = b[ii].getElementsByTagName("*");
+          for (iii = 0; iii < c.length; iii++) {
+            if (c[iii].innerHTML.toUpperCase().indexOf(filter.toUpperCase()) > -1) {
+              hit = 1;
+            }
+          }
+          if (hit == 1) {
+            b[ii].style.display = "";
+          } else {
+            b[ii].style.display = "none";
+          }
+        }
+      }
+    };
+    w3.sortHTML = function (id, sel, sortvalue) {
+      var a, b, i, ii, y, bytt, v1, v2, cc, j;
+      a = w3.getElements(id);
+      for (i = 0; i < a.length; i++) {
+        for (j = 0; j < 2; j++) {
+          cc = 0;
+          y = 1;
+          while (y == 1) {
+            y = 0;
+            b = a[i].querySelectorAll(sel);
+            for (ii = 0; ii < (b.length - 1); ii++) {
+              bytt = 0;
+              if (sortvalue) {
+                v1 = b[ii].querySelector(sortvalue).innerHTML.toLowerCase();
+                v2 = b[ii + 1].querySelector(sortvalue).innerHTML.toLowerCase();
+              } else {
+                v1 = b[ii].innerHTML.toLowerCase();
+                v2 = b[ii + 1].innerHTML.toLowerCase();
+              }
+              if ((j == 0 && (v1 > v2)) || (j == 1 && (v1 < v2))) {
+                bytt = 1;
+                break;
+              }
+            }
+            if (bytt == 1) {
+              b[ii].parentNode.insertBefore(b[ii + 1], b[ii]);
+              y = 1;
+              cc++;
+            }
+          }
+          if (cc > 0) { break; }
+        }
+      }
+    };
+    w3.slideshow = function (sel, ms, func) {
+      var i, ss, x = w3.getElements(sel), l = x.length;
+      ss = {};
+      ss.current = 1;
+      ss.x = x;
+      ss.ondisplaychange = func;
+      if (!isNaN(ms) || ms == 0) {
+        ss.milliseconds = ms;
+      } else {
+        ss.milliseconds = 1000;
+      }
+      ss.start = function () {
+        ss.display(ss.current)
+        if (ss.ondisplaychange) { ss.ondisplaychange(); }
+        if (ss.milliseconds > 0) {
+          window.clearTimeout(ss.timeout);
+          ss.timeout = window.setTimeout(ss.next, ss.milliseconds);
+        }
+      };
+      ss.next = function () {
+        ss.current += 1;
+        if (ss.current > ss.x.length) { ss.current = 1; }
+        ss.start();
+      };
+      ss.previous = function () {
+        ss.current -= 1;
+        if (ss.current < 1) { ss.current = ss.x.length; }
+        ss.start();
+      };
+      ss.display = function (n) {
+        w3.styleElements(ss.x, "display", "none");
+        w3.styleElement(ss.x[n - 1], "display", "block");
+      }
+      ss.start();
+      return ss;
+    };
+    w3.includeHTML = function (cb) {
+      var z, i, elmnt, file, xhttp;
+      z = document.getElementsByTagName("*");
+      for (i = 0; i < z.length; i++) {
+        elmnt = z[i];
+        file = elmnt.getAttribute("w3-include-html");
+        if (file) {
+          xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function () {
+            if (this.readyState == 4) {
+              if (this.status == 200) { elmnt.innerHTML = this.responseText; }
+              if (this.status == 404) { elmnt.innerHTML = "Page not found."; }
+              elmnt.removeAttribute("w3-include-html");
+              w3.includeHTML(cb);
+            }
+          }
+          xhttp.open("GET", file, true);
+          xhttp.send();
+          return;
+        }
+      }
+      if (cb) cb();
+    };
+    w3.getHttpData = function (file, func) {
+      w3.http(file, function () {
+        if (this.readyState == 4 && this.status == 200) {
+          func(this.responseText);
+        }
+      });
+    };
+    w3.getHttpObject = function (file, func) {
+      w3.http(file, function () {
+        if (this.readyState == 4 && this.status == 200) {
+          func(JSON.parse(this.responseText));
+        }
+      });
+    };
+    w3.displayHttp = function (id, file) {
+      w3.http(file, function () {
+        if (this.readyState == 4 && this.status == 200) {
+          w3.displayObject(id, JSON.parse(this.responseText));
+        }
+      });
+    };
+    w3.http = function (target, readyfunc, xml, method) {
+      var httpObj;
+      if (!method) { method = "GET"; }
+      if (window.XMLHttpRequest) {
+        httpObj = new XMLHttpRequest();
+      } else if (window.ActiveXObject) {
+        httpObj = new ActiveXObject("Microsoft.XMLHTTP");
+      }
+      if (httpObj) {
+        if (readyfunc) { httpObj.onreadystatechange = readyfunc; }
+        httpObj.open(method, target, true);
+        httpObj.send(xml);
+      }
+    };
+    w3.getElementsByAttribute = function (x, att) {
+      var arr = [], arrCount = -1, i, l, y = x.getElementsByTagName("*"), z = att.toUpperCase();
+      l = y.length;
+      for (i = -1; i < l; i += 1) {
+        if (i == -1) { y[i] = x; }
+        if (y[i].getAttribute(z) !== null) { arrCount += 1; arr[arrCount] = y[i]; }
+      }
+      return arr;
+    };
+    w3.dataObject = {},
+      w3.displayObject = function (id, data) {
+        var htmlObj, htmlTemplate, html, arr = [], a, l, rowClone, x, j, i, ii, cc, repeat, repeatObj, repeatX = "";
+        htmlObj = document.getElementById(id);
+        htmlTemplate = init_template(id, htmlObj);
+        html = htmlTemplate.cloneNode(true);
+        arr = w3.getElementsByAttribute(html, "w3-repeat");
+        l = arr.length;
+        for (j = (l - 1); j >= 0; j -= 1) {
+          cc = arr[j].getAttribute("w3-repeat").split(" ");
+          if (cc.length == 1) {
+            repeat = cc[0];
+          } else {
+            repeatX = cc[0];
+            repeat = cc[2];
+          }
+          arr[j].removeAttribute("w3-repeat");
+          repeatObj = data[repeat];
+          if (repeatObj && typeof repeatObj == "object" && repeatObj.length != "undefined") {
+            i = 0;
+            for (x in repeatObj) {
+              i += 1;
+              rowClone = arr[j];
+              rowClone = w3_replace_curly(rowClone, "element", repeatX, repeatObj[x]);
+              a = rowClone.attributes;
+              for (ii = 0; ii < a.length; ii += 1) {
+                a[ii].value = w3_replace_curly(a[ii], "attribute", repeatX, repeatObj[x]).value;
+              }
+              (i === repeatObj.length) ? arr[j].parentNode.replaceChild(rowClone, arr[j]) : arr[j].parentNode.insertBefore(rowClone, arr[j]);
+            }
+          } else {
+            console.log("w3-repeat must be an array. " + repeat + " is not an array.");
+            continue;
+          }
+        }
+        html = w3_replace_curly(html, "element");
+        htmlObj.parentNode.replaceChild(html, htmlObj);
+        function init_template(id, obj) {
+          var template;
+          template = obj.cloneNode(true);
+          if (w3.dataObject.hasOwnProperty(id)) { return w3.dataObject[id]; }
+          w3.dataObject[id] = template;
+          return template;
+        }
+        function w3_replace_curly(elmnt, typ, repeatX, x) {
+          var value, rowClone, pos1, pos2, originalHTML, lookFor, lookForARR = [], i, cc, r;
+          rowClone = elmnt.cloneNode(true);
+          pos1 = 0;
+          while (pos1 > -1) {
+            originalHTML = (typ == "attribute") ? rowClone.value : rowClone.innerHTML;
+            pos1 = originalHTML.indexOf("{{", pos1);
+            if (pos1 === -1) { break; }
+            pos2 = originalHTML.indexOf("}}", pos1 + 1);
+            lookFor = originalHTML.substring(pos1 + 2, pos2);
+            lookForARR = lookFor.split("||");
+            value = undefined;
+            for (i = 0; i < lookForARR.length; i += 1) {
+              lookForARR[i] = lookForARR[i].replace(/^\s+|\s+$/gm, ''); //trim
+              if (x) { value = x[lookForARR[i]]; }
+              if (value == undefined && data) { value = data[lookForARR[i]]; }
+              if (value == undefined) {
+                cc = lookForARR[i].split(".");
+                if (cc[0] == repeatX) { value = x[cc[1]]; }
+              }
+              if (value == undefined) {
+                if (lookForARR[i] == repeatX) { value = x; }
+              }
+              if (value == undefined) {
+                if (lookForARR[i].substr(0, 1) == '"') {
+                  value = lookForARR[i].replace(/"/g, "");
+                } else if (lookForARR[i].substr(0, 1) == "'") {
+                  value = lookForARR[i].replace(/'/g, "");
+                }
+              }
+              if (value != undefined) { break; }
+            }
+            if (value != undefined) {
+              r = "{{" + lookFor + "}}";
+              if (typ == "attribute") {
+                rowClone.value = rowClone.value.replace(r, value);
+              } else {
+                w3_replace_html(rowClone, r, value);
+              }
+            }
+            pos1 = pos1 + 1;
+          }
+          return rowClone;
+        }
+        function w3_replace_html(a, r, result) {
+          var b, l, i, a, x, j;
+          if (a.hasAttributes()) {
+            b = a.attributes;
+            l = b.length;
+            for (i = 0; i < l; i += 1) {
+              if (b[i].value.indexOf(r) > -1) { b[i].value = b[i].value.replace(r, result); }
+            }
+          }
+          x = a.getElementsByTagName("*");
+          l = x.length;
+          a.innerHTML = a.innerHTML.replace(r, result);
+        }
+      };
+  </script>
 
 
+  <div w3-include-html="components/navbar.html"></div>
 
-  <nav class="navbar navbar-light bg-light fixed-top" style="height: 60px;">
-    <div class="container-fluid">
-      <img src="https://sistemashomologacao.suafaculdade.com.br/cdn/siteobjetivo/v1/assets/img/objetivo.svg"
-        style="height: 50px;" />
-      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-        aria-controls="offcanvasNavbar" style="box-shadow:none;">
-        <span class="navbar-toggler-icon"></span>
-      </button>
 
-      <div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-        id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-        <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Elementos</h5>
-          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-          <div id="list-example" class="list-group">
-            <a class="list-group-item list-group-item-action" href="#introducao">Introdução</a>
-            <a class="list-group-item list-group-item-action" href="#tipografia">Tipografia</a>
-            <a class="list-group-item list-group-item-action" href="#paleta-cores">Cores</a>
-            <a class="list-group-item list-group-item-action" href="#icones">Icones</a>
-            <a class="list-group-item list-group-item-action" href="#propriedades-svg">SVG</a>
-            <a class="list-group-item list-group-item-action" href="#botoes">Botões</a>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </nav>
 
   <main role="main">
     <div class="container-fluid">
       <div class="row">
         <div class="col-12" data-bs-spy="scroll" data-bs-target="#list-example" data-bs-offset="0"
           class="scrollspy-example" tabindex="0">
-          <section id="introducao" style="margin-top: 100px">
-            <div class="container p-0">
-              <div class="row">
-                <div class="col-12 mb-2">
-                  <h2 class="fw-bold"><strong>Iniciando com o CDN Objetivo</strong></h2>
-                  <p>Inicie colando as seguintes linhas no projeto para importar nosso css e js</p>
-                  <p>
-                    <code>&lt;link href="https://sistemashomologacao.suafaculdade.com.br/cdn/siteobjetivo/v1/objetivo.css" rel="stylesheet"&gt;</code>
-                  </p>
-                  <p>
-                    <code>&lt;link href="https://sistemashomologacao.suafaculdade.com.br/cdn/siteobjetivo/v1/objetivo.js" rel="stylesheet"&gt;</code>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </section>
-          <section id="tipografia" class="py-4 my-2">
-            <div class="container p-0">
-              <div class="row">
-                <div class="col-12 mb-2">
-                  <h2 class="fw-bold"><strong>Tipografia</strong></h2>
-                  <p>Fonte e configurações utilizadas no projeto Objetivo (Curso e Colégio).<br>
-                    Família de Fonte <strong>Nunito</strong>, com peso de 200, 300, 400, 600, 700, 800, 900.<br>
-                    Exemplos de Hierarquia cabrçalho, parágrafos e pesos.</p>
-                </div>
-                <article class="row">
-                  <div class="col-12 col-md-4">
-                    <h1 class="fw-bold display-1">Aa</h1>
-                    <p class="border-start ps-2">
-                      <span style="font-weight:200;">Extra-light <small>(200)</small></span><br>
-                      <span style="font-weight:300 ;">Light <small>(300)</small></span><br>
-                      <span style="font-weight:400;">Regular <small>(400)</small></span><br>
-                      <span style="font-weight:600;">Semi-bold <small>(600)</small></span><br>
-                      <span style="font-weight:700;">Bold <small>(700)</small></span><br>
-                      <span style="font-weight:800;">Extra-bold <small>(800)</small></span><br>
-                      <span style="font-weight:900;">Black <small>(900)</small></span>
-                    </p>
-                  </div>
-                  <div class="col-12 col-md-8 d-flex flex-column justify-content-around">
-                    <h1 class="fw-bold">h1. Sistema de Ensino Objetivo</h1>
-                    <h2 class="fw-bold">h2. Sistema de Ensino Objetivo</h2>
-                    <h3 class="fw-bold">h3. Sistema de Ensino Objetivo</h3>
-                    <h4 class="fw-bold">h4. Sistema de Ensino Objetivo</h4>
-                    <h5 class="fw-bold">h5. Sistema de Ensino Objetivo</h5>
-                    <h6 class="fw-bold">h6. Sistema de Ensino Objetivo</h6>
-                  </div>
-                  <h2 class="h3 fw-bold mt-2 my-2"><strong>Parágrafo</strong></h2>
-                  <p><strong>Formar o indivíduo para um mundo globalizado</strong> e para os seus novos parâmetros
-                    envolve a capacidade de utilização dos recursos infindáveis da informática, da computação, da
-                    telemática e das infoways, que acenam para uma revolução cultural tão transformadora quanto o foi,
-                    no seu tempo, a invenção da imprensa.</p>
 
-                </article>
-              </div>
-            </div>
-          </section>
-          <section id="paleta-cores" class="py-4 my-2">
-            <div class="container p-0">
-              <div class="row">
-                <div class="col-12 mb-4">
-                  <h1 class="h1 fw-bold"><strong>Cores</strong></h1>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-4">
-                  <div class="card border-0 shadow h-100" style="border-radius:5px;">
-                    <div
-                      style="border-top-right-radius: 5px;border-top-left-radius: 5px;display:block;background-color: #009FE3;">
-                      &nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;
-                    </div>
-                    <div class="card-body">
-                      <p class="mb-0"><strong>#009FE3</strong><br>
-                        <button class="btn p-0 m-0" data-clipboard-text="bg-info"><small>bg-info</small></button><br>
-                        <button class="btn p-0 m-0" data-clipboard-text="btn-info"><small>btn-info</small></button><br>
-                        <button class="btn p-0 m-0" data-clipboard-text="text-info"><small>text-info</small></button>
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="svg-fill-info"><small>svg-fill-info</small></button>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-4">
-                  <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
-                    <div
-                      style="border-top-right-radius: 5px;border-top-left-radius: 5px;display:block;background-color: #009FE3;">
-                      &nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;
-                    </div>
-                    <div class="card-body">
-                      <p class="mb-0"><strong>#009FE3</strong><br>
-                        <button class="btn p-0 m-0" data-clipboard-text="bg-obj-1"><small>bg-obj-1</small></button><br>
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="btn-obj-1"><small>btn-obj-1</small></button><br>
-                        <button class="btn p-0 m-0" data-clipboard-text="text-obj-1"><small>text-obj-1</small></button>
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="svg-fill-obj-1"><small>svg-fill-obj-1</small></button>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-4">
-                  <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
-                    <div
-                      style="border-top-right-radius: 5px;border-top-left-radius: 5px;display:block;background-color: #0085CC;">
-                      &nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;
-                    </div>
-                    <div class="card-body">
-                      <p class="mb-0"><strong>#0085CC</strong><br>
+          <div w3-include-html="sections/iniciando.html"></div>
 
-                        <button class="btn p-0 m-0" data-clipboard-text="bg-obj-2"><small>bg-obj-2</small></button><br>
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="btn-obj-2"><small>btn-obj-2</small></button><br>
-                        <button class="btn p-0 m-0" data-clipboard-text="text-obj-2"><small>text-obj-2</small></button>
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="svg-fill-obj-2"><small>svg-fill-obj-2</small></button>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-4">
-                  <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
-                    <div
-                      style="border-top-right-radius: 5px;border-top-left-radius: 5px;display:block;background-color: #009640">
-                      &nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;
-                    </div>
-                    <div class="card-body">
-                      <p class="mb-0"><strong>#009640</strong><br>
-                        <button class="btn p-0 m-0" data-clipboard-text="bg-success "><small>bg-success
-                          </small></button><br>
-                        <button class="btn p-0 m-0" data-clipboard-text="btn-success "><small>btn-success
-                          </small></button><br>
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="text-success"><small>text-success</small></button>
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="svg-fill-success "><small>svg-fill-success</small></button>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-4">
-                  <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
-                    <div
-                      style="border-top-right-radius: 5px;border-top-left-radius: 5px;display:block;background-color: #0A58CA">
-                      &nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;
-                    </div>
-                    <div class="card-body">
-                      <p class="mb-0"><strong>#0A58CA</strong><br>
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="bg-primary"><small>bg-primary</small></button><br>
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="btn-primary"><small>btn-primary</small></button><br>
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="text-primary"><small>text-primary</small></button>
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="svg-fill-primary"><small>svg-fill-primary</small></button>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-4">
-                  <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
-                    <div
-                      style="border-top-right-radius: 5px;border-top-left-radius: 5px;display:block;background-color: #0E4194">
-                      &nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;
-                    </div>
-                    <div class="card-body">
-                      <p class="mb-0"><strong>#0E4194</strong><br>
-                        <button class="btn p-0 m-0" data-clipboard-text="bg-obj-3"><small>bg-obj-3</small></button><br>
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="btn-obj-3"><small>btn-obj-3</small></button><br>
-                        <button class="btn p-0 m-0" data-clipboard-text="text-obj-3"><small>text-obj-3</small></button>
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="svg-fill-obj-3"><small>svg-fill-obj-3</small></button>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-4">
-                  <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
-                    <div
-                      style="border-top-right-radius: 5px;border-top-left-radius: 5px;display:block;background-color: #0D3880">
-                      &nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;
-                    </div>
-                    <div class="card-body">
-                      <p class="mb-0"><strong>#0D3880</strong><br>
+          <div w3-include-html="sections/tipografia.html"></div>
 
-                        <button class="btn p-0 m-0" data-clipboard-text="bg-obj-4"><small>bg-obj-4</small></button><br>
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="btn-obj-4"><small>btn-obj-4</small></button><br>
-                        <button class="btn p-0 m-0" data-clipboard-text="text-obj-4"><small>text-obj-4</small></button>
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="svg-fill-obj-4"><small>svg-fill-obj-4</small></button>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-4">
-                  <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
-                    <div
-                      style="border-top-right-radius: 5px;border-top-left-radius: 5px;display:block;background-color: #002877">
-                      &nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;
-                    </div>
-                    <div class="card-body">
-                      <p class="mb-0"><strong>#002877</strong><br>
-                        <button class="btn p-0 m-0" data-clipboard-text="bg-obj-5"><small>bg-obj-5</small></button><br>
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="btn-obj-5"><small>btn-obj-5</small></button><br>
-                        <button class="btn p-0 m-0" data-clipboard-text="text-obj-5"><small>text-obj-5</small></button>
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="svg-fill-obj-5"><small>svg-fill-obj-5</small></button>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-4">
-                  <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
-                    <div
-                      style="border-top-right-radius: 5px;border-top-left-radius: 5px;display:block;background-color: #FFED00">
-                      &nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;
-                    </div>
-                    <div class="card-body">
-                      <p class="mb-0"><strong>#FFED00</strong><br>
+          <div w3-include-html="sections/cores.html"></div>
 
-                        <button class="btn p-0 m-0" data-clipboard-text="bg-obj-7"><small>bg-obj-7</small></button><br>
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="btn-obj-7"><small>btn-obj-7</small></button><br>
-                        <button class="btn p-0 m-0" data-clipboard-text="text-obj-7"><small>text-obj-7</small></button>
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="svg-fill-obj-7"><small>svg-fill-obj-7</small></button>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-4">
-                  <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
-                    <div
-                      style="border-top-right-radius: 5px;border-top-left-radius: 5px;display:block;background-color: #FDD703">
-                      &nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;
-                    </div>
-                    <div class="card-body">
-                      <p class="mb-0"><strong>#FDD703</strong><br>
 
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="bg-warning"><small>bg-warning</small></button><br>
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="btn-warning"><small>btn-warning</small></button><br>
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="text-warning"><small>text-warning</small></button>
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="svg-fill-warning"><small>svg-fill-warning</small></button>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-4">
-                  <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
-                    <div
-                      style="border-top-right-radius: 5px;border-top-left-radius: 5px;display:block;background-color: #FBC105">
-                      &nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;
-                    </div>
-                    <div class="card-body">
-                      <p class="mb-0"><strong>#FBC105</strong><br>
-
-                        <button class="btn p-0 m-0" data-clipboard-text="bg-obj-6"><small>bg-obj-6</small></button><br>
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="btn-obj-6"><small>btn-obj-6</small></button><br>
-                        <button class="btn p-0 m-0" data-clipboard-text="text-obj-6"><small>text-obj-6</small></button>
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="svg-fill-obj-6"><small>svg-fill-obj-6</small></button>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-4">
-                  <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
-                    <div
-                      style="border-top-right-radius: 5px;border-top-left-radius: 5px;display:block;background-color: #F49913">
-                      &nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;
-                    </div>
-                    <div class="card-body">
-                      <p class="mb-0"><strong>#F49913</strong><br>
-
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="bg-obj-12"><small>bg-obj-12</small></button><br>
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="btn-obj-12"><small>btn-obj-12</small></button><br>
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="text-obj-12"><small>text-obj-12</small></button>
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="svg-fill-obj-12"><small>svg-fill-obj-12</small></button>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-4">
-                  <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
-                    <div
-                      style="border-top-right-radius: 5px;border-top-left-radius: 5px;display:block;background-color: #E84E19">
-                      &nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;
-                    </div>
-                    <div class="card-body">
-                      <p class="mb-0"><strong>#E84E19</strong><br>
-
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="bg-obj-11"><small>bg-obj-11</small></button><br>
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="btn-obj-11"><small>btn-obj-11</small></button><br>
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="text-obj-11"><small>text-obj-11</small></button>
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="svg-fill-obj-11"><small>svg-fill-obj-11</small></button>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-4">
-                  <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
-                    <div
-                      style="border-top-right-radius: 5px;border-top-left-radius: 5px;display:block;background-color: #D90E16">
-                      &nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;
-                    </div>
-                    <div class="card-body">
-                      <p class="mb-0"><strong>#D90E16</strong><br>
-
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="bg-obj-10"><small>bg-obj-10</small></button><br>
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="btn-obj-10"><small>btn-obj-10</small></button><br>
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="text-obj-10"><small>text-obj-10</small></button>
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="svg-fill-obj-10"><small>svg-fill-obj-10</small></button>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-4">
-                  <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
-                    <div
-                      style="border-top-right-radius: 5px;border-top-left-radius: 5px;display:block;background-color: #B00F0A">
-                      &nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;
-                    </div>
-                    <div class="card-body">
-                      <p class="mb-0"><strong>#B00F0A</strong><br>
-
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="bg-danger"><small>bg-danger</small></button><br>
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="btn-danger"><small>btn-danger</small></button><br>
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="text-danger"><small>text-danger</small></button>
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="svg-fill-danger"><small>svg-fill-danger</small></button>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-4">
-                  <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
-                    <div
-                      style="border-top-right-radius: 5px;border-top-left-radius: 5px;display:block;background-color: #A2C614">
-                      &nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;
-                    </div>
-                    <div class="card-body">
-                      <p class="mb-0"><strong>#A2C614</strong><br>
-
-                        <button class="btn p-0 m-0" data-clipboard-text="bg-obj-8"><small>bg-obj-8</small></button><br>
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="btn-obj-8"><small>btn-obj-8</small></button><br>
-                        <button class="btn p-0 m-0" data-clipboard-text="text-obj-8"><small>text-obj-8</small></button>
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="svg-fill-obj-8"><small>svg-fill-obj-8</small></button>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-4">
-                  <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
-                    <div
-                      style="border-top-right-radius: 5px;border-top-left-radius: 5px;display:block;background-color: #3AA937">
-                      &nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;
-                    </div>
-                    <div class="card-body">
-                      <p class="mb-0"><strong>#3AA937</strong><br>
-
-                        <button class="btn p-0 m-0" data-clipboard-text="bg-obj-9"><small>bg-obj-9</small></button><br>
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="btn-obj-9"><small>btn-obj-9</small></button><br>
-                        <button class="btn p-0 m-0" data-clipboard-text="text-obj-9"><small>text-obj-9</small></button>
-                        <button class="btn p-0 m-0"
-                          data-clipboard-text="svg-fill-obj-9"><small>svg-fill-obj-9</small></button>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-4">
-                  <div class=" p-0 border-0 shadow h-100" style="border-radius:5px;">
-                    <div class="card h-100">
-                      <div
-                        style="border-top-right-radius: 5px;border-top-left-radius: 5px;display:block;background-color: #FFFAEB">
-                        &nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;</div>
-                      <div class="card-body">
-                        <p class="mb-0"><strong>#FFFAEB</strong></p>
-                        <button class="btn p-0 m-0" data-clipboard-text="bg-light-4">bg-light-4</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-4">
-                  <div class=" p-0 border-0 shadow h-100" style="border-radius:5px;">
-                    <div
-                      style="border-top-right-radius: 5px;border-top-left-radius: 5px;display:block;background-color: #EBF8FF">
-                      &nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;
-                    </div>
-                    <div class="card-body">
-                      <p class="mb-0"><strong>#EBF8FF</strong></p>
-                      <button class="btn p-0 m-0" data-clipboard-text="bg-light-2">bg-light-2</button>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-4">
-                  <div class="p-0 border-0 shadow h-100" style="border-radius:5px;">
-                    <div class="card h-100">
-                      <div
-                        style="border-top-right-radius: 5px;border-top-left-radius: 5px;display:block;background-color: #EDF2FC">
-                        &nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;</div>
-                      <div class="card-body">
-                        <p class="mb-0"><strong>#EDF2FC</strong></p>
-                        <button class="btn p-0 m-0" data-clipboard-text="bg-light-3">bg-light-3</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-4">
-                  <div class=" p-0 border-0 shadow h-100" style="border-radius:5px;">
-                    <div
-                      style="border-top-right-radius: 5px;border-top-left-radius: 5px;display:block;background-color: #EBEBEB">
-                      &nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;
-                    </div>
-                    <div class="card-body">
-                      <p class="mb-0"><strong>#EBEBEB</strong></p>
-                      <button class="btn p-0 m-0" data-clipboard-text="bg-light">bg-light</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
           <section id="icones" class="py-4 my-2">
             <div class="container p-0">
+
+
               <div class="row">
+
                 <div class="col-12">
                   <h2 class="fw-bold"><strong>Icones</strong></h2>
                   <p>O SVG inline é a utilização da sua estrutura jogada diretamente no código html, como o SVG trabalha
@@ -522,20 +462,32 @@
                         title="Tutorial SVG">https://developer.mozilla.org/pt-BR/docs/Web/SVG/Tutorial</a></small>
                   </div>
                 </div>
-                <div class="col-12 col-md-6">
+                <div class="col-12">
                   <div id="icones-lineal" class="mt-2">
+
                     <h3 class="fw-bold my-2">Icones <strong>Lineal</strong></h3>
 
 
                     <style>
+                      #toast #img {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        border-bottom-left-radius: 5px;
+                        border-top-left-radius: 5px;
+                      }
+
+                      .card-body {
+                        display: flex;
+                      }
+
                       .card-body svg {
                         width: 100%;
                       }
                     </style>
-
                     <div class="container p-0">
                       <div class="row">
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -568,7 +520,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -582,7 +534,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -597,7 +549,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -621,7 +573,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -646,7 +598,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -670,7 +622,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -703,7 +655,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -719,7 +671,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -743,7 +695,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -763,7 +715,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -801,7 +753,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -823,7 +775,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -844,7 +796,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -864,7 +816,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -881,7 +833,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -915,7 +867,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -955,7 +907,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -982,7 +934,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1000,7 +952,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1021,7 +973,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1043,7 +995,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1058,7 +1010,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1079,7 +1031,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1102,7 +1054,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1124,7 +1076,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1144,7 +1096,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1166,7 +1118,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1198,27 +1150,18 @@
                         </div>
                       </div>
                     </div>
-
                   </div>
                 </div>
-                <div class="col-12 col-md-6">
+
+                <div class="col-12">
                   <div id="icones-solid" class="mt-2">
                     <h3 class="fw-bold my-2">Icones <strong>Solid</strong></h3>
 
-
-                    <style>
-                      .card-body svg {
-                        width: 100%;
-                      }
-                    </style>
-
                     <div class="container p-0">
                       <div class="row">
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
-
-
 
                               <svg aria-labelledby="icon-chalkboard-solid" role="img" aria-hidden="true"
                                 focusable="false" viewBox="0 0 576 512" xmlns="http://www.w3.org/2000/svg"
@@ -1230,7 +1173,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
                               <svg aria-labelledby="icon-award-solid" role="img" aria-hidden="true" focusable="false"
@@ -1241,7 +1184,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1259,7 +1202,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1276,7 +1219,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1288,7 +1231,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1301,7 +1244,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1314,7 +1257,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1327,7 +1270,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1343,7 +1286,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1355,7 +1298,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1368,7 +1311,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1382,7 +1325,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1394,7 +1337,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1407,7 +1350,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1420,7 +1363,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1435,7 +1378,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1447,7 +1390,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1461,7 +1404,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1474,7 +1417,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1486,7 +1429,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1501,7 +1444,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1514,7 +1457,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1527,7 +1470,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1539,7 +1482,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1552,7 +1495,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1574,7 +1517,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1586,7 +1529,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1599,7 +1542,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1611,7 +1554,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1626,7 +1569,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
                               <svg aria-labelledby="icon-facebook-square" role="img" aria-hidden="true"
@@ -1638,7 +1581,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
                               <svg aria-labelledby="icon-twitter-square" role="img" aria-hidden="true" focusable="false"
@@ -1649,7 +1592,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1661,7 +1604,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1674,7 +1617,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1688,7 +1631,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1700,7 +1643,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1713,7 +1656,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1725,7 +1668,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1737,7 +1680,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 mb-4">
+                        <div class="col-3 col-sm-2 col-lg-1 mb-4">
                           <div class="card p-0 border-0 shadow h-100" style="border-radius:5px;">
                             <div class="card-body">
 
@@ -1753,289 +1696,259 @@
                     </div>
                   </div>
                 </div>
-                <div id="propriedades-svg" class="mt-2">
-                  <h3 class="fw-bold my-2 pt-3">Propriedades <strong>SVG</strong></h3>
-                  <p class="py-2">Para mudar o <strong>tamanho</strong> e <strong>cor</strong> dos icones em
-                    SVG, precisamos adicionar as classes criadas para realizar essas mudanças.<br>
-                    A classe <strong>svg-<span class="text-danger">número</span> (de 1 a 9 )</strong>, altera
-                    o tamanho dos icones.<br>
-                    A classe <strong>svg-fill-<span class="text-danger">nome</span>-<span
-                        class="text-danger">nome</span></strong> (verificar no item <a href="#paleta-cores">Cores</a>),
-                    altera a cor do SVG.</p>
-                  <div class="col-12 col-md-8 d-flex flex-column mb-4 mx-auto">
-                    <div class="border p-4">
-                      <div class="icones-tamanho-exemplo d-flex justify-content-around">
-                        <svg aria-labelledby="icon-reading-lineal" role="img" viewBox="0 0 512 512"
-                          xmlns="http://www.w3.org/2000/svg" class="svg-1 svg-fill-obj-5">
-                          <path
-                            d="M495.258,284.634a8,8,0,0,0-4.728-4.223l-24-8a7.992,7.992,0,0,0-6.108.434l-11.986,5.993L393.1,244.256A27.973,27.973,0,0,0,378.264,240H372.31l27-60.751a8,8,0,0,0,.625-4.194c.2-.684-.126-1.588-1.076-3.171l-24-40a8,8,0,0,0-13.516-.322L348.332,151.08l-17.523-6.571a8,8,0,0,0-10.12,4.242L300.7,193.718l-30.079-8.2-3.19-12.758a27.5,27.5,0,0,0-2.179-5.781A40.216,40.216,0,0,0,280,136V114c0-.252-.015-.5-.038-.747l9.869-34.541a31.634,31.634,0,0,0-58.712-22.838l-3.172,6.342-1.214-.4a30.363,30.363,0,0,0-37.792,40.082L200,129.541V136a39.919,39.919,0,0,0,14.939,31.168l-1.44,2.161a86.314,86.314,0,0,0-9.315,18.439L155.013,288H96a8,8,0,0,0,0,16h8v80H88a8,8,0,0,0,0,16h.862A55.963,55.963,0,0,0,128,496H360a8,8,0,0,0,0-16H344V400h8a8,8,0,0,0,5.134-14.132,56.171,56.171,0,0,0,15.692-23.311l3.7,8.336,7.879,23.637A8,8,0,0,0,392,400c.436,0,49.32-8.11,49.32-8.11A8,8,0,0,0,448,384V360a8,8,0,0,0-4.422-7.155l-29.433-14.717L401.29,309.2l35.069,17.92s.009,0,.013,0a7.979,7.979,0,0,0,1.688.637l32,8a7.994,7.994,0,0,0,9.368-4.79l16-40A8,8,0,0,0,495.258,284.634ZM367.645,150.956l5.7,9.505-9.632-3.612Zm-35.4,11.181,48.992,18.372L354.8,240h-5.9c.18-.323.365-.642.532-.975a25.825,25.825,0,0,0-16.3-36.464l-16.807-4.584Zm66.209,180.091L386.58,354.106l-27.269-61.355A8,8,0,0,0,352,288H257.08l25.851-31.021L364.6,277.4a11.923,11.923,0,0,1,8.055,6.767ZM216,131.314,227.313,120H264v16a24.138,24.138,0,0,1-9.906,19.406,27.451,27.451,0,0,0-27.427.542A23.954,23.954,0,0,1,216,136ZM328.919,218a9.824,9.824,0,0,1-4.795,19.051l-76.261-17.6,18.511-18.512ZM218.47,235.05c-.861-1.72-2.044-5-2.795-10.842a65.561,65.561,0,0,1,1.782-25.4l6.782,27.128c.011.043.026.07.037.111s.019.1.034.155A8,8,0,0,0,230.2,231.8l34.723,8.013,5.106,7.659-28.345,34.014Zm18.593-27.427-7.275-25.455a11.337,11.337,0,0,1,2.075-9.783c.131-.168.279-.317.418-.477a7.95,7.95,0,0,0,1.53-1.472,11.4,11.4,0,0,1,14.73.544c.03.026.057.057.088.083a11.378,11.378,0,0,1,3.284,5.574l3.227,12.909ZM227.056,288H204.944L216,265.888ZM205.182,82.649a14.379,14.379,0,0,1,16.492-5.658l7.8,2.6a8,8,0,0,0,9.685-4.011l6.275-12.549a15.634,15.634,0,0,1,29.016,11.287L265.966,104H224a8,8,0,0,0-5.657,2.343l-7.421,7.421L203.8,95.951A14.362,14.362,0,0,1,205.182,82.649Zm-4.548,148.684a43.115,43.115,0,0,0,3.524,10.872l2.9,5.795-20,40H172.835ZM120,336H320a8,8,0,0,1,0,16H120ZM328,448H128a8,8,0,0,1,0-16H328Zm0-32H128a24,24,0,0,0,0,48H328v16H128a40,40,0,0,1,0-80H328Zm-8-32H120V368H320a24,24,0,0,0,0-48H120V304H320a40,40,0,0,1,0,80Zm112-6.777-34.572,5.762-4.275-12.824,16.427-16.427L432,364.944Zm-44.728-99.558a27.828,27.828,0,0,0-18.8-15.792L344.985,256h33.279a11.988,11.988,0,0,1,6.36,1.824l54.2,33.878-4.148,16.6-43.039-21.992c-.217-.111-.438-.207-.66-.3Zm79.894,40.88L449.7,314.179l5.168-20.669,9.745-4.873,12.807,4.269Z">
-                          </path>
-                          <path
-                            d="M82.343,213.657l16,16A8,8,0,0,0,104,232h16a8,8,0,0,0,5.657-2.343l16-16A8,8,0,0,0,144,208V179.266A84.664,84.664,0,0,0,168,120a56,56,0,0,0-112,0,84.664,84.664,0,0,0,24,59.266V208A8,8,0,0,0,82.343,213.657ZM128,204.687,116.687,216h-9.374L96,204.687V184h32ZM112,80a40.045,40.045,0,0,1,40,40,68.78,68.78,0,0,1-19.332,48H120V139.314l13.657-13.657a8,8,0,0,0-11.314-11.314L112,124.687l-10.343-10.344a8,8,0,0,0-11.314,11.314L104,139.314V168H91.332A68.78,68.78,0,0,1,72,120,40.045,40.045,0,0,1,112,80Z">
-                          </path>
-                          <path d="m112 48a8 8 0 0 0 8 -8v-16a8 8 0 0 0 -16 0v16a8 8 0 0 0 8 8z"></path>
-                          <path d="M69.072,53.646a8,8,0,1,0,13.856-8l-8-13.856a8,8,0,1,0-13.856,8Z"></path>
-                          <path d="M31.79,74.928l13.856,8a8,8,0,1,0,8-13.856l-13.856-8a8,8,0,0,0-8,13.856Z">
-                          </path>
-                          <path d="M48,112a8,8,0,0,0-8-8H24a8,8,0,0,0,0,16H40A8,8,0,0,0,48,112Z"></path>
-                          <path d="M45.646,141.072l-13.856,8a8,8,0,1,0,8,13.856l13.856-8a8,8,0,0,0-8-13.856Z">
-                          </path>
-                          <path
-                            d="M144,56.574a8,8,0,0,0,10.928-2.928l8-13.856a8,8,0,1,0-13.856-8l-8,13.856A8,8,0,0,0,144,56.574Z">
-                          </path>
-                        </svg>
-                        <svg aria-labelledby="icon-reading-lineal" role="img" viewBox="0 0 512 512"
-                          xmlns="http://www.w3.org/2000/svg" class="svg-2 svg-fill-obj-5">
-                          <path
-                            d="M495.258,284.634a8,8,0,0,0-4.728-4.223l-24-8a7.992,7.992,0,0,0-6.108.434l-11.986,5.993L393.1,244.256A27.973,27.973,0,0,0,378.264,240H372.31l27-60.751a8,8,0,0,0,.625-4.194c.2-.684-.126-1.588-1.076-3.171l-24-40a8,8,0,0,0-13.516-.322L348.332,151.08l-17.523-6.571a8,8,0,0,0-10.12,4.242L300.7,193.718l-30.079-8.2-3.19-12.758a27.5,27.5,0,0,0-2.179-5.781A40.216,40.216,0,0,0,280,136V114c0-.252-.015-.5-.038-.747l9.869-34.541a31.634,31.634,0,0,0-58.712-22.838l-3.172,6.342-1.214-.4a30.363,30.363,0,0,0-37.792,40.082L200,129.541V136a39.919,39.919,0,0,0,14.939,31.168l-1.44,2.161a86.314,86.314,0,0,0-9.315,18.439L155.013,288H96a8,8,0,0,0,0,16h8v80H88a8,8,0,0,0,0,16h.862A55.963,55.963,0,0,0,128,496H360a8,8,0,0,0,0-16H344V400h8a8,8,0,0,0,5.134-14.132,56.171,56.171,0,0,0,15.692-23.311l3.7,8.336,7.879,23.637A8,8,0,0,0,392,400c.436,0,49.32-8.11,49.32-8.11A8,8,0,0,0,448,384V360a8,8,0,0,0-4.422-7.155l-29.433-14.717L401.29,309.2l35.069,17.92s.009,0,.013,0a7.979,7.979,0,0,0,1.688.637l32,8a7.994,7.994,0,0,0,9.368-4.79l16-40A8,8,0,0,0,495.258,284.634ZM367.645,150.956l5.7,9.505-9.632-3.612Zm-35.4,11.181,48.992,18.372L354.8,240h-5.9c.18-.323.365-.642.532-.975a25.825,25.825,0,0,0-16.3-36.464l-16.807-4.584Zm66.209,180.091L386.58,354.106l-27.269-61.355A8,8,0,0,0,352,288H257.08l25.851-31.021L364.6,277.4a11.923,11.923,0,0,1,8.055,6.767ZM216,131.314,227.313,120H264v16a24.138,24.138,0,0,1-9.906,19.406,27.451,27.451,0,0,0-27.427.542A23.954,23.954,0,0,1,216,136ZM328.919,218a9.824,9.824,0,0,1-4.795,19.051l-76.261-17.6,18.511-18.512ZM218.47,235.05c-.861-1.72-2.044-5-2.795-10.842a65.561,65.561,0,0,1,1.782-25.4l6.782,27.128c.011.043.026.07.037.111s.019.1.034.155A8,8,0,0,0,230.2,231.8l34.723,8.013,5.106,7.659-28.345,34.014Zm18.593-27.427-7.275-25.455a11.337,11.337,0,0,1,2.075-9.783c.131-.168.279-.317.418-.477a7.95,7.95,0,0,0,1.53-1.472,11.4,11.4,0,0,1,14.73.544c.03.026.057.057.088.083a11.378,11.378,0,0,1,3.284,5.574l3.227,12.909ZM227.056,288H204.944L216,265.888ZM205.182,82.649a14.379,14.379,0,0,1,16.492-5.658l7.8,2.6a8,8,0,0,0,9.685-4.011l6.275-12.549a15.634,15.634,0,0,1,29.016,11.287L265.966,104H224a8,8,0,0,0-5.657,2.343l-7.421,7.421L203.8,95.951A14.362,14.362,0,0,1,205.182,82.649Zm-4.548,148.684a43.115,43.115,0,0,0,3.524,10.872l2.9,5.795-20,40H172.835ZM120,336H320a8,8,0,0,1,0,16H120ZM328,448H128a8,8,0,0,1,0-16H328Zm0-32H128a24,24,0,0,0,0,48H328v16H128a40,40,0,0,1,0-80H328Zm-8-32H120V368H320a24,24,0,0,0,0-48H120V304H320a40,40,0,0,1,0,80Zm112-6.777-34.572,5.762-4.275-12.824,16.427-16.427L432,364.944Zm-44.728-99.558a27.828,27.828,0,0,0-18.8-15.792L344.985,256h33.279a11.988,11.988,0,0,1,6.36,1.824l54.2,33.878-4.148,16.6-43.039-21.992c-.217-.111-.438-.207-.66-.3Zm79.894,40.88L449.7,314.179l5.168-20.669,9.745-4.873,12.807,4.269Z">
-                          </path>
-                          <path
-                            d="M82.343,213.657l16,16A8,8,0,0,0,104,232h16a8,8,0,0,0,5.657-2.343l16-16A8,8,0,0,0,144,208V179.266A84.664,84.664,0,0,0,168,120a56,56,0,0,0-112,0,84.664,84.664,0,0,0,24,59.266V208A8,8,0,0,0,82.343,213.657ZM128,204.687,116.687,216h-9.374L96,204.687V184h32ZM112,80a40.045,40.045,0,0,1,40,40,68.78,68.78,0,0,1-19.332,48H120V139.314l13.657-13.657a8,8,0,0,0-11.314-11.314L112,124.687l-10.343-10.344a8,8,0,0,0-11.314,11.314L104,139.314V168H91.332A68.78,68.78,0,0,1,72,120,40.045,40.045,0,0,1,112,80Z">
-                          </path>
-                          <path d="m112 48a8 8 0 0 0 8 -8v-16a8 8 0 0 0 -16 0v16a8 8 0 0 0 8 8z"></path>
-                          <path d="M69.072,53.646a8,8,0,1,0,13.856-8l-8-13.856a8,8,0,1,0-13.856,8Z"></path>
-                          <path d="M31.79,74.928l13.856,8a8,8,0,1,0,8-13.856l-13.856-8a8,8,0,0,0-8,13.856Z">
-                          </path>
-                          <path d="M48,112a8,8,0,0,0-8-8H24a8,8,0,0,0,0,16H40A8,8,0,0,0,48,112Z"></path>
-                          <path d="M45.646,141.072l-13.856,8a8,8,0,1,0,8,13.856l13.856-8a8,8,0,0,0-8-13.856Z">
-                          </path>
-                          <path
-                            d="M144,56.574a8,8,0,0,0,10.928-2.928l8-13.856a8,8,0,1,0-13.856-8l-8,13.856A8,8,0,0,0,144,56.574Z">
-                          </path>
-                        </svg>
-                        <svg aria-labelledby="icon-reading-lineal" role="img" viewBox="0 0 512 512"
-                          xmlns="http://www.w3.org/2000/svg" class="svg-3 svg-fill-obj-5">
-                          <path
-                            d="M495.258,284.634a8,8,0,0,0-4.728-4.223l-24-8a7.992,7.992,0,0,0-6.108.434l-11.986,5.993L393.1,244.256A27.973,27.973,0,0,0,378.264,240H372.31l27-60.751a8,8,0,0,0,.625-4.194c.2-.684-.126-1.588-1.076-3.171l-24-40a8,8,0,0,0-13.516-.322L348.332,151.08l-17.523-6.571a8,8,0,0,0-10.12,4.242L300.7,193.718l-30.079-8.2-3.19-12.758a27.5,27.5,0,0,0-2.179-5.781A40.216,40.216,0,0,0,280,136V114c0-.252-.015-.5-.038-.747l9.869-34.541a31.634,31.634,0,0,0-58.712-22.838l-3.172,6.342-1.214-.4a30.363,30.363,0,0,0-37.792,40.082L200,129.541V136a39.919,39.919,0,0,0,14.939,31.168l-1.44,2.161a86.314,86.314,0,0,0-9.315,18.439L155.013,288H96a8,8,0,0,0,0,16h8v80H88a8,8,0,0,0,0,16h.862A55.963,55.963,0,0,0,128,496H360a8,8,0,0,0,0-16H344V400h8a8,8,0,0,0,5.134-14.132,56.171,56.171,0,0,0,15.692-23.311l3.7,8.336,7.879,23.637A8,8,0,0,0,392,400c.436,0,49.32-8.11,49.32-8.11A8,8,0,0,0,448,384V360a8,8,0,0,0-4.422-7.155l-29.433-14.717L401.29,309.2l35.069,17.92s.009,0,.013,0a7.979,7.979,0,0,0,1.688.637l32,8a7.994,7.994,0,0,0,9.368-4.79l16-40A8,8,0,0,0,495.258,284.634ZM367.645,150.956l5.7,9.505-9.632-3.612Zm-35.4,11.181,48.992,18.372L354.8,240h-5.9c.18-.323.365-.642.532-.975a25.825,25.825,0,0,0-16.3-36.464l-16.807-4.584Zm66.209,180.091L386.58,354.106l-27.269-61.355A8,8,0,0,0,352,288H257.08l25.851-31.021L364.6,277.4a11.923,11.923,0,0,1,8.055,6.767ZM216,131.314,227.313,120H264v16a24.138,24.138,0,0,1-9.906,19.406,27.451,27.451,0,0,0-27.427.542A23.954,23.954,0,0,1,216,136ZM328.919,218a9.824,9.824,0,0,1-4.795,19.051l-76.261-17.6,18.511-18.512ZM218.47,235.05c-.861-1.72-2.044-5-2.795-10.842a65.561,65.561,0,0,1,1.782-25.4l6.782,27.128c.011.043.026.07.037.111s.019.1.034.155A8,8,0,0,0,230.2,231.8l34.723,8.013,5.106,7.659-28.345,34.014Zm18.593-27.427-7.275-25.455a11.337,11.337,0,0,1,2.075-9.783c.131-.168.279-.317.418-.477a7.95,7.95,0,0,0,1.53-1.472,11.4,11.4,0,0,1,14.73.544c.03.026.057.057.088.083a11.378,11.378,0,0,1,3.284,5.574l3.227,12.909ZM227.056,288H204.944L216,265.888ZM205.182,82.649a14.379,14.379,0,0,1,16.492-5.658l7.8,2.6a8,8,0,0,0,9.685-4.011l6.275-12.549a15.634,15.634,0,0,1,29.016,11.287L265.966,104H224a8,8,0,0,0-5.657,2.343l-7.421,7.421L203.8,95.951A14.362,14.362,0,0,1,205.182,82.649Zm-4.548,148.684a43.115,43.115,0,0,0,3.524,10.872l2.9,5.795-20,40H172.835ZM120,336H320a8,8,0,0,1,0,16H120ZM328,448H128a8,8,0,0,1,0-16H328Zm0-32H128a24,24,0,0,0,0,48H328v16H128a40,40,0,0,1,0-80H328Zm-8-32H120V368H320a24,24,0,0,0,0-48H120V304H320a40,40,0,0,1,0,80Zm112-6.777-34.572,5.762-4.275-12.824,16.427-16.427L432,364.944Zm-44.728-99.558a27.828,27.828,0,0,0-18.8-15.792L344.985,256h33.279a11.988,11.988,0,0,1,6.36,1.824l54.2,33.878-4.148,16.6-43.039-21.992c-.217-.111-.438-.207-.66-.3Zm79.894,40.88L449.7,314.179l5.168-20.669,9.745-4.873,12.807,4.269Z">
-                          </path>
-                          <path
-                            d="M82.343,213.657l16,16A8,8,0,0,0,104,232h16a8,8,0,0,0,5.657-2.343l16-16A8,8,0,0,0,144,208V179.266A84.664,84.664,0,0,0,168,120a56,56,0,0,0-112,0,84.664,84.664,0,0,0,24,59.266V208A8,8,0,0,0,82.343,213.657ZM128,204.687,116.687,216h-9.374L96,204.687V184h32ZM112,80a40.045,40.045,0,0,1,40,40,68.78,68.78,0,0,1-19.332,48H120V139.314l13.657-13.657a8,8,0,0,0-11.314-11.314L112,124.687l-10.343-10.344a8,8,0,0,0-11.314,11.314L104,139.314V168H91.332A68.78,68.78,0,0,1,72,120,40.045,40.045,0,0,1,112,80Z">
-                          </path>
-                          <path d="m112 48a8 8 0 0 0 8 -8v-16a8 8 0 0 0 -16 0v16a8 8 0 0 0 8 8z"></path>
-                          <path d="M69.072,53.646a8,8,0,1,0,13.856-8l-8-13.856a8,8,0,1,0-13.856,8Z"></path>
-                          <path d="M31.79,74.928l13.856,8a8,8,0,1,0,8-13.856l-13.856-8a8,8,0,0,0-8,13.856Z">
-                          </path>
-                          <path d="M48,112a8,8,0,0,0-8-8H24a8,8,0,0,0,0,16H40A8,8,0,0,0,48,112Z"></path>
-                          <path d="M45.646,141.072l-13.856,8a8,8,0,1,0,8,13.856l13.856-8a8,8,0,0,0-8-13.856Z">
-                          </path>
-                          <path
-                            d="M144,56.574a8,8,0,0,0,10.928-2.928l8-13.856a8,8,0,1,0-13.856-8l-8,13.856A8,8,0,0,0,144,56.574Z">
-                          </path>
-                        </svg>
-                        <svg aria-labelledby="icon-reading-lineal" role="img" viewBox="0 0 512 512"
-                          xmlns="http://www.w3.org/2000/svg" class="svg-4 svg-fill-obj-5">
-                          <path
-                            d="M495.258,284.634a8,8,0,0,0-4.728-4.223l-24-8a7.992,7.992,0,0,0-6.108.434l-11.986,5.993L393.1,244.256A27.973,27.973,0,0,0,378.264,240H372.31l27-60.751a8,8,0,0,0,.625-4.194c.2-.684-.126-1.588-1.076-3.171l-24-40a8,8,0,0,0-13.516-.322L348.332,151.08l-17.523-6.571a8,8,0,0,0-10.12,4.242L300.7,193.718l-30.079-8.2-3.19-12.758a27.5,27.5,0,0,0-2.179-5.781A40.216,40.216,0,0,0,280,136V114c0-.252-.015-.5-.038-.747l9.869-34.541a31.634,31.634,0,0,0-58.712-22.838l-3.172,6.342-1.214-.4a30.363,30.363,0,0,0-37.792,40.082L200,129.541V136a39.919,39.919,0,0,0,14.939,31.168l-1.44,2.161a86.314,86.314,0,0,0-9.315,18.439L155.013,288H96a8,8,0,0,0,0,16h8v80H88a8,8,0,0,0,0,16h.862A55.963,55.963,0,0,0,128,496H360a8,8,0,0,0,0-16H344V400h8a8,8,0,0,0,5.134-14.132,56.171,56.171,0,0,0,15.692-23.311l3.7,8.336,7.879,23.637A8,8,0,0,0,392,400c.436,0,49.32-8.11,49.32-8.11A8,8,0,0,0,448,384V360a8,8,0,0,0-4.422-7.155l-29.433-14.717L401.29,309.2l35.069,17.92s.009,0,.013,0a7.979,7.979,0,0,0,1.688.637l32,8a7.994,7.994,0,0,0,9.368-4.79l16-40A8,8,0,0,0,495.258,284.634ZM367.645,150.956l5.7,9.505-9.632-3.612Zm-35.4,11.181,48.992,18.372L354.8,240h-5.9c.18-.323.365-.642.532-.975a25.825,25.825,0,0,0-16.3-36.464l-16.807-4.584Zm66.209,180.091L386.58,354.106l-27.269-61.355A8,8,0,0,0,352,288H257.08l25.851-31.021L364.6,277.4a11.923,11.923,0,0,1,8.055,6.767ZM216,131.314,227.313,120H264v16a24.138,24.138,0,0,1-9.906,19.406,27.451,27.451,0,0,0-27.427.542A23.954,23.954,0,0,1,216,136ZM328.919,218a9.824,9.824,0,0,1-4.795,19.051l-76.261-17.6,18.511-18.512ZM218.47,235.05c-.861-1.72-2.044-5-2.795-10.842a65.561,65.561,0,0,1,1.782-25.4l6.782,27.128c.011.043.026.07.037.111s.019.1.034.155A8,8,0,0,0,230.2,231.8l34.723,8.013,5.106,7.659-28.345,34.014Zm18.593-27.427-7.275-25.455a11.337,11.337,0,0,1,2.075-9.783c.131-.168.279-.317.418-.477a7.95,7.95,0,0,0,1.53-1.472,11.4,11.4,0,0,1,14.73.544c.03.026.057.057.088.083a11.378,11.378,0,0,1,3.284,5.574l3.227,12.909ZM227.056,288H204.944L216,265.888ZM205.182,82.649a14.379,14.379,0,0,1,16.492-5.658l7.8,2.6a8,8,0,0,0,9.685-4.011l6.275-12.549a15.634,15.634,0,0,1,29.016,11.287L265.966,104H224a8,8,0,0,0-5.657,2.343l-7.421,7.421L203.8,95.951A14.362,14.362,0,0,1,205.182,82.649Zm-4.548,148.684a43.115,43.115,0,0,0,3.524,10.872l2.9,5.795-20,40H172.835ZM120,336H320a8,8,0,0,1,0,16H120ZM328,448H128a8,8,0,0,1,0-16H328Zm0-32H128a24,24,0,0,0,0,48H328v16H128a40,40,0,0,1,0-80H328Zm-8-32H120V368H320a24,24,0,0,0,0-48H120V304H320a40,40,0,0,1,0,80Zm112-6.777-34.572,5.762-4.275-12.824,16.427-16.427L432,364.944Zm-44.728-99.558a27.828,27.828,0,0,0-18.8-15.792L344.985,256h33.279a11.988,11.988,0,0,1,6.36,1.824l54.2,33.878-4.148,16.6-43.039-21.992c-.217-.111-.438-.207-.66-.3Zm79.894,40.88L449.7,314.179l5.168-20.669,9.745-4.873,12.807,4.269Z">
-                          </path>
-                          <path
-                            d="M82.343,213.657l16,16A8,8,0,0,0,104,232h16a8,8,0,0,0,5.657-2.343l16-16A8,8,0,0,0,144,208V179.266A84.664,84.664,0,0,0,168,120a56,56,0,0,0-112,0,84.664,84.664,0,0,0,24,59.266V208A8,8,0,0,0,82.343,213.657ZM128,204.687,116.687,216h-9.374L96,204.687V184h32ZM112,80a40.045,40.045,0,0,1,40,40,68.78,68.78,0,0,1-19.332,48H120V139.314l13.657-13.657a8,8,0,0,0-11.314-11.314L112,124.687l-10.343-10.344a8,8,0,0,0-11.314,11.314L104,139.314V168H91.332A68.78,68.78,0,0,1,72,120,40.045,40.045,0,0,1,112,80Z">
-                          </path>
-                          <path d="m112 48a8 8 0 0 0 8 -8v-16a8 8 0 0 0 -16 0v16a8 8 0 0 0 8 8z"></path>
-                          <path d="M69.072,53.646a8,8,0,1,0,13.856-8l-8-13.856a8,8,0,1,0-13.856,8Z"></path>
-                          <path d="M31.79,74.928l13.856,8a8,8,0,1,0,8-13.856l-13.856-8a8,8,0,0,0-8,13.856Z">
-                          </path>
-                          <path d="M48,112a8,8,0,0,0-8-8H24a8,8,0,0,0,0,16H40A8,8,0,0,0,48,112Z"></path>
-                          <path d="M45.646,141.072l-13.856,8a8,8,0,1,0,8,13.856l13.856-8a8,8,0,0,0-8-13.856Z">
-                          </path>
-                          <path
-                            d="M144,56.574a8,8,0,0,0,10.928-2.928l8-13.856a8,8,0,1,0-13.856-8l-8,13.856A8,8,0,0,0,144,56.574Z">
-                          </path>
-                        </svg>
-                        <svg aria-labelledby="icon-reading-lineal" role="img" viewBox="0 0 512 512"
-                          xmlns="http://www.w3.org/2000/svg" class="svg-5 svg-fill-obj-5">
-                          <path
-                            d="M495.258,284.634a8,8,0,0,0-4.728-4.223l-24-8a7.992,7.992,0,0,0-6.108.434l-11.986,5.993L393.1,244.256A27.973,27.973,0,0,0,378.264,240H372.31l27-60.751a8,8,0,0,0,.625-4.194c.2-.684-.126-1.588-1.076-3.171l-24-40a8,8,0,0,0-13.516-.322L348.332,151.08l-17.523-6.571a8,8,0,0,0-10.12,4.242L300.7,193.718l-30.079-8.2-3.19-12.758a27.5,27.5,0,0,0-2.179-5.781A40.216,40.216,0,0,0,280,136V114c0-.252-.015-.5-.038-.747l9.869-34.541a31.634,31.634,0,0,0-58.712-22.838l-3.172,6.342-1.214-.4a30.363,30.363,0,0,0-37.792,40.082L200,129.541V136a39.919,39.919,0,0,0,14.939,31.168l-1.44,2.161a86.314,86.314,0,0,0-9.315,18.439L155.013,288H96a8,8,0,0,0,0,16h8v80H88a8,8,0,0,0,0,16h.862A55.963,55.963,0,0,0,128,496H360a8,8,0,0,0,0-16H344V400h8a8,8,0,0,0,5.134-14.132,56.171,56.171,0,0,0,15.692-23.311l3.7,8.336,7.879,23.637A8,8,0,0,0,392,400c.436,0,49.32-8.11,49.32-8.11A8,8,0,0,0,448,384V360a8,8,0,0,0-4.422-7.155l-29.433-14.717L401.29,309.2l35.069,17.92s.009,0,.013,0a7.979,7.979,0,0,0,1.688.637l32,8a7.994,7.994,0,0,0,9.368-4.79l16-40A8,8,0,0,0,495.258,284.634ZM367.645,150.956l5.7,9.505-9.632-3.612Zm-35.4,11.181,48.992,18.372L354.8,240h-5.9c.18-.323.365-.642.532-.975a25.825,25.825,0,0,0-16.3-36.464l-16.807-4.584Zm66.209,180.091L386.58,354.106l-27.269-61.355A8,8,0,0,0,352,288H257.08l25.851-31.021L364.6,277.4a11.923,11.923,0,0,1,8.055,6.767ZM216,131.314,227.313,120H264v16a24.138,24.138,0,0,1-9.906,19.406,27.451,27.451,0,0,0-27.427.542A23.954,23.954,0,0,1,216,136ZM328.919,218a9.824,9.824,0,0,1-4.795,19.051l-76.261-17.6,18.511-18.512ZM218.47,235.05c-.861-1.72-2.044-5-2.795-10.842a65.561,65.561,0,0,1,1.782-25.4l6.782,27.128c.011.043.026.07.037.111s.019.1.034.155A8,8,0,0,0,230.2,231.8l34.723,8.013,5.106,7.659-28.345,34.014Zm18.593-27.427-7.275-25.455a11.337,11.337,0,0,1,2.075-9.783c.131-.168.279-.317.418-.477a7.95,7.95,0,0,0,1.53-1.472,11.4,11.4,0,0,1,14.73.544c.03.026.057.057.088.083a11.378,11.378,0,0,1,3.284,5.574l3.227,12.909ZM227.056,288H204.944L216,265.888ZM205.182,82.649a14.379,14.379,0,0,1,16.492-5.658l7.8,2.6a8,8,0,0,0,9.685-4.011l6.275-12.549a15.634,15.634,0,0,1,29.016,11.287L265.966,104H224a8,8,0,0,0-5.657,2.343l-7.421,7.421L203.8,95.951A14.362,14.362,0,0,1,205.182,82.649Zm-4.548,148.684a43.115,43.115,0,0,0,3.524,10.872l2.9,5.795-20,40H172.835ZM120,336H320a8,8,0,0,1,0,16H120ZM328,448H128a8,8,0,0,1,0-16H328Zm0-32H128a24,24,0,0,0,0,48H328v16H128a40,40,0,0,1,0-80H328Zm-8-32H120V368H320a24,24,0,0,0,0-48H120V304H320a40,40,0,0,1,0,80Zm112-6.777-34.572,5.762-4.275-12.824,16.427-16.427L432,364.944Zm-44.728-99.558a27.828,27.828,0,0,0-18.8-15.792L344.985,256h33.279a11.988,11.988,0,0,1,6.36,1.824l54.2,33.878-4.148,16.6-43.039-21.992c-.217-.111-.438-.207-.66-.3Zm79.894,40.88L449.7,314.179l5.168-20.669,9.745-4.873,12.807,4.269Z">
-                          </path>
-                          <path
-                            d="M82.343,213.657l16,16A8,8,0,0,0,104,232h16a8,8,0,0,0,5.657-2.343l16-16A8,8,0,0,0,144,208V179.266A84.664,84.664,0,0,0,168,120a56,56,0,0,0-112,0,84.664,84.664,0,0,0,24,59.266V208A8,8,0,0,0,82.343,213.657ZM128,204.687,116.687,216h-9.374L96,204.687V184h32ZM112,80a40.045,40.045,0,0,1,40,40,68.78,68.78,0,0,1-19.332,48H120V139.314l13.657-13.657a8,8,0,0,0-11.314-11.314L112,124.687l-10.343-10.344a8,8,0,0,0-11.314,11.314L104,139.314V168H91.332A68.78,68.78,0,0,1,72,120,40.045,40.045,0,0,1,112,80Z">
-                          </path>
-                          <path d="m112 48a8 8 0 0 0 8 -8v-16a8 8 0 0 0 -16 0v16a8 8 0 0 0 8 8z"></path>
-                          <path d="M69.072,53.646a8,8,0,1,0,13.856-8l-8-13.856a8,8,0,1,0-13.856,8Z"></path>
-                          <path d="M31.79,74.928l13.856,8a8,8,0,1,0,8-13.856l-13.856-8a8,8,0,0,0-8,13.856Z">
-                          </path>
-                          <path d="M48,112a8,8,0,0,0-8-8H24a8,8,0,0,0,0,16H40A8,8,0,0,0,48,112Z"></path>
-                          <path d="M45.646,141.072l-13.856,8a8,8,0,1,0,8,13.856l13.856-8a8,8,0,0,0-8-13.856Z">
-                          </path>
-                          <path
-                            d="M144,56.574a8,8,0,0,0,10.928-2.928l8-13.856a8,8,0,1,0-13.856-8l-8,13.856A8,8,0,0,0,144,56.574Z">
-                          </path>
-                        </svg>
-                        <svg aria-labelledby="icon-reading-lineal" role="img" viewBox="0 0 512 512"
-                          xmlns="http://www.w3.org/2000/svg" class="svg-6 svg-fill-obj-5">
-                          <path
-                            d="M495.258,284.634a8,8,0,0,0-4.728-4.223l-24-8a7.992,7.992,0,0,0-6.108.434l-11.986,5.993L393.1,244.256A27.973,27.973,0,0,0,378.264,240H372.31l27-60.751a8,8,0,0,0,.625-4.194c.2-.684-.126-1.588-1.076-3.171l-24-40a8,8,0,0,0-13.516-.322L348.332,151.08l-17.523-6.571a8,8,0,0,0-10.12,4.242L300.7,193.718l-30.079-8.2-3.19-12.758a27.5,27.5,0,0,0-2.179-5.781A40.216,40.216,0,0,0,280,136V114c0-.252-.015-.5-.038-.747l9.869-34.541a31.634,31.634,0,0,0-58.712-22.838l-3.172,6.342-1.214-.4a30.363,30.363,0,0,0-37.792,40.082L200,129.541V136a39.919,39.919,0,0,0,14.939,31.168l-1.44,2.161a86.314,86.314,0,0,0-9.315,18.439L155.013,288H96a8,8,0,0,0,0,16h8v80H88a8,8,0,0,0,0,16h.862A55.963,55.963,0,0,0,128,496H360a8,8,0,0,0,0-16H344V400h8a8,8,0,0,0,5.134-14.132,56.171,56.171,0,0,0,15.692-23.311l3.7,8.336,7.879,23.637A8,8,0,0,0,392,400c.436,0,49.32-8.11,49.32-8.11A8,8,0,0,0,448,384V360a8,8,0,0,0-4.422-7.155l-29.433-14.717L401.29,309.2l35.069,17.92s.009,0,.013,0a7.979,7.979,0,0,0,1.688.637l32,8a7.994,7.994,0,0,0,9.368-4.79l16-40A8,8,0,0,0,495.258,284.634ZM367.645,150.956l5.7,9.505-9.632-3.612Zm-35.4,11.181,48.992,18.372L354.8,240h-5.9c.18-.323.365-.642.532-.975a25.825,25.825,0,0,0-16.3-36.464l-16.807-4.584Zm66.209,180.091L386.58,354.106l-27.269-61.355A8,8,0,0,0,352,288H257.08l25.851-31.021L364.6,277.4a11.923,11.923,0,0,1,8.055,6.767ZM216,131.314,227.313,120H264v16a24.138,24.138,0,0,1-9.906,19.406,27.451,27.451,0,0,0-27.427.542A23.954,23.954,0,0,1,216,136ZM328.919,218a9.824,9.824,0,0,1-4.795,19.051l-76.261-17.6,18.511-18.512ZM218.47,235.05c-.861-1.72-2.044-5-2.795-10.842a65.561,65.561,0,0,1,1.782-25.4l6.782,27.128c.011.043.026.07.037.111s.019.1.034.155A8,8,0,0,0,230.2,231.8l34.723,8.013,5.106,7.659-28.345,34.014Zm18.593-27.427-7.275-25.455a11.337,11.337,0,0,1,2.075-9.783c.131-.168.279-.317.418-.477a7.95,7.95,0,0,0,1.53-1.472,11.4,11.4,0,0,1,14.73.544c.03.026.057.057.088.083a11.378,11.378,0,0,1,3.284,5.574l3.227,12.909ZM227.056,288H204.944L216,265.888ZM205.182,82.649a14.379,14.379,0,0,1,16.492-5.658l7.8,2.6a8,8,0,0,0,9.685-4.011l6.275-12.549a15.634,15.634,0,0,1,29.016,11.287L265.966,104H224a8,8,0,0,0-5.657,2.343l-7.421,7.421L203.8,95.951A14.362,14.362,0,0,1,205.182,82.649Zm-4.548,148.684a43.115,43.115,0,0,0,3.524,10.872l2.9,5.795-20,40H172.835ZM120,336H320a8,8,0,0,1,0,16H120ZM328,448H128a8,8,0,0,1,0-16H328Zm0-32H128a24,24,0,0,0,0,48H328v16H128a40,40,0,0,1,0-80H328Zm-8-32H120V368H320a24,24,0,0,0,0-48H120V304H320a40,40,0,0,1,0,80Zm112-6.777-34.572,5.762-4.275-12.824,16.427-16.427L432,364.944Zm-44.728-99.558a27.828,27.828,0,0,0-18.8-15.792L344.985,256h33.279a11.988,11.988,0,0,1,6.36,1.824l54.2,33.878-4.148,16.6-43.039-21.992c-.217-.111-.438-.207-.66-.3Zm79.894,40.88L449.7,314.179l5.168-20.669,9.745-4.873,12.807,4.269Z">
-                          </path>
-                          <path
-                            d="M82.343,213.657l16,16A8,8,0,0,0,104,232h16a8,8,0,0,0,5.657-2.343l16-16A8,8,0,0,0,144,208V179.266A84.664,84.664,0,0,0,168,120a56,56,0,0,0-112,0,84.664,84.664,0,0,0,24,59.266V208A8,8,0,0,0,82.343,213.657ZM128,204.687,116.687,216h-9.374L96,204.687V184h32ZM112,80a40.045,40.045,0,0,1,40,40,68.78,68.78,0,0,1-19.332,48H120V139.314l13.657-13.657a8,8,0,0,0-11.314-11.314L112,124.687l-10.343-10.344a8,8,0,0,0-11.314,11.314L104,139.314V168H91.332A68.78,68.78,0,0,1,72,120,40.045,40.045,0,0,1,112,80Z">
-                          </path>
-                          <path d="m112 48a8 8 0 0 0 8 -8v-16a8 8 0 0 0 -16 0v16a8 8 0 0 0 8 8z"></path>
-                          <path d="M69.072,53.646a8,8,0,1,0,13.856-8l-8-13.856a8,8,0,1,0-13.856,8Z"></path>
-                          <path d="M31.79,74.928l13.856,8a8,8,0,1,0,8-13.856l-13.856-8a8,8,0,0,0-8,13.856Z">
-                          </path>
-                          <path d="M48,112a8,8,0,0,0-8-8H24a8,8,0,0,0,0,16H40A8,8,0,0,0,48,112Z"></path>
-                          <path d="M45.646,141.072l-13.856,8a8,8,0,1,0,8,13.856l13.856-8a8,8,0,0,0-8-13.856Z">
-                          </path>
-                          <path
-                            d="M144,56.574a8,8,0,0,0,10.928-2.928l8-13.856a8,8,0,1,0-13.856-8l-8,13.856A8,8,0,0,0,144,56.574Z">
-                          </path>
-                        </svg>
-                        <svg aria-labelledby="icon-reading-lineal" role="img" viewBox="0 0 512 512"
-                          xmlns="http://www.w3.org/2000/svg" class="svg-9 svg-fill-obj-5">
-                          <path
-                            d="M495.258,284.634a8,8,0,0,0-4.728-4.223l-24-8a7.992,7.992,0,0,0-6.108.434l-11.986,5.993L393.1,244.256A27.973,27.973,0,0,0,378.264,240H372.31l27-60.751a8,8,0,0,0,.625-4.194c.2-.684-.126-1.588-1.076-3.171l-24-40a8,8,0,0,0-13.516-.322L348.332,151.08l-17.523-6.571a8,8,0,0,0-10.12,4.242L300.7,193.718l-30.079-8.2-3.19-12.758a27.5,27.5,0,0,0-2.179-5.781A40.216,40.216,0,0,0,280,136V114c0-.252-.015-.5-.038-.747l9.869-34.541a31.634,31.634,0,0,0-58.712-22.838l-3.172,6.342-1.214-.4a30.363,30.363,0,0,0-37.792,40.082L200,129.541V136a39.919,39.919,0,0,0,14.939,31.168l-1.44,2.161a86.314,86.314,0,0,0-9.315,18.439L155.013,288H96a8,8,0,0,0,0,16h8v80H88a8,8,0,0,0,0,16h.862A55.963,55.963,0,0,0,128,496H360a8,8,0,0,0,0-16H344V400h8a8,8,0,0,0,5.134-14.132,56.171,56.171,0,0,0,15.692-23.311l3.7,8.336,7.879,23.637A8,8,0,0,0,392,400c.436,0,49.32-8.11,49.32-8.11A8,8,0,0,0,448,384V360a8,8,0,0,0-4.422-7.155l-29.433-14.717L401.29,309.2l35.069,17.92s.009,0,.013,0a7.979,7.979,0,0,0,1.688.637l32,8a7.994,7.994,0,0,0,9.368-4.79l16-40A8,8,0,0,0,495.258,284.634ZM367.645,150.956l5.7,9.505-9.632-3.612Zm-35.4,11.181,48.992,18.372L354.8,240h-5.9c.18-.323.365-.642.532-.975a25.825,25.825,0,0,0-16.3-36.464l-16.807-4.584Zm66.209,180.091L386.58,354.106l-27.269-61.355A8,8,0,0,0,352,288H257.08l25.851-31.021L364.6,277.4a11.923,11.923,0,0,1,8.055,6.767ZM216,131.314,227.313,120H264v16a24.138,24.138,0,0,1-9.906,19.406,27.451,27.451,0,0,0-27.427.542A23.954,23.954,0,0,1,216,136ZM328.919,218a9.824,9.824,0,0,1-4.795,19.051l-76.261-17.6,18.511-18.512ZM218.47,235.05c-.861-1.72-2.044-5-2.795-10.842a65.561,65.561,0,0,1,1.782-25.4l6.782,27.128c.011.043.026.07.037.111s.019.1.034.155A8,8,0,0,0,230.2,231.8l34.723,8.013,5.106,7.659-28.345,34.014Zm18.593-27.427-7.275-25.455a11.337,11.337,0,0,1,2.075-9.783c.131-.168.279-.317.418-.477a7.95,7.95,0,0,0,1.53-1.472,11.4,11.4,0,0,1,14.73.544c.03.026.057.057.088.083a11.378,11.378,0,0,1,3.284,5.574l3.227,12.909ZM227.056,288H204.944L216,265.888ZM205.182,82.649a14.379,14.379,0,0,1,16.492-5.658l7.8,2.6a8,8,0,0,0,9.685-4.011l6.275-12.549a15.634,15.634,0,0,1,29.016,11.287L265.966,104H224a8,8,0,0,0-5.657,2.343l-7.421,7.421L203.8,95.951A14.362,14.362,0,0,1,205.182,82.649Zm-4.548,148.684a43.115,43.115,0,0,0,3.524,10.872l2.9,5.795-20,40H172.835ZM120,336H320a8,8,0,0,1,0,16H120ZM328,448H128a8,8,0,0,1,0-16H328Zm0-32H128a24,24,0,0,0,0,48H328v16H128a40,40,0,0,1,0-80H328Zm-8-32H120V368H320a24,24,0,0,0,0-48H120V304H320a40,40,0,0,1,0,80Zm112-6.777-34.572,5.762-4.275-12.824,16.427-16.427L432,364.944Zm-44.728-99.558a27.828,27.828,0,0,0-18.8-15.792L344.985,256h33.279a11.988,11.988,0,0,1,6.36,1.824l54.2,33.878-4.148,16.6-43.039-21.992c-.217-.111-.438-.207-.66-.3Zm79.894,40.88L449.7,314.179l5.168-20.669,9.745-4.873,12.807,4.269Z">
-                          </path>
-                          <path
-                            d="M82.343,213.657l16,16A8,8,0,0,0,104,232h16a8,8,0,0,0,5.657-2.343l16-16A8,8,0,0,0,144,208V179.266A84.664,84.664,0,0,0,168,120a56,56,0,0,0-112,0,84.664,84.664,0,0,0,24,59.266V208A8,8,0,0,0,82.343,213.657ZM128,204.687,116.687,216h-9.374L96,204.687V184h32ZM112,80a40.045,40.045,0,0,1,40,40,68.78,68.78,0,0,1-19.332,48H120V139.314l13.657-13.657a8,8,0,0,0-11.314-11.314L112,124.687l-10.343-10.344a8,8,0,0,0-11.314,11.314L104,139.314V168H91.332A68.78,68.78,0,0,1,72,120,40.045,40.045,0,0,1,112,80Z">
-                          </path>
-                          <path d="m112 48a8 8 0 0 0 8 -8v-16a8 8 0 0 0 -16 0v16a8 8 0 0 0 8 8z"></path>
-                          <path d="M69.072,53.646a8,8,0,1,0,13.856-8l-8-13.856a8,8,0,1,0-13.856,8Z"></path>
-                          <path d="M31.79,74.928l13.856,8a8,8,0,1,0,8-13.856l-13.856-8a8,8,0,0,0-8,13.856Z">
-                          </path>
-                          <path d="M48,112a8,8,0,0,0-8-8H24a8,8,0,0,0,0,16H40A8,8,0,0,0,48,112Z"></path>
-                          <path d="M45.646,141.072l-13.856,8a8,8,0,1,0,8,13.856l13.856-8a8,8,0,0,0-8-13.856Z">
-                          </path>
-                          <path
-                            d="M144,56.574a8,8,0,0,0,10.928-2.928l8-13.856a8,8,0,1,0-13.856-8l-8,13.856A8,8,0,0,0,144,56.574Z">
-                          </path>
-                        </svg>
-                        <svg aria-labelledby="icon-reading-lineal" role="img" viewBox="0 0 512 512"
-                          xmlns="http://www.w3.org/2000/svg" class="svg-7 svg-fill-obj-5">
-                          <path
-                            d="M495.258,284.634a8,8,0,0,0-4.728-4.223l-24-8a7.992,7.992,0,0,0-6.108.434l-11.986,5.993L393.1,244.256A27.973,27.973,0,0,0,378.264,240H372.31l27-60.751a8,8,0,0,0,.625-4.194c.2-.684-.126-1.588-1.076-3.171l-24-40a8,8,0,0,0-13.516-.322L348.332,151.08l-17.523-6.571a8,8,0,0,0-10.12,4.242L300.7,193.718l-30.079-8.2-3.19-12.758a27.5,27.5,0,0,0-2.179-5.781A40.216,40.216,0,0,0,280,136V114c0-.252-.015-.5-.038-.747l9.869-34.541a31.634,31.634,0,0,0-58.712-22.838l-3.172,6.342-1.214-.4a30.363,30.363,0,0,0-37.792,40.082L200,129.541V136a39.919,39.919,0,0,0,14.939,31.168l-1.44,2.161a86.314,86.314,0,0,0-9.315,18.439L155.013,288H96a8,8,0,0,0,0,16h8v80H88a8,8,0,0,0,0,16h.862A55.963,55.963,0,0,0,128,496H360a8,8,0,0,0,0-16H344V400h8a8,8,0,0,0,5.134-14.132,56.171,56.171,0,0,0,15.692-23.311l3.7,8.336,7.879,23.637A8,8,0,0,0,392,400c.436,0,49.32-8.11,49.32-8.11A8,8,0,0,0,448,384V360a8,8,0,0,0-4.422-7.155l-29.433-14.717L401.29,309.2l35.069,17.92s.009,0,.013,0a7.979,7.979,0,0,0,1.688.637l32,8a7.994,7.994,0,0,0,9.368-4.79l16-40A8,8,0,0,0,495.258,284.634ZM367.645,150.956l5.7,9.505-9.632-3.612Zm-35.4,11.181,48.992,18.372L354.8,240h-5.9c.18-.323.365-.642.532-.975a25.825,25.825,0,0,0-16.3-36.464l-16.807-4.584Zm66.209,180.091L386.58,354.106l-27.269-61.355A8,8,0,0,0,352,288H257.08l25.851-31.021L364.6,277.4a11.923,11.923,0,0,1,8.055,6.767ZM216,131.314,227.313,120H264v16a24.138,24.138,0,0,1-9.906,19.406,27.451,27.451,0,0,0-27.427.542A23.954,23.954,0,0,1,216,136ZM328.919,218a9.824,9.824,0,0,1-4.795,19.051l-76.261-17.6,18.511-18.512ZM218.47,235.05c-.861-1.72-2.044-5-2.795-10.842a65.561,65.561,0,0,1,1.782-25.4l6.782,27.128c.011.043.026.07.037.111s.019.1.034.155A8,8,0,0,0,230.2,231.8l34.723,8.013,5.106,7.659-28.345,34.014Zm18.593-27.427-7.275-25.455a11.337,11.337,0,0,1,2.075-9.783c.131-.168.279-.317.418-.477a7.95,7.95,0,0,0,1.53-1.472,11.4,11.4,0,0,1,14.73.544c.03.026.057.057.088.083a11.378,11.378,0,0,1,3.284,5.574l3.227,12.909ZM227.056,288H204.944L216,265.888ZM205.182,82.649a14.379,14.379,0,0,1,16.492-5.658l7.8,2.6a8,8,0,0,0,9.685-4.011l6.275-12.549a15.634,15.634,0,0,1,29.016,11.287L265.966,104H224a8,8,0,0,0-5.657,2.343l-7.421,7.421L203.8,95.951A14.362,14.362,0,0,1,205.182,82.649Zm-4.548,148.684a43.115,43.115,0,0,0,3.524,10.872l2.9,5.795-20,40H172.835ZM120,336H320a8,8,0,0,1,0,16H120ZM328,448H128a8,8,0,0,1,0-16H328Zm0-32H128a24,24,0,0,0,0,48H328v16H128a40,40,0,0,1,0-80H328Zm-8-32H120V368H320a24,24,0,0,0,0-48H120V304H320a40,40,0,0,1,0,80Zm112-6.777-34.572,5.762-4.275-12.824,16.427-16.427L432,364.944Zm-44.728-99.558a27.828,27.828,0,0,0-18.8-15.792L344.985,256h33.279a11.988,11.988,0,0,1,6.36,1.824l54.2,33.878-4.148,16.6-43.039-21.992c-.217-.111-.438-.207-.66-.3Zm79.894,40.88L449.7,314.179l5.168-20.669,9.745-4.873,12.807,4.269Z">
-                          </path>
-                          <path
-                            d="M82.343,213.657l16,16A8,8,0,0,0,104,232h16a8,8,0,0,0,5.657-2.343l16-16A8,8,0,0,0,144,208V179.266A84.664,84.664,0,0,0,168,120a56,56,0,0,0-112,0,84.664,84.664,0,0,0,24,59.266V208A8,8,0,0,0,82.343,213.657ZM128,204.687,116.687,216h-9.374L96,204.687V184h32ZM112,80a40.045,40.045,0,0,1,40,40,68.78,68.78,0,0,1-19.332,48H120V139.314l13.657-13.657a8,8,0,0,0-11.314-11.314L112,124.687l-10.343-10.344a8,8,0,0,0-11.314,11.314L104,139.314V168H91.332A68.78,68.78,0,0,1,72,120,40.045,40.045,0,0,1,112,80Z">
-                          </path>
-                          <path d="m112 48a8 8 0 0 0 8 -8v-16a8 8 0 0 0 -16 0v16a8 8 0 0 0 8 8z"></path>
-                          <path d="M69.072,53.646a8,8,0,1,0,13.856-8l-8-13.856a8,8,0,1,0-13.856,8Z"></path>
-                          <path d="M31.79,74.928l13.856,8a8,8,0,1,0,8-13.856l-13.856-8a8,8,0,0,0-8,13.856Z">
-                          </path>
-                          <path d="M48,112a8,8,0,0,0-8-8H24a8,8,0,0,0,0,16H40A8,8,0,0,0,48,112Z"></path>
-                          <path d="M45.646,141.072l-13.856,8a8,8,0,1,0,8,13.856l13.856-8a8,8,0,0,0-8-13.856Z">
-                          </path>
-                          <path
-                            d="M144,56.574a8,8,0,0,0,10.928-2.928l8-13.856a8,8,0,1,0-13.856-8l-8,13.856A8,8,0,0,0,144,56.574Z">
-                          </path>
-                        </svg>
-                        <svg aria-labelledby="icon-reading-lineal" role="img" viewBox="0 0 512 512"
-                          xmlns="http://www.w3.org/2000/svg" class="svg-8 svg-fill-obj-5">
-                          <path
-                            d="M495.258,284.634a8,8,0,0,0-4.728-4.223l-24-8a7.992,7.992,0,0,0-6.108.434l-11.986,5.993L393.1,244.256A27.973,27.973,0,0,0,378.264,240H372.31l27-60.751a8,8,0,0,0,.625-4.194c.2-.684-.126-1.588-1.076-3.171l-24-40a8,8,0,0,0-13.516-.322L348.332,151.08l-17.523-6.571a8,8,0,0,0-10.12,4.242L300.7,193.718l-30.079-8.2-3.19-12.758a27.5,27.5,0,0,0-2.179-5.781A40.216,40.216,0,0,0,280,136V114c0-.252-.015-.5-.038-.747l9.869-34.541a31.634,31.634,0,0,0-58.712-22.838l-3.172,6.342-1.214-.4a30.363,30.363,0,0,0-37.792,40.082L200,129.541V136a39.919,39.919,0,0,0,14.939,31.168l-1.44,2.161a86.314,86.314,0,0,0-9.315,18.439L155.013,288H96a8,8,0,0,0,0,16h8v80H88a8,8,0,0,0,0,16h.862A55.963,55.963,0,0,0,128,496H360a8,8,0,0,0,0-16H344V400h8a8,8,0,0,0,5.134-14.132,56.171,56.171,0,0,0,15.692-23.311l3.7,8.336,7.879,23.637A8,8,0,0,0,392,400c.436,0,49.32-8.11,49.32-8.11A8,8,0,0,0,448,384V360a8,8,0,0,0-4.422-7.155l-29.433-14.717L401.29,309.2l35.069,17.92s.009,0,.013,0a7.979,7.979,0,0,0,1.688.637l32,8a7.994,7.994,0,0,0,9.368-4.79l16-40A8,8,0,0,0,495.258,284.634ZM367.645,150.956l5.7,9.505-9.632-3.612Zm-35.4,11.181,48.992,18.372L354.8,240h-5.9c.18-.323.365-.642.532-.975a25.825,25.825,0,0,0-16.3-36.464l-16.807-4.584Zm66.209,180.091L386.58,354.106l-27.269-61.355A8,8,0,0,0,352,288H257.08l25.851-31.021L364.6,277.4a11.923,11.923,0,0,1,8.055,6.767ZM216,131.314,227.313,120H264v16a24.138,24.138,0,0,1-9.906,19.406,27.451,27.451,0,0,0-27.427.542A23.954,23.954,0,0,1,216,136ZM328.919,218a9.824,9.824,0,0,1-4.795,19.051l-76.261-17.6,18.511-18.512ZM218.47,235.05c-.861-1.72-2.044-5-2.795-10.842a65.561,65.561,0,0,1,1.782-25.4l6.782,27.128c.011.043.026.07.037.111s.019.1.034.155A8,8,0,0,0,230.2,231.8l34.723,8.013,5.106,7.659-28.345,34.014Zm18.593-27.427-7.275-25.455a11.337,11.337,0,0,1,2.075-9.783c.131-.168.279-.317.418-.477a7.95,7.95,0,0,0,1.53-1.472,11.4,11.4,0,0,1,14.73.544c.03.026.057.057.088.083a11.378,11.378,0,0,1,3.284,5.574l3.227,12.909ZM227.056,288H204.944L216,265.888ZM205.182,82.649a14.379,14.379,0,0,1,16.492-5.658l7.8,2.6a8,8,0,0,0,9.685-4.011l6.275-12.549a15.634,15.634,0,0,1,29.016,11.287L265.966,104H224a8,8,0,0,0-5.657,2.343l-7.421,7.421L203.8,95.951A14.362,14.362,0,0,1,205.182,82.649Zm-4.548,148.684a43.115,43.115,0,0,0,3.524,10.872l2.9,5.795-20,40H172.835ZM120,336H320a8,8,0,0,1,0,16H120ZM328,448H128a8,8,0,0,1,0-16H328Zm0-32H128a24,24,0,0,0,0,48H328v16H128a40,40,0,0,1,0-80H328Zm-8-32H120V368H320a24,24,0,0,0,0-48H120V304H320a40,40,0,0,1,0,80Zm112-6.777-34.572,5.762-4.275-12.824,16.427-16.427L432,364.944Zm-44.728-99.558a27.828,27.828,0,0,0-18.8-15.792L344.985,256h33.279a11.988,11.988,0,0,1,6.36,1.824l54.2,33.878-4.148,16.6-43.039-21.992c-.217-.111-.438-.207-.66-.3Zm79.894,40.88L449.7,314.179l5.168-20.669,9.745-4.873,12.807,4.269Z">
-                          </path>
-                          <path
-                            d="M82.343,213.657l16,16A8,8,0,0,0,104,232h16a8,8,0,0,0,5.657-2.343l16-16A8,8,0,0,0,144,208V179.266A84.664,84.664,0,0,0,168,120a56,56,0,0,0-112,0,84.664,84.664,0,0,0,24,59.266V208A8,8,0,0,0,82.343,213.657ZM128,204.687,116.687,216h-9.374L96,204.687V184h32ZM112,80a40.045,40.045,0,0,1,40,40,68.78,68.78,0,0,1-19.332,48H120V139.314l13.657-13.657a8,8,0,0,0-11.314-11.314L112,124.687l-10.343-10.344a8,8,0,0,0-11.314,11.314L104,139.314V168H91.332A68.78,68.78,0,0,1,72,120,40.045,40.045,0,0,1,112,80Z">
-                          </path>
-                          <path d="m112 48a8 8 0 0 0 8 -8v-16a8 8 0 0 0 -16 0v16a8 8 0 0 0 8 8z"></path>
-                          <path d="M69.072,53.646a8,8,0,1,0,13.856-8l-8-13.856a8,8,0,1,0-13.856,8Z"></path>
-                          <path d="M31.79,74.928l13.856,8a8,8,0,1,0,8-13.856l-13.856-8a8,8,0,0,0-8,13.856Z">
-                          </path>
-                          <path d="M48,112a8,8,0,0,0-8-8H24a8,8,0,0,0,0,16H40A8,8,0,0,0,48,112Z"></path>
-                          <path d="M45.646,141.072l-13.856,8a8,8,0,1,0,8,13.856l13.856-8a8,8,0,0,0-8-13.856Z">
-                          </path>
-                          <path
-                            d="M144,56.574a8,8,0,0,0,10.928-2.928l8-13.856a8,8,0,1,0-13.856-8l-8,13.856A8,8,0,0,0,144,56.574Z">
-                          </path>
-                        </svg>
-                      </div>
+              </div>
+
+            </div>
+          </section>
+
+          <section id="svgs" class="py-4 my-2">
+            <div class="container p-0">
+              <div id="propriedades-svg" class="mt-2">
+                <h3 class="fw-bold my-2 pt-3">Propriedades <strong>SVG</strong></h3>
+                <p class="py-2">Para mudar o <strong>tamanho</strong> e <strong>cor</strong> dos icones em
+                  SVG, precisamos adicionar as classes criadas para realizar essas mudanças.<br>
+                  A classe <strong>svg-<span class="text-danger">número</span> (de 1 a 9 )</strong>, altera
+                  o tamanho dos icones.<br>
+                  A classe <strong>svg-fill-<span class="text-danger">nome</span>-<span
+                      class="text-danger">nome</span></strong>
+                  (verificar no item <a href="#paleta-cores">Cores</a>),
+                  altera a cor do SVG.</p>
+                <div class="col-12 col-md-8 d-flex flex-column mb-4 mx-auto">
+                  <div class="border p-4">
+                    <div class="icones-tamanho-exemplo d-flex justify-content-around">
+                      <svg aria-labelledby="icon-reading-lineal" role="img" viewBox="0 0 512 512"
+                        xmlns="http://www.w3.org/2000/svg" class="svg-1 svg-fill-obj-5">
+                        <path
+                          d="M495.258,284.634a8,8,0,0,0-4.728-4.223l-24-8a7.992,7.992,0,0,0-6.108.434l-11.986,5.993L393.1,244.256A27.973,27.973,0,0,0,378.264,240H372.31l27-60.751a8,8,0,0,0,.625-4.194c.2-.684-.126-1.588-1.076-3.171l-24-40a8,8,0,0,0-13.516-.322L348.332,151.08l-17.523-6.571a8,8,0,0,0-10.12,4.242L300.7,193.718l-30.079-8.2-3.19-12.758a27.5,27.5,0,0,0-2.179-5.781A40.216,40.216,0,0,0,280,136V114c0-.252-.015-.5-.038-.747l9.869-34.541a31.634,31.634,0,0,0-58.712-22.838l-3.172,6.342-1.214-.4a30.363,30.363,0,0,0-37.792,40.082L200,129.541V136a39.919,39.919,0,0,0,14.939,31.168l-1.44,2.161a86.314,86.314,0,0,0-9.315,18.439L155.013,288H96a8,8,0,0,0,0,16h8v80H88a8,8,0,0,0,0,16h.862A55.963,55.963,0,0,0,128,496H360a8,8,0,0,0,0-16H344V400h8a8,8,0,0,0,5.134-14.132,56.171,56.171,0,0,0,15.692-23.311l3.7,8.336,7.879,23.637A8,8,0,0,0,392,400c.436,0,49.32-8.11,49.32-8.11A8,8,0,0,0,448,384V360a8,8,0,0,0-4.422-7.155l-29.433-14.717L401.29,309.2l35.069,17.92s.009,0,.013,0a7.979,7.979,0,0,0,1.688.637l32,8a7.994,7.994,0,0,0,9.368-4.79l16-40A8,8,0,0,0,495.258,284.634ZM367.645,150.956l5.7,9.505-9.632-3.612Zm-35.4,11.181,48.992,18.372L354.8,240h-5.9c.18-.323.365-.642.532-.975a25.825,25.825,0,0,0-16.3-36.464l-16.807-4.584Zm66.209,180.091L386.58,354.106l-27.269-61.355A8,8,0,0,0,352,288H257.08l25.851-31.021L364.6,277.4a11.923,11.923,0,0,1,8.055,6.767ZM216,131.314,227.313,120H264v16a24.138,24.138,0,0,1-9.906,19.406,27.451,27.451,0,0,0-27.427.542A23.954,23.954,0,0,1,216,136ZM328.919,218a9.824,9.824,0,0,1-4.795,19.051l-76.261-17.6,18.511-18.512ZM218.47,235.05c-.861-1.72-2.044-5-2.795-10.842a65.561,65.561,0,0,1,1.782-25.4l6.782,27.128c.011.043.026.07.037.111s.019.1.034.155A8,8,0,0,0,230.2,231.8l34.723,8.013,5.106,7.659-28.345,34.014Zm18.593-27.427-7.275-25.455a11.337,11.337,0,0,1,2.075-9.783c.131-.168.279-.317.418-.477a7.95,7.95,0,0,0,1.53-1.472,11.4,11.4,0,0,1,14.73.544c.03.026.057.057.088.083a11.378,11.378,0,0,1,3.284,5.574l3.227,12.909ZM227.056,288H204.944L216,265.888ZM205.182,82.649a14.379,14.379,0,0,1,16.492-5.658l7.8,2.6a8,8,0,0,0,9.685-4.011l6.275-12.549a15.634,15.634,0,0,1,29.016,11.287L265.966,104H224a8,8,0,0,0-5.657,2.343l-7.421,7.421L203.8,95.951A14.362,14.362,0,0,1,205.182,82.649Zm-4.548,148.684a43.115,43.115,0,0,0,3.524,10.872l2.9,5.795-20,40H172.835ZM120,336H320a8,8,0,0,1,0,16H120ZM328,448H128a8,8,0,0,1,0-16H328Zm0-32H128a24,24,0,0,0,0,48H328v16H128a40,40,0,0,1,0-80H328Zm-8-32H120V368H320a24,24,0,0,0,0-48H120V304H320a40,40,0,0,1,0,80Zm112-6.777-34.572,5.762-4.275-12.824,16.427-16.427L432,364.944Zm-44.728-99.558a27.828,27.828,0,0,0-18.8-15.792L344.985,256h33.279a11.988,11.988,0,0,1,6.36,1.824l54.2,33.878-4.148,16.6-43.039-21.992c-.217-.111-.438-.207-.66-.3Zm79.894,40.88L449.7,314.179l5.168-20.669,9.745-4.873,12.807,4.269Z">
+                        </path>
+                        <path
+                          d="M82.343,213.657l16,16A8,8,0,0,0,104,232h16a8,8,0,0,0,5.657-2.343l16-16A8,8,0,0,0,144,208V179.266A84.664,84.664,0,0,0,168,120a56,56,0,0,0-112,0,84.664,84.664,0,0,0,24,59.266V208A8,8,0,0,0,82.343,213.657ZM128,204.687,116.687,216h-9.374L96,204.687V184h32ZM112,80a40.045,40.045,0,0,1,40,40,68.78,68.78,0,0,1-19.332,48H120V139.314l13.657-13.657a8,8,0,0,0-11.314-11.314L112,124.687l-10.343-10.344a8,8,0,0,0-11.314,11.314L104,139.314V168H91.332A68.78,68.78,0,0,1,72,120,40.045,40.045,0,0,1,112,80Z">
+                        </path>
+                        <path d="m112 48a8 8 0 0 0 8 -8v-16a8 8 0 0 0 -16 0v16a8 8 0 0 0 8 8z"></path>
+                        <path d="M69.072,53.646a8,8,0,1,0,13.856-8l-8-13.856a8,8,0,1,0-13.856,8Z"></path>
+                        <path d="M31.79,74.928l13.856,8a8,8,0,1,0,8-13.856l-13.856-8a8,8,0,0,0-8,13.856Z">
+                        </path>
+                        <path d="M48,112a8,8,0,0,0-8-8H24a8,8,0,0,0,0,16H40A8,8,0,0,0,48,112Z"></path>
+                        <path d="M45.646,141.072l-13.856,8a8,8,0,1,0,8,13.856l13.856-8a8,8,0,0,0-8-13.856Z">
+                        </path>
+                        <path
+                          d="M144,56.574a8,8,0,0,0,10.928-2.928l8-13.856a8,8,0,1,0-13.856-8l-8,13.856A8,8,0,0,0,144,56.574Z">
+                        </path>
+                      </svg>
+                      <svg aria-labelledby="icon-reading-lineal" role="img" viewBox="0 0 512 512"
+                        xmlns="http://www.w3.org/2000/svg" class="svg-2 svg-fill-obj-5">
+                        <path
+                          d="M495.258,284.634a8,8,0,0,0-4.728-4.223l-24-8a7.992,7.992,0,0,0-6.108.434l-11.986,5.993L393.1,244.256A27.973,27.973,0,0,0,378.264,240H372.31l27-60.751a8,8,0,0,0,.625-4.194c.2-.684-.126-1.588-1.076-3.171l-24-40a8,8,0,0,0-13.516-.322L348.332,151.08l-17.523-6.571a8,8,0,0,0-10.12,4.242L300.7,193.718l-30.079-8.2-3.19-12.758a27.5,27.5,0,0,0-2.179-5.781A40.216,40.216,0,0,0,280,136V114c0-.252-.015-.5-.038-.747l9.869-34.541a31.634,31.634,0,0,0-58.712-22.838l-3.172,6.342-1.214-.4a30.363,30.363,0,0,0-37.792,40.082L200,129.541V136a39.919,39.919,0,0,0,14.939,31.168l-1.44,2.161a86.314,86.314,0,0,0-9.315,18.439L155.013,288H96a8,8,0,0,0,0,16h8v80H88a8,8,0,0,0,0,16h.862A55.963,55.963,0,0,0,128,496H360a8,8,0,0,0,0-16H344V400h8a8,8,0,0,0,5.134-14.132,56.171,56.171,0,0,0,15.692-23.311l3.7,8.336,7.879,23.637A8,8,0,0,0,392,400c.436,0,49.32-8.11,49.32-8.11A8,8,0,0,0,448,384V360a8,8,0,0,0-4.422-7.155l-29.433-14.717L401.29,309.2l35.069,17.92s.009,0,.013,0a7.979,7.979,0,0,0,1.688.637l32,8a7.994,7.994,0,0,0,9.368-4.79l16-40A8,8,0,0,0,495.258,284.634ZM367.645,150.956l5.7,9.505-9.632-3.612Zm-35.4,11.181,48.992,18.372L354.8,240h-5.9c.18-.323.365-.642.532-.975a25.825,25.825,0,0,0-16.3-36.464l-16.807-4.584Zm66.209,180.091L386.58,354.106l-27.269-61.355A8,8,0,0,0,352,288H257.08l25.851-31.021L364.6,277.4a11.923,11.923,0,0,1,8.055,6.767ZM216,131.314,227.313,120H264v16a24.138,24.138,0,0,1-9.906,19.406,27.451,27.451,0,0,0-27.427.542A23.954,23.954,0,0,1,216,136ZM328.919,218a9.824,9.824,0,0,1-4.795,19.051l-76.261-17.6,18.511-18.512ZM218.47,235.05c-.861-1.72-2.044-5-2.795-10.842a65.561,65.561,0,0,1,1.782-25.4l6.782,27.128c.011.043.026.07.037.111s.019.1.034.155A8,8,0,0,0,230.2,231.8l34.723,8.013,5.106,7.659-28.345,34.014Zm18.593-27.427-7.275-25.455a11.337,11.337,0,0,1,2.075-9.783c.131-.168.279-.317.418-.477a7.95,7.95,0,0,0,1.53-1.472,11.4,11.4,0,0,1,14.73.544c.03.026.057.057.088.083a11.378,11.378,0,0,1,3.284,5.574l3.227,12.909ZM227.056,288H204.944L216,265.888ZM205.182,82.649a14.379,14.379,0,0,1,16.492-5.658l7.8,2.6a8,8,0,0,0,9.685-4.011l6.275-12.549a15.634,15.634,0,0,1,29.016,11.287L265.966,104H224a8,8,0,0,0-5.657,2.343l-7.421,7.421L203.8,95.951A14.362,14.362,0,0,1,205.182,82.649Zm-4.548,148.684a43.115,43.115,0,0,0,3.524,10.872l2.9,5.795-20,40H172.835ZM120,336H320a8,8,0,0,1,0,16H120ZM328,448H128a8,8,0,0,1,0-16H328Zm0-32H128a24,24,0,0,0,0,48H328v16H128a40,40,0,0,1,0-80H328Zm-8-32H120V368H320a24,24,0,0,0,0-48H120V304H320a40,40,0,0,1,0,80Zm112-6.777-34.572,5.762-4.275-12.824,16.427-16.427L432,364.944Zm-44.728-99.558a27.828,27.828,0,0,0-18.8-15.792L344.985,256h33.279a11.988,11.988,0,0,1,6.36,1.824l54.2,33.878-4.148,16.6-43.039-21.992c-.217-.111-.438-.207-.66-.3Zm79.894,40.88L449.7,314.179l5.168-20.669,9.745-4.873,12.807,4.269Z">
+                        </path>
+                        <path
+                          d="M82.343,213.657l16,16A8,8,0,0,0,104,232h16a8,8,0,0,0,5.657-2.343l16-16A8,8,0,0,0,144,208V179.266A84.664,84.664,0,0,0,168,120a56,56,0,0,0-112,0,84.664,84.664,0,0,0,24,59.266V208A8,8,0,0,0,82.343,213.657ZM128,204.687,116.687,216h-9.374L96,204.687V184h32ZM112,80a40.045,40.045,0,0,1,40,40,68.78,68.78,0,0,1-19.332,48H120V139.314l13.657-13.657a8,8,0,0,0-11.314-11.314L112,124.687l-10.343-10.344a8,8,0,0,0-11.314,11.314L104,139.314V168H91.332A68.78,68.78,0,0,1,72,120,40.045,40.045,0,0,1,112,80Z">
+                        </path>
+                        <path d="m112 48a8 8 0 0 0 8 -8v-16a8 8 0 0 0 -16 0v16a8 8 0 0 0 8 8z"></path>
+                        <path d="M69.072,53.646a8,8,0,1,0,13.856-8l-8-13.856a8,8,0,1,0-13.856,8Z"></path>
+                        <path d="M31.79,74.928l13.856,8a8,8,0,1,0,8-13.856l-13.856-8a8,8,0,0,0-8,13.856Z">
+                        </path>
+                        <path d="M48,112a8,8,0,0,0-8-8H24a8,8,0,0,0,0,16H40A8,8,0,0,0,48,112Z"></path>
+                        <path d="M45.646,141.072l-13.856,8a8,8,0,1,0,8,13.856l13.856-8a8,8,0,0,0-8-13.856Z">
+                        </path>
+                        <path
+                          d="M144,56.574a8,8,0,0,0,10.928-2.928l8-13.856a8,8,0,1,0-13.856-8l-8,13.856A8,8,0,0,0,144,56.574Z">
+                        </path>
+                      </svg>
+                      <svg aria-labelledby="icon-reading-lineal" role="img" viewBox="0 0 512 512"
+                        xmlns="http://www.w3.org/2000/svg" class="svg-3 svg-fill-obj-5">
+                        <path
+                          d="M495.258,284.634a8,8,0,0,0-4.728-4.223l-24-8a7.992,7.992,0,0,0-6.108.434l-11.986,5.993L393.1,244.256A27.973,27.973,0,0,0,378.264,240H372.31l27-60.751a8,8,0,0,0,.625-4.194c.2-.684-.126-1.588-1.076-3.171l-24-40a8,8,0,0,0-13.516-.322L348.332,151.08l-17.523-6.571a8,8,0,0,0-10.12,4.242L300.7,193.718l-30.079-8.2-3.19-12.758a27.5,27.5,0,0,0-2.179-5.781A40.216,40.216,0,0,0,280,136V114c0-.252-.015-.5-.038-.747l9.869-34.541a31.634,31.634,0,0,0-58.712-22.838l-3.172,6.342-1.214-.4a30.363,30.363,0,0,0-37.792,40.082L200,129.541V136a39.919,39.919,0,0,0,14.939,31.168l-1.44,2.161a86.314,86.314,0,0,0-9.315,18.439L155.013,288H96a8,8,0,0,0,0,16h8v80H88a8,8,0,0,0,0,16h.862A55.963,55.963,0,0,0,128,496H360a8,8,0,0,0,0-16H344V400h8a8,8,0,0,0,5.134-14.132,56.171,56.171,0,0,0,15.692-23.311l3.7,8.336,7.879,23.637A8,8,0,0,0,392,400c.436,0,49.32-8.11,49.32-8.11A8,8,0,0,0,448,384V360a8,8,0,0,0-4.422-7.155l-29.433-14.717L401.29,309.2l35.069,17.92s.009,0,.013,0a7.979,7.979,0,0,0,1.688.637l32,8a7.994,7.994,0,0,0,9.368-4.79l16-40A8,8,0,0,0,495.258,284.634ZM367.645,150.956l5.7,9.505-9.632-3.612Zm-35.4,11.181,48.992,18.372L354.8,240h-5.9c.18-.323.365-.642.532-.975a25.825,25.825,0,0,0-16.3-36.464l-16.807-4.584Zm66.209,180.091L386.58,354.106l-27.269-61.355A8,8,0,0,0,352,288H257.08l25.851-31.021L364.6,277.4a11.923,11.923,0,0,1,8.055,6.767ZM216,131.314,227.313,120H264v16a24.138,24.138,0,0,1-9.906,19.406,27.451,27.451,0,0,0-27.427.542A23.954,23.954,0,0,1,216,136ZM328.919,218a9.824,9.824,0,0,1-4.795,19.051l-76.261-17.6,18.511-18.512ZM218.47,235.05c-.861-1.72-2.044-5-2.795-10.842a65.561,65.561,0,0,1,1.782-25.4l6.782,27.128c.011.043.026.07.037.111s.019.1.034.155A8,8,0,0,0,230.2,231.8l34.723,8.013,5.106,7.659-28.345,34.014Zm18.593-27.427-7.275-25.455a11.337,11.337,0,0,1,2.075-9.783c.131-.168.279-.317.418-.477a7.95,7.95,0,0,0,1.53-1.472,11.4,11.4,0,0,1,14.73.544c.03.026.057.057.088.083a11.378,11.378,0,0,1,3.284,5.574l3.227,12.909ZM227.056,288H204.944L216,265.888ZM205.182,82.649a14.379,14.379,0,0,1,16.492-5.658l7.8,2.6a8,8,0,0,0,9.685-4.011l6.275-12.549a15.634,15.634,0,0,1,29.016,11.287L265.966,104H224a8,8,0,0,0-5.657,2.343l-7.421,7.421L203.8,95.951A14.362,14.362,0,0,1,205.182,82.649Zm-4.548,148.684a43.115,43.115,0,0,0,3.524,10.872l2.9,5.795-20,40H172.835ZM120,336H320a8,8,0,0,1,0,16H120ZM328,448H128a8,8,0,0,1,0-16H328Zm0-32H128a24,24,0,0,0,0,48H328v16H128a40,40,0,0,1,0-80H328Zm-8-32H120V368H320a24,24,0,0,0,0-48H120V304H320a40,40,0,0,1,0,80Zm112-6.777-34.572,5.762-4.275-12.824,16.427-16.427L432,364.944Zm-44.728-99.558a27.828,27.828,0,0,0-18.8-15.792L344.985,256h33.279a11.988,11.988,0,0,1,6.36,1.824l54.2,33.878-4.148,16.6-43.039-21.992c-.217-.111-.438-.207-.66-.3Zm79.894,40.88L449.7,314.179l5.168-20.669,9.745-4.873,12.807,4.269Z">
+                        </path>
+                        <path
+                          d="M82.343,213.657l16,16A8,8,0,0,0,104,232h16a8,8,0,0,0,5.657-2.343l16-16A8,8,0,0,0,144,208V179.266A84.664,84.664,0,0,0,168,120a56,56,0,0,0-112,0,84.664,84.664,0,0,0,24,59.266V208A8,8,0,0,0,82.343,213.657ZM128,204.687,116.687,216h-9.374L96,204.687V184h32ZM112,80a40.045,40.045,0,0,1,40,40,68.78,68.78,0,0,1-19.332,48H120V139.314l13.657-13.657a8,8,0,0,0-11.314-11.314L112,124.687l-10.343-10.344a8,8,0,0,0-11.314,11.314L104,139.314V168H91.332A68.78,68.78,0,0,1,72,120,40.045,40.045,0,0,1,112,80Z">
+                        </path>
+                        <path d="m112 48a8 8 0 0 0 8 -8v-16a8 8 0 0 0 -16 0v16a8 8 0 0 0 8 8z"></path>
+                        <path d="M69.072,53.646a8,8,0,1,0,13.856-8l-8-13.856a8,8,0,1,0-13.856,8Z"></path>
+                        <path d="M31.79,74.928l13.856,8a8,8,0,1,0,8-13.856l-13.856-8a8,8,0,0,0-8,13.856Z">
+                        </path>
+                        <path d="M48,112a8,8,0,0,0-8-8H24a8,8,0,0,0,0,16H40A8,8,0,0,0,48,112Z"></path>
+                        <path d="M45.646,141.072l-13.856,8a8,8,0,1,0,8,13.856l13.856-8a8,8,0,0,0-8-13.856Z">
+                        </path>
+                        <path
+                          d="M144,56.574a8,8,0,0,0,10.928-2.928l8-13.856a8,8,0,1,0-13.856-8l-8,13.856A8,8,0,0,0,144,56.574Z">
+                        </path>
+                      </svg>
+                      <svg aria-labelledby="icon-reading-lineal" role="img" viewBox="0 0 512 512"
+                        xmlns="http://www.w3.org/2000/svg" class="svg-4 svg-fill-obj-5">
+                        <path
+                          d="M495.258,284.634a8,8,0,0,0-4.728-4.223l-24-8a7.992,7.992,0,0,0-6.108.434l-11.986,5.993L393.1,244.256A27.973,27.973,0,0,0,378.264,240H372.31l27-60.751a8,8,0,0,0,.625-4.194c.2-.684-.126-1.588-1.076-3.171l-24-40a8,8,0,0,0-13.516-.322L348.332,151.08l-17.523-6.571a8,8,0,0,0-10.12,4.242L300.7,193.718l-30.079-8.2-3.19-12.758a27.5,27.5,0,0,0-2.179-5.781A40.216,40.216,0,0,0,280,136V114c0-.252-.015-.5-.038-.747l9.869-34.541a31.634,31.634,0,0,0-58.712-22.838l-3.172,6.342-1.214-.4a30.363,30.363,0,0,0-37.792,40.082L200,129.541V136a39.919,39.919,0,0,0,14.939,31.168l-1.44,2.161a86.314,86.314,0,0,0-9.315,18.439L155.013,288H96a8,8,0,0,0,0,16h8v80H88a8,8,0,0,0,0,16h.862A55.963,55.963,0,0,0,128,496H360a8,8,0,0,0,0-16H344V400h8a8,8,0,0,0,5.134-14.132,56.171,56.171,0,0,0,15.692-23.311l3.7,8.336,7.879,23.637A8,8,0,0,0,392,400c.436,0,49.32-8.11,49.32-8.11A8,8,0,0,0,448,384V360a8,8,0,0,0-4.422-7.155l-29.433-14.717L401.29,309.2l35.069,17.92s.009,0,.013,0a7.979,7.979,0,0,0,1.688.637l32,8a7.994,7.994,0,0,0,9.368-4.79l16-40A8,8,0,0,0,495.258,284.634ZM367.645,150.956l5.7,9.505-9.632-3.612Zm-35.4,11.181,48.992,18.372L354.8,240h-5.9c.18-.323.365-.642.532-.975a25.825,25.825,0,0,0-16.3-36.464l-16.807-4.584Zm66.209,180.091L386.58,354.106l-27.269-61.355A8,8,0,0,0,352,288H257.08l25.851-31.021L364.6,277.4a11.923,11.923,0,0,1,8.055,6.767ZM216,131.314,227.313,120H264v16a24.138,24.138,0,0,1-9.906,19.406,27.451,27.451,0,0,0-27.427.542A23.954,23.954,0,0,1,216,136ZM328.919,218a9.824,9.824,0,0,1-4.795,19.051l-76.261-17.6,18.511-18.512ZM218.47,235.05c-.861-1.72-2.044-5-2.795-10.842a65.561,65.561,0,0,1,1.782-25.4l6.782,27.128c.011.043.026.07.037.111s.019.1.034.155A8,8,0,0,0,230.2,231.8l34.723,8.013,5.106,7.659-28.345,34.014Zm18.593-27.427-7.275-25.455a11.337,11.337,0,0,1,2.075-9.783c.131-.168.279-.317.418-.477a7.95,7.95,0,0,0,1.53-1.472,11.4,11.4,0,0,1,14.73.544c.03.026.057.057.088.083a11.378,11.378,0,0,1,3.284,5.574l3.227,12.909ZM227.056,288H204.944L216,265.888ZM205.182,82.649a14.379,14.379,0,0,1,16.492-5.658l7.8,2.6a8,8,0,0,0,9.685-4.011l6.275-12.549a15.634,15.634,0,0,1,29.016,11.287L265.966,104H224a8,8,0,0,0-5.657,2.343l-7.421,7.421L203.8,95.951A14.362,14.362,0,0,1,205.182,82.649Zm-4.548,148.684a43.115,43.115,0,0,0,3.524,10.872l2.9,5.795-20,40H172.835ZM120,336H320a8,8,0,0,1,0,16H120ZM328,448H128a8,8,0,0,1,0-16H328Zm0-32H128a24,24,0,0,0,0,48H328v16H128a40,40,0,0,1,0-80H328Zm-8-32H120V368H320a24,24,0,0,0,0-48H120V304H320a40,40,0,0,1,0,80Zm112-6.777-34.572,5.762-4.275-12.824,16.427-16.427L432,364.944Zm-44.728-99.558a27.828,27.828,0,0,0-18.8-15.792L344.985,256h33.279a11.988,11.988,0,0,1,6.36,1.824l54.2,33.878-4.148,16.6-43.039-21.992c-.217-.111-.438-.207-.66-.3Zm79.894,40.88L449.7,314.179l5.168-20.669,9.745-4.873,12.807,4.269Z">
+                        </path>
+                        <path
+                          d="M82.343,213.657l16,16A8,8,0,0,0,104,232h16a8,8,0,0,0,5.657-2.343l16-16A8,8,0,0,0,144,208V179.266A84.664,84.664,0,0,0,168,120a56,56,0,0,0-112,0,84.664,84.664,0,0,0,24,59.266V208A8,8,0,0,0,82.343,213.657ZM128,204.687,116.687,216h-9.374L96,204.687V184h32ZM112,80a40.045,40.045,0,0,1,40,40,68.78,68.78,0,0,1-19.332,48H120V139.314l13.657-13.657a8,8,0,0,0-11.314-11.314L112,124.687l-10.343-10.344a8,8,0,0,0-11.314,11.314L104,139.314V168H91.332A68.78,68.78,0,0,1,72,120,40.045,40.045,0,0,1,112,80Z">
+                        </path>
+                        <path d="m112 48a8 8 0 0 0 8 -8v-16a8 8 0 0 0 -16 0v16a8 8 0 0 0 8 8z"></path>
+                        <path d="M69.072,53.646a8,8,0,1,0,13.856-8l-8-13.856a8,8,0,1,0-13.856,8Z"></path>
+                        <path d="M31.79,74.928l13.856,8a8,8,0,1,0,8-13.856l-13.856-8a8,8,0,0,0-8,13.856Z">
+                        </path>
+                        <path d="M48,112a8,8,0,0,0-8-8H24a8,8,0,0,0,0,16H40A8,8,0,0,0,48,112Z"></path>
+                        <path d="M45.646,141.072l-13.856,8a8,8,0,1,0,8,13.856l13.856-8a8,8,0,0,0-8-13.856Z">
+                        </path>
+                        <path
+                          d="M144,56.574a8,8,0,0,0,10.928-2.928l8-13.856a8,8,0,1,0-13.856-8l-8,13.856A8,8,0,0,0,144,56.574Z">
+                        </path>
+                      </svg>
+                      <svg aria-labelledby="icon-reading-lineal" role="img" viewBox="0 0 512 512"
+                        xmlns="http://www.w3.org/2000/svg" class="svg-5 svg-fill-obj-5">
+                        <path
+                          d="M495.258,284.634a8,8,0,0,0-4.728-4.223l-24-8a7.992,7.992,0,0,0-6.108.434l-11.986,5.993L393.1,244.256A27.973,27.973,0,0,0,378.264,240H372.31l27-60.751a8,8,0,0,0,.625-4.194c.2-.684-.126-1.588-1.076-3.171l-24-40a8,8,0,0,0-13.516-.322L348.332,151.08l-17.523-6.571a8,8,0,0,0-10.12,4.242L300.7,193.718l-30.079-8.2-3.19-12.758a27.5,27.5,0,0,0-2.179-5.781A40.216,40.216,0,0,0,280,136V114c0-.252-.015-.5-.038-.747l9.869-34.541a31.634,31.634,0,0,0-58.712-22.838l-3.172,6.342-1.214-.4a30.363,30.363,0,0,0-37.792,40.082L200,129.541V136a39.919,39.919,0,0,0,14.939,31.168l-1.44,2.161a86.314,86.314,0,0,0-9.315,18.439L155.013,288H96a8,8,0,0,0,0,16h8v80H88a8,8,0,0,0,0,16h.862A55.963,55.963,0,0,0,128,496H360a8,8,0,0,0,0-16H344V400h8a8,8,0,0,0,5.134-14.132,56.171,56.171,0,0,0,15.692-23.311l3.7,8.336,7.879,23.637A8,8,0,0,0,392,400c.436,0,49.32-8.11,49.32-8.11A8,8,0,0,0,448,384V360a8,8,0,0,0-4.422-7.155l-29.433-14.717L401.29,309.2l35.069,17.92s.009,0,.013,0a7.979,7.979,0,0,0,1.688.637l32,8a7.994,7.994,0,0,0,9.368-4.79l16-40A8,8,0,0,0,495.258,284.634ZM367.645,150.956l5.7,9.505-9.632-3.612Zm-35.4,11.181,48.992,18.372L354.8,240h-5.9c.18-.323.365-.642.532-.975a25.825,25.825,0,0,0-16.3-36.464l-16.807-4.584Zm66.209,180.091L386.58,354.106l-27.269-61.355A8,8,0,0,0,352,288H257.08l25.851-31.021L364.6,277.4a11.923,11.923,0,0,1,8.055,6.767ZM216,131.314,227.313,120H264v16a24.138,24.138,0,0,1-9.906,19.406,27.451,27.451,0,0,0-27.427.542A23.954,23.954,0,0,1,216,136ZM328.919,218a9.824,9.824,0,0,1-4.795,19.051l-76.261-17.6,18.511-18.512ZM218.47,235.05c-.861-1.72-2.044-5-2.795-10.842a65.561,65.561,0,0,1,1.782-25.4l6.782,27.128c.011.043.026.07.037.111s.019.1.034.155A8,8,0,0,0,230.2,231.8l34.723,8.013,5.106,7.659-28.345,34.014Zm18.593-27.427-7.275-25.455a11.337,11.337,0,0,1,2.075-9.783c.131-.168.279-.317.418-.477a7.95,7.95,0,0,0,1.53-1.472,11.4,11.4,0,0,1,14.73.544c.03.026.057.057.088.083a11.378,11.378,0,0,1,3.284,5.574l3.227,12.909ZM227.056,288H204.944L216,265.888ZM205.182,82.649a14.379,14.379,0,0,1,16.492-5.658l7.8,2.6a8,8,0,0,0,9.685-4.011l6.275-12.549a15.634,15.634,0,0,1,29.016,11.287L265.966,104H224a8,8,0,0,0-5.657,2.343l-7.421,7.421L203.8,95.951A14.362,14.362,0,0,1,205.182,82.649Zm-4.548,148.684a43.115,43.115,0,0,0,3.524,10.872l2.9,5.795-20,40H172.835ZM120,336H320a8,8,0,0,1,0,16H120ZM328,448H128a8,8,0,0,1,0-16H328Zm0-32H128a24,24,0,0,0,0,48H328v16H128a40,40,0,0,1,0-80H328Zm-8-32H120V368H320a24,24,0,0,0,0-48H120V304H320a40,40,0,0,1,0,80Zm112-6.777-34.572,5.762-4.275-12.824,16.427-16.427L432,364.944Zm-44.728-99.558a27.828,27.828,0,0,0-18.8-15.792L344.985,256h33.279a11.988,11.988,0,0,1,6.36,1.824l54.2,33.878-4.148,16.6-43.039-21.992c-.217-.111-.438-.207-.66-.3Zm79.894,40.88L449.7,314.179l5.168-20.669,9.745-4.873,12.807,4.269Z">
+                        </path>
+                        <path
+                          d="M82.343,213.657l16,16A8,8,0,0,0,104,232h16a8,8,0,0,0,5.657-2.343l16-16A8,8,0,0,0,144,208V179.266A84.664,84.664,0,0,0,168,120a56,56,0,0,0-112,0,84.664,84.664,0,0,0,24,59.266V208A8,8,0,0,0,82.343,213.657ZM128,204.687,116.687,216h-9.374L96,204.687V184h32ZM112,80a40.045,40.045,0,0,1,40,40,68.78,68.78,0,0,1-19.332,48H120V139.314l13.657-13.657a8,8,0,0,0-11.314-11.314L112,124.687l-10.343-10.344a8,8,0,0,0-11.314,11.314L104,139.314V168H91.332A68.78,68.78,0,0,1,72,120,40.045,40.045,0,0,1,112,80Z">
+                        </path>
+                        <path d="m112 48a8 8 0 0 0 8 -8v-16a8 8 0 0 0 -16 0v16a8 8 0 0 0 8 8z"></path>
+                        <path d="M69.072,53.646a8,8,0,1,0,13.856-8l-8-13.856a8,8,0,1,0-13.856,8Z"></path>
+                        <path d="M31.79,74.928l13.856,8a8,8,0,1,0,8-13.856l-13.856-8a8,8,0,0,0-8,13.856Z">
+                        </path>
+                        <path d="M48,112a8,8,0,0,0-8-8H24a8,8,0,0,0,0,16H40A8,8,0,0,0,48,112Z"></path>
+                        <path d="M45.646,141.072l-13.856,8a8,8,0,1,0,8,13.856l13.856-8a8,8,0,0,0-8-13.856Z">
+                        </path>
+                        <path
+                          d="M144,56.574a8,8,0,0,0,10.928-2.928l8-13.856a8,8,0,1,0-13.856-8l-8,13.856A8,8,0,0,0,144,56.574Z">
+                        </path>
+                      </svg>
+                      <svg aria-labelledby="icon-reading-lineal" role="img" viewBox="0 0 512 512"
+                        xmlns="http://www.w3.org/2000/svg" class="svg-6 svg-fill-obj-5">
+                        <path
+                          d="M495.258,284.634a8,8,0,0,0-4.728-4.223l-24-8a7.992,7.992,0,0,0-6.108.434l-11.986,5.993L393.1,244.256A27.973,27.973,0,0,0,378.264,240H372.31l27-60.751a8,8,0,0,0,.625-4.194c.2-.684-.126-1.588-1.076-3.171l-24-40a8,8,0,0,0-13.516-.322L348.332,151.08l-17.523-6.571a8,8,0,0,0-10.12,4.242L300.7,193.718l-30.079-8.2-3.19-12.758a27.5,27.5,0,0,0-2.179-5.781A40.216,40.216,0,0,0,280,136V114c0-.252-.015-.5-.038-.747l9.869-34.541a31.634,31.634,0,0,0-58.712-22.838l-3.172,6.342-1.214-.4a30.363,30.363,0,0,0-37.792,40.082L200,129.541V136a39.919,39.919,0,0,0,14.939,31.168l-1.44,2.161a86.314,86.314,0,0,0-9.315,18.439L155.013,288H96a8,8,0,0,0,0,16h8v80H88a8,8,0,0,0,0,16h.862A55.963,55.963,0,0,0,128,496H360a8,8,0,0,0,0-16H344V400h8a8,8,0,0,0,5.134-14.132,56.171,56.171,0,0,0,15.692-23.311l3.7,8.336,7.879,23.637A8,8,0,0,0,392,400c.436,0,49.32-8.11,49.32-8.11A8,8,0,0,0,448,384V360a8,8,0,0,0-4.422-7.155l-29.433-14.717L401.29,309.2l35.069,17.92s.009,0,.013,0a7.979,7.979,0,0,0,1.688.637l32,8a7.994,7.994,0,0,0,9.368-4.79l16-40A8,8,0,0,0,495.258,284.634ZM367.645,150.956l5.7,9.505-9.632-3.612Zm-35.4,11.181,48.992,18.372L354.8,240h-5.9c.18-.323.365-.642.532-.975a25.825,25.825,0,0,0-16.3-36.464l-16.807-4.584Zm66.209,180.091L386.58,354.106l-27.269-61.355A8,8,0,0,0,352,288H257.08l25.851-31.021L364.6,277.4a11.923,11.923,0,0,1,8.055,6.767ZM216,131.314,227.313,120H264v16a24.138,24.138,0,0,1-9.906,19.406,27.451,27.451,0,0,0-27.427.542A23.954,23.954,0,0,1,216,136ZM328.919,218a9.824,9.824,0,0,1-4.795,19.051l-76.261-17.6,18.511-18.512ZM218.47,235.05c-.861-1.72-2.044-5-2.795-10.842a65.561,65.561,0,0,1,1.782-25.4l6.782,27.128c.011.043.026.07.037.111s.019.1.034.155A8,8,0,0,0,230.2,231.8l34.723,8.013,5.106,7.659-28.345,34.014Zm18.593-27.427-7.275-25.455a11.337,11.337,0,0,1,2.075-9.783c.131-.168.279-.317.418-.477a7.95,7.95,0,0,0,1.53-1.472,11.4,11.4,0,0,1,14.73.544c.03.026.057.057.088.083a11.378,11.378,0,0,1,3.284,5.574l3.227,12.909ZM227.056,288H204.944L216,265.888ZM205.182,82.649a14.379,14.379,0,0,1,16.492-5.658l7.8,2.6a8,8,0,0,0,9.685-4.011l6.275-12.549a15.634,15.634,0,0,1,29.016,11.287L265.966,104H224a8,8,0,0,0-5.657,2.343l-7.421,7.421L203.8,95.951A14.362,14.362,0,0,1,205.182,82.649Zm-4.548,148.684a43.115,43.115,0,0,0,3.524,10.872l2.9,5.795-20,40H172.835ZM120,336H320a8,8,0,0,1,0,16H120ZM328,448H128a8,8,0,0,1,0-16H328Zm0-32H128a24,24,0,0,0,0,48H328v16H128a40,40,0,0,1,0-80H328Zm-8-32H120V368H320a24,24,0,0,0,0-48H120V304H320a40,40,0,0,1,0,80Zm112-6.777-34.572,5.762-4.275-12.824,16.427-16.427L432,364.944Zm-44.728-99.558a27.828,27.828,0,0,0-18.8-15.792L344.985,256h33.279a11.988,11.988,0,0,1,6.36,1.824l54.2,33.878-4.148,16.6-43.039-21.992c-.217-.111-.438-.207-.66-.3Zm79.894,40.88L449.7,314.179l5.168-20.669,9.745-4.873,12.807,4.269Z">
+                        </path>
+                        <path
+                          d="M82.343,213.657l16,16A8,8,0,0,0,104,232h16a8,8,0,0,0,5.657-2.343l16-16A8,8,0,0,0,144,208V179.266A84.664,84.664,0,0,0,168,120a56,56,0,0,0-112,0,84.664,84.664,0,0,0,24,59.266V208A8,8,0,0,0,82.343,213.657ZM128,204.687,116.687,216h-9.374L96,204.687V184h32ZM112,80a40.045,40.045,0,0,1,40,40,68.78,68.78,0,0,1-19.332,48H120V139.314l13.657-13.657a8,8,0,0,0-11.314-11.314L112,124.687l-10.343-10.344a8,8,0,0,0-11.314,11.314L104,139.314V168H91.332A68.78,68.78,0,0,1,72,120,40.045,40.045,0,0,1,112,80Z">
+                        </path>
+                        <path d="m112 48a8 8 0 0 0 8 -8v-16a8 8 0 0 0 -16 0v16a8 8 0 0 0 8 8z"></path>
+                        <path d="M69.072,53.646a8,8,0,1,0,13.856-8l-8-13.856a8,8,0,1,0-13.856,8Z"></path>
+                        <path d="M31.79,74.928l13.856,8a8,8,0,1,0,8-13.856l-13.856-8a8,8,0,0,0-8,13.856Z">
+                        </path>
+                        <path d="M48,112a8,8,0,0,0-8-8H24a8,8,0,0,0,0,16H40A8,8,0,0,0,48,112Z"></path>
+                        <path d="M45.646,141.072l-13.856,8a8,8,0,1,0,8,13.856l13.856-8a8,8,0,0,0-8-13.856Z">
+                        </path>
+                        <path
+                          d="M144,56.574a8,8,0,0,0,10.928-2.928l8-13.856a8,8,0,1,0-13.856-8l-8,13.856A8,8,0,0,0,144,56.574Z">
+                        </path>
+                      </svg>
+                      <svg aria-labelledby="icon-reading-lineal" role="img" viewBox="0 0 512 512"
+                        xmlns="http://www.w3.org/2000/svg" class="svg-9 svg-fill-obj-5">
+                        <path
+                          d="M495.258,284.634a8,8,0,0,0-4.728-4.223l-24-8a7.992,7.992,0,0,0-6.108.434l-11.986,5.993L393.1,244.256A27.973,27.973,0,0,0,378.264,240H372.31l27-60.751a8,8,0,0,0,.625-4.194c.2-.684-.126-1.588-1.076-3.171l-24-40a8,8,0,0,0-13.516-.322L348.332,151.08l-17.523-6.571a8,8,0,0,0-10.12,4.242L300.7,193.718l-30.079-8.2-3.19-12.758a27.5,27.5,0,0,0-2.179-5.781A40.216,40.216,0,0,0,280,136V114c0-.252-.015-.5-.038-.747l9.869-34.541a31.634,31.634,0,0,0-58.712-22.838l-3.172,6.342-1.214-.4a30.363,30.363,0,0,0-37.792,40.082L200,129.541V136a39.919,39.919,0,0,0,14.939,31.168l-1.44,2.161a86.314,86.314,0,0,0-9.315,18.439L155.013,288H96a8,8,0,0,0,0,16h8v80H88a8,8,0,0,0,0,16h.862A55.963,55.963,0,0,0,128,496H360a8,8,0,0,0,0-16H344V400h8a8,8,0,0,0,5.134-14.132,56.171,56.171,0,0,0,15.692-23.311l3.7,8.336,7.879,23.637A8,8,0,0,0,392,400c.436,0,49.32-8.11,49.32-8.11A8,8,0,0,0,448,384V360a8,8,0,0,0-4.422-7.155l-29.433-14.717L401.29,309.2l35.069,17.92s.009,0,.013,0a7.979,7.979,0,0,0,1.688.637l32,8a7.994,7.994,0,0,0,9.368-4.79l16-40A8,8,0,0,0,495.258,284.634ZM367.645,150.956l5.7,9.505-9.632-3.612Zm-35.4,11.181,48.992,18.372L354.8,240h-5.9c.18-.323.365-.642.532-.975a25.825,25.825,0,0,0-16.3-36.464l-16.807-4.584Zm66.209,180.091L386.58,354.106l-27.269-61.355A8,8,0,0,0,352,288H257.08l25.851-31.021L364.6,277.4a11.923,11.923,0,0,1,8.055,6.767ZM216,131.314,227.313,120H264v16a24.138,24.138,0,0,1-9.906,19.406,27.451,27.451,0,0,0-27.427.542A23.954,23.954,0,0,1,216,136ZM328.919,218a9.824,9.824,0,0,1-4.795,19.051l-76.261-17.6,18.511-18.512ZM218.47,235.05c-.861-1.72-2.044-5-2.795-10.842a65.561,65.561,0,0,1,1.782-25.4l6.782,27.128c.011.043.026.07.037.111s.019.1.034.155A8,8,0,0,0,230.2,231.8l34.723,8.013,5.106,7.659-28.345,34.014Zm18.593-27.427-7.275-25.455a11.337,11.337,0,0,1,2.075-9.783c.131-.168.279-.317.418-.477a7.95,7.95,0,0,0,1.53-1.472,11.4,11.4,0,0,1,14.73.544c.03.026.057.057.088.083a11.378,11.378,0,0,1,3.284,5.574l3.227,12.909ZM227.056,288H204.944L216,265.888ZM205.182,82.649a14.379,14.379,0,0,1,16.492-5.658l7.8,2.6a8,8,0,0,0,9.685-4.011l6.275-12.549a15.634,15.634,0,0,1,29.016,11.287L265.966,104H224a8,8,0,0,0-5.657,2.343l-7.421,7.421L203.8,95.951A14.362,14.362,0,0,1,205.182,82.649Zm-4.548,148.684a43.115,43.115,0,0,0,3.524,10.872l2.9,5.795-20,40H172.835ZM120,336H320a8,8,0,0,1,0,16H120ZM328,448H128a8,8,0,0,1,0-16H328Zm0-32H128a24,24,0,0,0,0,48H328v16H128a40,40,0,0,1,0-80H328Zm-8-32H120V368H320a24,24,0,0,0,0-48H120V304H320a40,40,0,0,1,0,80Zm112-6.777-34.572,5.762-4.275-12.824,16.427-16.427L432,364.944Zm-44.728-99.558a27.828,27.828,0,0,0-18.8-15.792L344.985,256h33.279a11.988,11.988,0,0,1,6.36,1.824l54.2,33.878-4.148,16.6-43.039-21.992c-.217-.111-.438-.207-.66-.3Zm79.894,40.88L449.7,314.179l5.168-20.669,9.745-4.873,12.807,4.269Z">
+                        </path>
+                        <path
+                          d="M82.343,213.657l16,16A8,8,0,0,0,104,232h16a8,8,0,0,0,5.657-2.343l16-16A8,8,0,0,0,144,208V179.266A84.664,84.664,0,0,0,168,120a56,56,0,0,0-112,0,84.664,84.664,0,0,0,24,59.266V208A8,8,0,0,0,82.343,213.657ZM128,204.687,116.687,216h-9.374L96,204.687V184h32ZM112,80a40.045,40.045,0,0,1,40,40,68.78,68.78,0,0,1-19.332,48H120V139.314l13.657-13.657a8,8,0,0,0-11.314-11.314L112,124.687l-10.343-10.344a8,8,0,0,0-11.314,11.314L104,139.314V168H91.332A68.78,68.78,0,0,1,72,120,40.045,40.045,0,0,1,112,80Z">
+                        </path>
+                        <path d="m112 48a8 8 0 0 0 8 -8v-16a8 8 0 0 0 -16 0v16a8 8 0 0 0 8 8z"></path>
+                        <path d="M69.072,53.646a8,8,0,1,0,13.856-8l-8-13.856a8,8,0,1,0-13.856,8Z"></path>
+                        <path d="M31.79,74.928l13.856,8a8,8,0,1,0,8-13.856l-13.856-8a8,8,0,0,0-8,13.856Z">
+                        </path>
+                        <path d="M48,112a8,8,0,0,0-8-8H24a8,8,0,0,0,0,16H40A8,8,0,0,0,48,112Z"></path>
+                        <path d="M45.646,141.072l-13.856,8a8,8,0,1,0,8,13.856l13.856-8a8,8,0,0,0-8-13.856Z">
+                        </path>
+                        <path
+                          d="M144,56.574a8,8,0,0,0,10.928-2.928l8-13.856a8,8,0,1,0-13.856-8l-8,13.856A8,8,0,0,0,144,56.574Z">
+                        </path>
+                      </svg>
+                      <svg aria-labelledby="icon-reading-lineal" role="img" viewBox="0 0 512 512"
+                        xmlns="http://www.w3.org/2000/svg" class="svg-7 svg-fill-obj-5">
+                        <path
+                          d="M495.258,284.634a8,8,0,0,0-4.728-4.223l-24-8a7.992,7.992,0,0,0-6.108.434l-11.986,5.993L393.1,244.256A27.973,27.973,0,0,0,378.264,240H372.31l27-60.751a8,8,0,0,0,.625-4.194c.2-.684-.126-1.588-1.076-3.171l-24-40a8,8,0,0,0-13.516-.322L348.332,151.08l-17.523-6.571a8,8,0,0,0-10.12,4.242L300.7,193.718l-30.079-8.2-3.19-12.758a27.5,27.5,0,0,0-2.179-5.781A40.216,40.216,0,0,0,280,136V114c0-.252-.015-.5-.038-.747l9.869-34.541a31.634,31.634,0,0,0-58.712-22.838l-3.172,6.342-1.214-.4a30.363,30.363,0,0,0-37.792,40.082L200,129.541V136a39.919,39.919,0,0,0,14.939,31.168l-1.44,2.161a86.314,86.314,0,0,0-9.315,18.439L155.013,288H96a8,8,0,0,0,0,16h8v80H88a8,8,0,0,0,0,16h.862A55.963,55.963,0,0,0,128,496H360a8,8,0,0,0,0-16H344V400h8a8,8,0,0,0,5.134-14.132,56.171,56.171,0,0,0,15.692-23.311l3.7,8.336,7.879,23.637A8,8,0,0,0,392,400c.436,0,49.32-8.11,49.32-8.11A8,8,0,0,0,448,384V360a8,8,0,0,0-4.422-7.155l-29.433-14.717L401.29,309.2l35.069,17.92s.009,0,.013,0a7.979,7.979,0,0,0,1.688.637l32,8a7.994,7.994,0,0,0,9.368-4.79l16-40A8,8,0,0,0,495.258,284.634ZM367.645,150.956l5.7,9.505-9.632-3.612Zm-35.4,11.181,48.992,18.372L354.8,240h-5.9c.18-.323.365-.642.532-.975a25.825,25.825,0,0,0-16.3-36.464l-16.807-4.584Zm66.209,180.091L386.58,354.106l-27.269-61.355A8,8,0,0,0,352,288H257.08l25.851-31.021L364.6,277.4a11.923,11.923,0,0,1,8.055,6.767ZM216,131.314,227.313,120H264v16a24.138,24.138,0,0,1-9.906,19.406,27.451,27.451,0,0,0-27.427.542A23.954,23.954,0,0,1,216,136ZM328.919,218a9.824,9.824,0,0,1-4.795,19.051l-76.261-17.6,18.511-18.512ZM218.47,235.05c-.861-1.72-2.044-5-2.795-10.842a65.561,65.561,0,0,1,1.782-25.4l6.782,27.128c.011.043.026.07.037.111s.019.1.034.155A8,8,0,0,0,230.2,231.8l34.723,8.013,5.106,7.659-28.345,34.014Zm18.593-27.427-7.275-25.455a11.337,11.337,0,0,1,2.075-9.783c.131-.168.279-.317.418-.477a7.95,7.95,0,0,0,1.53-1.472,11.4,11.4,0,0,1,14.73.544c.03.026.057.057.088.083a11.378,11.378,0,0,1,3.284,5.574l3.227,12.909ZM227.056,288H204.944L216,265.888ZM205.182,82.649a14.379,14.379,0,0,1,16.492-5.658l7.8,2.6a8,8,0,0,0,9.685-4.011l6.275-12.549a15.634,15.634,0,0,1,29.016,11.287L265.966,104H224a8,8,0,0,0-5.657,2.343l-7.421,7.421L203.8,95.951A14.362,14.362,0,0,1,205.182,82.649Zm-4.548,148.684a43.115,43.115,0,0,0,3.524,10.872l2.9,5.795-20,40H172.835ZM120,336H320a8,8,0,0,1,0,16H120ZM328,448H128a8,8,0,0,1,0-16H328Zm0-32H128a24,24,0,0,0,0,48H328v16H128a40,40,0,0,1,0-80H328Zm-8-32H120V368H320a24,24,0,0,0,0-48H120V304H320a40,40,0,0,1,0,80Zm112-6.777-34.572,5.762-4.275-12.824,16.427-16.427L432,364.944Zm-44.728-99.558a27.828,27.828,0,0,0-18.8-15.792L344.985,256h33.279a11.988,11.988,0,0,1,6.36,1.824l54.2,33.878-4.148,16.6-43.039-21.992c-.217-.111-.438-.207-.66-.3Zm79.894,40.88L449.7,314.179l5.168-20.669,9.745-4.873,12.807,4.269Z">
+                        </path>
+                        <path
+                          d="M82.343,213.657l16,16A8,8,0,0,0,104,232h16a8,8,0,0,0,5.657-2.343l16-16A8,8,0,0,0,144,208V179.266A84.664,84.664,0,0,0,168,120a56,56,0,0,0-112,0,84.664,84.664,0,0,0,24,59.266V208A8,8,0,0,0,82.343,213.657ZM128,204.687,116.687,216h-9.374L96,204.687V184h32ZM112,80a40.045,40.045,0,0,1,40,40,68.78,68.78,0,0,1-19.332,48H120V139.314l13.657-13.657a8,8,0,0,0-11.314-11.314L112,124.687l-10.343-10.344a8,8,0,0,0-11.314,11.314L104,139.314V168H91.332A68.78,68.78,0,0,1,72,120,40.045,40.045,0,0,1,112,80Z">
+                        </path>
+                        <path d="m112 48a8 8 0 0 0 8 -8v-16a8 8 0 0 0 -16 0v16a8 8 0 0 0 8 8z"></path>
+                        <path d="M69.072,53.646a8,8,0,1,0,13.856-8l-8-13.856a8,8,0,1,0-13.856,8Z"></path>
+                        <path d="M31.79,74.928l13.856,8a8,8,0,1,0,8-13.856l-13.856-8a8,8,0,0,0-8,13.856Z">
+                        </path>
+                        <path d="M48,112a8,8,0,0,0-8-8H24a8,8,0,0,0,0,16H40A8,8,0,0,0,48,112Z"></path>
+                        <path d="M45.646,141.072l-13.856,8a8,8,0,1,0,8,13.856l13.856-8a8,8,0,0,0-8-13.856Z">
+                        </path>
+                        <path
+                          d="M144,56.574a8,8,0,0,0,10.928-2.928l8-13.856a8,8,0,1,0-13.856-8l-8,13.856A8,8,0,0,0,144,56.574Z">
+                        </path>
+                      </svg>
+                      <svg aria-labelledby="icon-reading-lineal" role="img" viewBox="0 0 512 512"
+                        xmlns="http://www.w3.org/2000/svg" class="svg-8 svg-fill-obj-5">
+                        <path
+                          d="M495.258,284.634a8,8,0,0,0-4.728-4.223l-24-8a7.992,7.992,0,0,0-6.108.434l-11.986,5.993L393.1,244.256A27.973,27.973,0,0,0,378.264,240H372.31l27-60.751a8,8,0,0,0,.625-4.194c.2-.684-.126-1.588-1.076-3.171l-24-40a8,8,0,0,0-13.516-.322L348.332,151.08l-17.523-6.571a8,8,0,0,0-10.12,4.242L300.7,193.718l-30.079-8.2-3.19-12.758a27.5,27.5,0,0,0-2.179-5.781A40.216,40.216,0,0,0,280,136V114c0-.252-.015-.5-.038-.747l9.869-34.541a31.634,31.634,0,0,0-58.712-22.838l-3.172,6.342-1.214-.4a30.363,30.363,0,0,0-37.792,40.082L200,129.541V136a39.919,39.919,0,0,0,14.939,31.168l-1.44,2.161a86.314,86.314,0,0,0-9.315,18.439L155.013,288H96a8,8,0,0,0,0,16h8v80H88a8,8,0,0,0,0,16h.862A55.963,55.963,0,0,0,128,496H360a8,8,0,0,0,0-16H344V400h8a8,8,0,0,0,5.134-14.132,56.171,56.171,0,0,0,15.692-23.311l3.7,8.336,7.879,23.637A8,8,0,0,0,392,400c.436,0,49.32-8.11,49.32-8.11A8,8,0,0,0,448,384V360a8,8,0,0,0-4.422-7.155l-29.433-14.717L401.29,309.2l35.069,17.92s.009,0,.013,0a7.979,7.979,0,0,0,1.688.637l32,8a7.994,7.994,0,0,0,9.368-4.79l16-40A8,8,0,0,0,495.258,284.634ZM367.645,150.956l5.7,9.505-9.632-3.612Zm-35.4,11.181,48.992,18.372L354.8,240h-5.9c.18-.323.365-.642.532-.975a25.825,25.825,0,0,0-16.3-36.464l-16.807-4.584Zm66.209,180.091L386.58,354.106l-27.269-61.355A8,8,0,0,0,352,288H257.08l25.851-31.021L364.6,277.4a11.923,11.923,0,0,1,8.055,6.767ZM216,131.314,227.313,120H264v16a24.138,24.138,0,0,1-9.906,19.406,27.451,27.451,0,0,0-27.427.542A23.954,23.954,0,0,1,216,136ZM328.919,218a9.824,9.824,0,0,1-4.795,19.051l-76.261-17.6,18.511-18.512ZM218.47,235.05c-.861-1.72-2.044-5-2.795-10.842a65.561,65.561,0,0,1,1.782-25.4l6.782,27.128c.011.043.026.07.037.111s.019.1.034.155A8,8,0,0,0,230.2,231.8l34.723,8.013,5.106,7.659-28.345,34.014Zm18.593-27.427-7.275-25.455a11.337,11.337,0,0,1,2.075-9.783c.131-.168.279-.317.418-.477a7.95,7.95,0,0,0,1.53-1.472,11.4,11.4,0,0,1,14.73.544c.03.026.057.057.088.083a11.378,11.378,0,0,1,3.284,5.574l3.227,12.909ZM227.056,288H204.944L216,265.888ZM205.182,82.649a14.379,14.379,0,0,1,16.492-5.658l7.8,2.6a8,8,0,0,0,9.685-4.011l6.275-12.549a15.634,15.634,0,0,1,29.016,11.287L265.966,104H224a8,8,0,0,0-5.657,2.343l-7.421,7.421L203.8,95.951A14.362,14.362,0,0,1,205.182,82.649Zm-4.548,148.684a43.115,43.115,0,0,0,3.524,10.872l2.9,5.795-20,40H172.835ZM120,336H320a8,8,0,0,1,0,16H120ZM328,448H128a8,8,0,0,1,0-16H328Zm0-32H128a24,24,0,0,0,0,48H328v16H128a40,40,0,0,1,0-80H328Zm-8-32H120V368H320a24,24,0,0,0,0-48H120V304H320a40,40,0,0,1,0,80Zm112-6.777-34.572,5.762-4.275-12.824,16.427-16.427L432,364.944Zm-44.728-99.558a27.828,27.828,0,0,0-18.8-15.792L344.985,256h33.279a11.988,11.988,0,0,1,6.36,1.824l54.2,33.878-4.148,16.6-43.039-21.992c-.217-.111-.438-.207-.66-.3Zm79.894,40.88L449.7,314.179l5.168-20.669,9.745-4.873,12.807,4.269Z">
+                        </path>
+                        <path
+                          d="M82.343,213.657l16,16A8,8,0,0,0,104,232h16a8,8,0,0,0,5.657-2.343l16-16A8,8,0,0,0,144,208V179.266A84.664,84.664,0,0,0,168,120a56,56,0,0,0-112,0,84.664,84.664,0,0,0,24,59.266V208A8,8,0,0,0,82.343,213.657ZM128,204.687,116.687,216h-9.374L96,204.687V184h32ZM112,80a40.045,40.045,0,0,1,40,40,68.78,68.78,0,0,1-19.332,48H120V139.314l13.657-13.657a8,8,0,0,0-11.314-11.314L112,124.687l-10.343-10.344a8,8,0,0,0-11.314,11.314L104,139.314V168H91.332A68.78,68.78,0,0,1,72,120,40.045,40.045,0,0,1,112,80Z">
+                        </path>
+                        <path d="m112 48a8 8 0 0 0 8 -8v-16a8 8 0 0 0 -16 0v16a8 8 0 0 0 8 8z"></path>
+                        <path d="M69.072,53.646a8,8,0,1,0,13.856-8l-8-13.856a8,8,0,1,0-13.856,8Z"></path>
+                        <path d="M31.79,74.928l13.856,8a8,8,0,1,0,8-13.856l-13.856-8a8,8,0,0,0-8,13.856Z">
+                        </path>
+                        <path d="M48,112a8,8,0,0,0-8-8H24a8,8,0,0,0,0,16H40A8,8,0,0,0,48,112Z"></path>
+                        <path d="M45.646,141.072l-13.856,8a8,8,0,1,0,8,13.856l13.856-8a8,8,0,0,0-8-13.856Z">
+                        </path>
+                        <path
+                          d="M144,56.574a8,8,0,0,0,10.928-2.928l8-13.856a8,8,0,1,0-13.856-8l-8,13.856A8,8,0,0,0,144,56.574Z">
+                        </path>
+                      </svg>
                     </div>
-                    <div>
-                      <pre>
-                      <code >
-    &lt;<span class="text-success">svg</span> <span class="text-obj-12">viewBox</span>="0 0 512 512" <span class="text-obj-12">xmlns</span>="<u>http://www.w3.org/2000/svg</u>"  <span class="text-obj-12">class</span>="<strong class="fw-bold text-primary bg-warning">svg-1</strong> svg-fill-obj-5"/&gt; 
-      &lt;<span class="text-success">path</span>&gt;...&lt;/<span class="text-success">path</span>&gt;
-    &lt;/<span class="text-success">svg</span>/&gt;
-  
-    &lt;<span class="text-success">svg</span> <span class="text-obj-12">viewBox</span>="0 0 512 512" <span class="text-obj-12">xmlns</span>="<u>http://www.w3.org/2000/svg</u>"  <span class="text-obj-12">class</span>="<strong class="fw-bold text-primary bg-warning">svg-2</strong> svg-fill-obj-5"/&gt;
-      &lt;<span class="text-success">path</span>&gt;...&lt;/<span class="text-success">path</span>&gt;
-    &lt;/<span class="text-success">svg</span>/&gt;
-  
-    &lt;<span class="text-success">svg</span> <span class="text-obj-12">viewBox</span>="0 0 512 512" <span class="text-obj-12">xmlns</span>="<u>http://www.w3.org/2000/svg</u>"  <span class="text-obj-12">class</span>="<strong class="fw-bold text-primary bg-warning">svg-3</strong> svg-fill-obj-5"/&gt;
-      &lt;<span class="text-success">path</span>&gt;...&lt;/<span class="text-success">path</span>&gt;
-    &lt;/<span class="text-success">svg</span>/&gt;
-  
-    &lt;<span class="text-success">svg</span> <span class="text-obj-12">viewBox</span>="0 0 512 512" <span class="text-obj-12">xmlns</span>="<u>http://www.w3.org/2000/svg</u>"  <span class="text-obj-12">class</span>="<strong class="fw-bold text-primary bg-warning">svg-4</strong> svg-fill-obj-5"/&gt;
-      &lt;<span class="text-success">path</span>&gt;...&lt;/<span class="text-success">path</span>&gt;
-    &lt;/<span class="text-success">svg</span>/&gt;
-  
-    &lt;<span class="text-success">svg</span> <span class="text-obj-12">viewBox</span>="0 0 512 512" <span class="text-obj-12">xmlns</span>="<u>http://www.w3.org/2000/svg</u>"  <span class="text-obj-12">class</span>="<strong class="fw-bold text-primary bg-warning">svg-5</strong> svg-fill-obj-5"/&gt;
-      &lt;<span class="text-success">path</span>&gt;...&lt;/<span class="text-success">path</span>&gt;
-    &lt;/<span class="text-success">svg</span>/&gt;
-  
-    &lt;<span class="text-success">svg</span> <span class="text-obj-12">viewBox</span>="0 0 512 512" <span class="text-obj-12">xmlns</span>="<u>http://www.w3.org/2000/svg</u>"  <span class="text-obj-12">class</span>="<strong class="fw-bold text-primary bg-warning">svg-6</strong> svg-fill-obj-5"/&gt;
-       &lt;<span class="text-success">path</span>&gt;...&lt;/<span class="text-success">path</span>&gt;
-    &lt;/<span class="text-success">svg</span>/&gt;
-  
-    &lt;<span class="text-success">svg</span> <span class="text-obj-12">viewBox</span>="0 0 512 512" <span class="text-obj-12">xmlns</span>="<u>http://www.w3.org/2000/svg</u>"  <span class="text-obj-12">class</span>="<strong class="fw-bold text-dark bg-warning">svg-9</strong> svg-fill-obj-5"/&gt;
-      &lt;<span class="text-success">path</span>&gt;...&lt;/<span class="text-success">path</span>&gt;
-    &lt;/<span class="text-success">svg</span>/&gt;
-  
-    &lt;<span class="text-success">svg</span> <span class="text-obj-12">viewBox</span>="0 0 512 512" <span class="text-obj-12">xmlns</span>="<u>http://www.w3.org/2000/svg</u>"  <span class="text-obj-12">class</span>="<strong class="fw-bold text-primary bg-warning">svg-7</strong> svg-fill-obj-5"/&gt;
-       &lt;<span class="text-success">path</span>&gt;...&lt;/<span class="text-success">path</span>&gt;
-    &lt;/<span class="text-success">svg</span>/&gt;
-  
-    &lt;<span class="text-success">svg</span> <span class="text-obj-12">viewBox</span>="0 0 512 512" <span class="text-obj-12">xmlns</span>="<u>http://www.w3.org/2000/svg</u>"  <span class="text-obj-12">class</span>="<strong class="fw-bold text-primary bg-warning">svg-8</strong> svg-fill-obj-5"/&gt;
-       &lt;<span class="text-success">path</span>&gt;...&lt;/<span class="text-success">path</span>&gt;
-    &lt;/<span class="text-success">svg</span>/&gt;
-  
-                      </code>
-                    </pre>
-                    </div>
+                  </div>
+                  <div>
+                    <pre>
+                <code>
+&lt;<span class="text-success">svg</span> <span class="text-obj-12">viewBox</span>="0 0 512 512" <span class="text-obj-12">xmlns</span>="<u>http://www.w3.org/2000/svg</u>"  <span class="text-obj-12">class</span>="<strong class="fw-bold text-primary bg-warning">svg-1</strong> svg-fill-obj-5"/&gt; 
+&lt;<span class="text-success">path</span>&gt;...&lt;/<span class="text-success">path</span>&gt;
+&lt;/<span class="text-success">svg</span>/&gt;
+
+&lt;<span class="text-success">svg</span> <span class="text-obj-12">viewBox</span>="0 0 512 512" <span class="text-obj-12">xmlns</span>="<u>http://www.w3.org/2000/svg</u>"  <span class="text-obj-12">class</span>="<strong class="fw-bold text-primary bg-warning">svg-2</strong> svg-fill-obj-5"/&gt;
+&lt;<span class="text-success">path</span>&gt;...&lt;/<span class="text-success">path</span>&gt;
+&lt;/<span class="text-success">svg</span>/&gt;
+
+&lt;<span class="text-success">svg</span> <span class="text-obj-12">viewBox</span>="0 0 512 512" <span class="text-obj-12">xmlns</span>="<u>http://www.w3.org/2000/svg</u>"  <span class="text-obj-12">class</span>="<strong class="fw-bold text-primary bg-warning">svg-3</strong> svg-fill-obj-5"/&gt;
+&lt;<span class="text-success">path</span>&gt;...&lt;/<span class="text-success">path</span>&gt;
+&lt;/<span class="text-success">svg</span>/&gt;
+
+&lt;<span class="text-success">svg</span> <span class="text-obj-12">viewBox</span>="0 0 512 512" <span class="text-obj-12">xmlns</span>="<u>http://www.w3.org/2000/svg</u>"  <span class="text-obj-12">class</span>="<strong class="fw-bold text-primary bg-warning">svg-4</strong> svg-fill-obj-5"/&gt;
+&lt;<span class="text-success">path</span>&gt;...&lt;/<span class="text-success">path</span>&gt;
+&lt;/<span class="text-success">svg</span>/&gt;
+
+&lt;<span class="text-success">svg</span> <span class="text-obj-12">viewBox</span>="0 0 512 512" <span class="text-obj-12">xmlns</span>="<u>http://www.w3.org/2000/svg</u>"  <span class="text-obj-12">class</span>="<strong class="fw-bold text-primary bg-warning">svg-5</strong> svg-fill-obj-5"/&gt;
+&lt;<span class="text-success">path</span>&gt;...&lt;/<span class="text-success">path</span>&gt;
+&lt;/<span class="text-success">svg</span>/&gt;
+
+&lt;<span class="text-success">svg</span> <span class="text-obj-12">viewBox</span>="0 0 512 512" <span class="text-obj-12">xmlns</span>="<u>http://www.w3.org/2000/svg</u>"  <span class="text-obj-12">class</span>="<strong class="fw-bold text-primary bg-warning">svg-6</strong> svg-fill-obj-5"/&gt;
+&lt;<span class="text-success">path</span>&gt;...&lt;/<span class="text-success">path</span>&gt;
+&lt;/<span class="text-success">svg</span>/&gt;
+
+&lt;<span class="text-success">svg</span> <span class="text-obj-12">viewBox</span>="0 0 512 512" <span class="text-obj-12">xmlns</span>="<u>http://www.w3.org/2000/svg</u>"  <span class="text-obj-12">class</span>="<strong class="fw-bold text-dark bg-warning">svg-9</strong> svg-fill-obj-5"/&gt;
+&lt;<span class="text-success">path</span>&gt;...&lt;/<span class="text-success">path</span>&gt;
+&lt;/<span class="text-success">svg</span>/&gt;
+
+&lt;<span class="text-success">svg</span> <span class="text-obj-12">viewBox</span>="0 0 512 512" <span class="text-obj-12">xmlns</span>="<u>http://www.w3.org/2000/svg</u>"  <span class="text-obj-12">class</span>="<strong class="fw-bold text-primary bg-warning">svg-7</strong> svg-fill-obj-5"/&gt;
+&lt;<span class="text-success">path</span>&gt;...&lt;/<span class="text-success">path</span>&gt;
+&lt;/<span class="text-success">svg</span>/&gt;
+
+&lt;<span class="text-success">svg</span> <span class="text-obj-12">viewBox</span>="0 0 512 512" <span class="text-obj-12">xmlns</span>="<u>http://www.w3.org/2000/svg</u>"  <span class="text-obj-12">class</span>="<strong class="fw-bold text-primary bg-warning">svg-8</strong> svg-fill-obj-5"/&gt;
+&lt;<span class="text-success">path</span>&gt;...&lt;/<span class="text-success">path</span>&gt;
+&lt;/<span class="text-success">svg</span>/&gt;
+          
+                </code>
+            </pre>
                   </div>
                 </div>
               </div>
             </div>
           </section>
-          <section id="botoes" class="py-4 my-2">
-            <div class="container p-0">
-              <div class="row">
-                <div class="col-12 mb-2">
-                  <h2 class="h1 fw-bold"><strong>Botões</strong></h2>
-                </div>
-                <div class="d-flex" style="flex-wrap: wrap;">
-                  <p class="px-4">
-                    <a href="#" class="btn btn-lg btn-primary shadow" title="">Conteúdo</a>
-                  </p>
-                  <p class="px-4">
-                    <a href="#" class="btn btn-lg btn-obj-2 shadow" title="">Conteúdo</a>
-                  </p>
-                  <p class="px-4">
-                    <a href="#" class="btn btn-lg btn-success shadow" title="">Conteúdo</a>
-                  </p>
-                  <p class="px-4">
-                    <a href="#" class="btn btn-lg btn-obj-4 shadow" title="">Conteúdo</a>
-                  </p>
-                  <p class="px-4">
-                    <a href="#" class="btn btn-lg btn-warning shadow" title="">Conteúdo</a>
-                  </p>
-                  <p class="px-4">
-                    <a href="#" class="btn btn-lg btn-outline-primary shadow" title="">Conteúdo</a>
-                  </p>
-                </div>
-                <pre>
-                        <code>
-      &lt;<span class="text-success">a</span> <span class="text-obj-12">href</span>="#" <span class="text-obj-12">class</span>="btn btn-lg btn-obj-2 shadow" <span class="text-obj-12">title</span>=""&gt;Conteúdo&lt;/<span class="text-success">a</span>&gt;
-      &lt;<span class="text-success">a</span> <span class="text-obj-12">href</span>="#" <span class="text-obj-12">class</span>="btn btn-lg btn-success shadow" <span class="text-obj-12">title</span>=""/&gt;Conteúdo&lt;/<span class="text-success">a</span>&gt;
-      &lt;<span class="text-success">a</span> <span class="text-obj-12">href</span>="#" <span class="text-obj-12">class</span>="btn btn-lg btn-obj-4 shadow" <span class="text-obj-12">title</span>=""/&gt;Conteúdo&lt;/<span class="text-success">a</span>&gt;
-      &lt;<span class="text-success">a</span> <span class="text-obj-12">href</span>="#" <span class="text-obj-12">class</span>="btn btn-lg btn-warning shadow" <span class="text-obj-12">title</span>=""/&gt;Conteúdo&lt;/<span class="text-success">a</span>&gt;
-      &lt;<span class="text-success">a</span> <span class="text-obj-12">href</span>="#" <span class="text-obj-12">class</span>="btn btn-lg btn-outline-primary shadow" <span class="text-obj-12">title</span>=""/&gt;Conteúdo&lt;/<span class="text-success">a</span>&gt;
-                        </code>
-                      </pre>
-              </div>
-            </div>
-          </section>
+
+
+          <div w3-include-html="sections/botoes.html"></div>
+
         </div>
       </div>
     </div>
   </main>
-  <div id="toast">
-    <div id="img"><svg aria-labelledby="icon-smile-beam-solid" role="img" aria-hidden="true" focusable="false"
-        viewBox="0 0 496 512" xmlns="http://www.w3.org/2000/svg" class="svg-9" style="fill: white">
-        <path
-          d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zM112 223.4c3.3-42.1 32.2-71.4 56-71.4s52.7 29.3 56 71.4c.7 8.6-10.8 11.9-14.9 4.5l-9.5-17c-7.7-13.7-19.2-21.6-31.5-21.6s-23.8 7.9-31.5 21.6l-9.5 17c-4.3 7.4-15.8 4-15.1-4.5zm250.8 122.8C334.3 380.4 292.5 400 248 400s-86.3-19.6-114.8-53.8c-13.5-16.3 11-36.7 24.6-20.5 22.4 26.9 55.2 42.2 90.2 42.2s67.8-15.4 90.2-42.2c13.6-16.2 38.1 4.3 24.6 20.5zm6.2-118.3l-9.5-17c-7.7-13.7-19.2-21.6-31.5-21.6s-23.8 7.9-31.5 21.6l-9.5 17c-4.1 7.3-15.6 4-14.9-4.5 3.3-42.1 32.2-71.4 56-71.4s52.7 29.3 56 71.4c.6 8.6-11 11.9-15.1 4.5z" />
-      </svg></div>
-    <div id="desc">Icone SVG copiado com sucesso!</div>
-  </div>
+  <div w3-include-html="components/toast.html"></div>
+
   <script src="./objetivo.js"></script>
+  <script>
+    w3.includeHTML();
+  </script>
 </body>
 
 </html>
