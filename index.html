@@ -11,6 +11,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&amp;display=swap"
     rel="stylesheet">
+  <link href="styleguide.css" rel="stylesheet">
   <link href="objetivo.css" rel="stylesheet">
   <link rel="shortcut icon" type="image/jpg" href="./assets/logos/objetivo-light.svg" />
 
@@ -18,426 +19,6 @@
 
 <body style="padding-top: 0;" data-bs-spy="scroll" data-bs-target="#list-example" data-bs-offset="150"
   class="scrollspy-example" tabindex="0">
-  <!-- include html -->
-  <script>
-    /* W3.JS 1.03 December 2017 by w3schools.com */
-    "use strict";
-    var w3 = {};
-    w3.hide = function (sel) {
-      w3.hideElements(w3.getElements(sel));
-    };
-    w3.hideElements = function (elements) {
-      var i, l = elements.length;
-      for (i = 0; i < l; i++) {
-        w3.hideElement(elements[i]);
-      }
-    };
-    w3.hideElement = function (element) {
-      w3.styleElement(element, "display", "none");
-    };
-    w3.show = function (sel, a) {
-      var elements = w3.getElements(sel);
-      if (a) { w3.hideElements(elements); }
-      w3.showElements(elements);
-    };
-    w3.showElements = function (elements) {
-      var i, l = elements.length;
-      for (i = 0; i < l; i++) {
-        w3.showElement(elements[i]);
-      }
-    };
-    w3.showElement = function (element) {
-      w3.styleElement(element, "display", "block");
-    };
-    w3.addStyle = function (sel, prop, val) {
-      w3.styleElements(w3.getElements(sel), prop, val);
-    };
-    w3.styleElements = function (elements, prop, val) {
-      var i, l = elements.length;
-      for (i = 0; i < l; i++) {
-        w3.styleElement(elements[i], prop, val);
-      }
-    };
-    w3.styleElement = function (element, prop, val) {
-      element.style.setProperty(prop, val);
-    };
-    w3.toggleShow = function (sel) {
-      var i, x = w3.getElements(sel), l = x.length;
-      for (i = 0; i < l; i++) {
-        if (x[i].style.display == "none") {
-          w3.styleElement(x[i], "display", "block");
-        } else {
-          w3.styleElement(x[i], "display", "none");
-        }
-      }
-    };
-    w3.addClass = function (sel, name) {
-      w3.addClassElements(w3.getElements(sel), name);
-    };
-    w3.addClassElements = function (elements, name) {
-      var i, l = elements.length;
-      for (i = 0; i < l; i++) {
-        w3.addClassElement(elements[i], name);
-      }
-    };
-    w3.addClassElement = function (element, name) {
-      var i, arr1, arr2;
-      arr1 = element.className.split(" ");
-      arr2 = name.split(" ");
-      for (i = 0; i < arr2.length; i++) {
-        if (arr1.indexOf(arr2[i]) == -1) { element.className += " " + arr2[i]; }
-      }
-    };
-    w3.removeClass = function (sel, name) {
-      w3.removeClassElements(w3.getElements(sel), name);
-    };
-    w3.removeClassElements = function (elements, name) {
-      var i, l = elements.length, arr1, arr2, j;
-      for (i = 0; i < l; i++) {
-        w3.removeClassElement(elements[i], name);
-      }
-    };
-    w3.removeClassElement = function (element, name) {
-      var i, arr1, arr2;
-      arr1 = element.className.split(" ");
-      arr2 = name.split(" ");
-      for (i = 0; i < arr2.length; i++) {
-        while (arr1.indexOf(arr2[i]) > -1) {
-          arr1.splice(arr1.indexOf(arr2[i]), 1);
-        }
-      }
-      element.className = arr1.join(" ");
-    };
-    w3.toggleClass = function (sel, c1, c2) {
-      w3.toggleClassElements(w3.getElements(sel), c1, c2);
-    };
-    w3.toggleClassElements = function (elements, c1, c2) {
-      var i, l = elements.length;
-      for (i = 0; i < l; i++) {
-        w3.toggleClassElement(elements[i], c1, c2);
-      }
-    };
-    w3.toggleClassElement = function (element, c1, c2) {
-      var t1, t2, t1Arr, t2Arr, j, arr, allPresent;
-      t1 = (c1 || "");
-      t2 = (c2 || "");
-      t1Arr = t1.split(" ");
-      t2Arr = t2.split(" ");
-      arr = element.className.split(" ");
-      if (t2Arr.length == 0) {
-        allPresent = true;
-        for (j = 0; j < t1Arr.length; j++) {
-          if (arr.indexOf(t1Arr[j]) == -1) { allPresent = false; }
-        }
-        if (allPresent) {
-          w3.removeClassElement(element, t1);
-        } else {
-          w3.addClassElement(element, t1);
-        }
-      } else {
-        allPresent = true;
-        for (j = 0; j < t1Arr.length; j++) {
-          if (arr.indexOf(t1Arr[j]) == -1) { allPresent = false; }
-        }
-        if (allPresent) {
-          w3.removeClassElement(element, t1);
-          w3.addClassElement(element, t2);
-        } else {
-          w3.removeClassElement(element, t2);
-          w3.addClassElement(element, t1);
-        }
-      }
-    };
-    w3.getElements = function (id) {
-      if (typeof id == "object") {
-        return [id];
-      } else {
-        return document.querySelectorAll(id);
-      }
-    };
-    w3.filterHTML = function (id, sel, filter) {
-      var a, b, c, i, ii, iii, hit;
-      a = w3.getElements(id);
-      for (i = 0; i < a.length; i++) {
-        b = w3.getElements(sel);
-        for (ii = 0; ii < b.length; ii++) {
-          hit = 0;
-          if (b[ii].innerHTML.toUpperCase().indexOf(filter.toUpperCase()) > -1) {
-            hit = 1;
-          }
-          c = b[ii].getElementsByTagName("*");
-          for (iii = 0; iii < c.length; iii++) {
-            if (c[iii].innerHTML.toUpperCase().indexOf(filter.toUpperCase()) > -1) {
-              hit = 1;
-            }
-          }
-          if (hit == 1) {
-            b[ii].style.display = "";
-          } else {
-            b[ii].style.display = "none";
-          }
-        }
-      }
-    };
-    w3.sortHTML = function (id, sel, sortvalue) {
-      var a, b, i, ii, y, bytt, v1, v2, cc, j;
-      a = w3.getElements(id);
-      for (i = 0; i < a.length; i++) {
-        for (j = 0; j < 2; j++) {
-          cc = 0;
-          y = 1;
-          while (y == 1) {
-            y = 0;
-            b = a[i].querySelectorAll(sel);
-            for (ii = 0; ii < (b.length - 1); ii++) {
-              bytt = 0;
-              if (sortvalue) {
-                v1 = b[ii].querySelector(sortvalue).innerHTML.toLowerCase();
-                v2 = b[ii + 1].querySelector(sortvalue).innerHTML.toLowerCase();
-              } else {
-                v1 = b[ii].innerHTML.toLowerCase();
-                v2 = b[ii + 1].innerHTML.toLowerCase();
-              }
-              if ((j == 0 && (v1 > v2)) || (j == 1 && (v1 < v2))) {
-                bytt = 1;
-                break;
-              }
-            }
-            if (bytt == 1) {
-              b[ii].parentNode.insertBefore(b[ii + 1], b[ii]);
-              y = 1;
-              cc++;
-            }
-          }
-          if (cc > 0) { break; }
-        }
-      }
-    };
-    w3.slideshow = function (sel, ms, func) {
-      var i, ss, x = w3.getElements(sel), l = x.length;
-      ss = {};
-      ss.current = 1;
-      ss.x = x;
-      ss.ondisplaychange = func;
-      if (!isNaN(ms) || ms == 0) {
-        ss.milliseconds = ms;
-      } else {
-        ss.milliseconds = 1000;
-      }
-      ss.start = function () {
-        ss.display(ss.current)
-        if (ss.ondisplaychange) { ss.ondisplaychange(); }
-        if (ss.milliseconds > 0) {
-          window.clearTimeout(ss.timeout);
-          ss.timeout = window.setTimeout(ss.next, ss.milliseconds);
-        }
-      };
-      ss.next = function () {
-        ss.current += 1;
-        if (ss.current > ss.x.length) { ss.current = 1; }
-        ss.start();
-      };
-      ss.previous = function () {
-        ss.current -= 1;
-        if (ss.current < 1) { ss.current = ss.x.length; }
-        ss.start();
-      };
-      ss.display = function (n) {
-        w3.styleElements(ss.x, "display", "none");
-        w3.styleElement(ss.x[n - 1], "display", "block");
-      }
-      ss.start();
-      return ss;
-    };
-    w3.includeHTML = function (cb) {
-      var z, i, elmnt, file, xhttp;
-      z = document.getElementsByTagName("*");
-      for (i = 0; i < z.length; i++) {
-        elmnt = z[i];
-        file = elmnt.getAttribute("w3-include-html");
-        if (file) {
-          xhttp = new XMLHttpRequest();
-          xhttp.onreadystatechange = function () {
-            if (this.readyState == 4) {
-              if (this.status == 200) { elmnt.innerHTML = this.responseText; }
-              if (this.status == 404) { elmnt.innerHTML = "Page not found."; }
-              elmnt.removeAttribute("w3-include-html");
-              w3.includeHTML(cb);
-            }
-          }
-          xhttp.open("GET", file, true);
-          xhttp.send();
-          return;
-        }
-      }
-      if (cb) cb();
-    };
-    w3.getHttpData = function (file, func) {
-      w3.http(file, function () {
-        if (this.readyState == 4 && this.status == 200) {
-          func(this.responseText);
-        }
-      });
-    };
-    w3.getHttpObject = function (file, func) {
-      w3.http(file, function () {
-        if (this.readyState == 4 && this.status == 200) {
-          func(JSON.parse(this.responseText));
-        }
-      });
-    };
-    w3.displayHttp = function (id, file) {
-      w3.http(file, function () {
-        if (this.readyState == 4 && this.status == 200) {
-          w3.displayObject(id, JSON.parse(this.responseText));
-        }
-      });
-    };
-    w3.http = function (target, readyfunc, xml, method) {
-      var httpObj;
-      if (!method) { method = "GET"; }
-      if (window.XMLHttpRequest) {
-        httpObj = new XMLHttpRequest();
-      } else if (window.ActiveXObject) {
-        httpObj = new ActiveXObject("Microsoft.XMLHTTP");
-      }
-      if (httpObj) {
-        if (readyfunc) { httpObj.onreadystatechange = readyfunc; }
-        httpObj.open(method, target, true);
-        httpObj.send(xml);
-      }
-    };
-    w3.getElementsByAttribute = function (x, att) {
-      var arr = [], arrCount = -1, i, l, y = x.getElementsByTagName("*"), z = att.toUpperCase();
-      l = y.length;
-      for (i = -1; i < l; i += 1) {
-        if (i == -1) { y[i] = x; }
-        if (y[i].getAttribute(z) !== null) { arrCount += 1; arr[arrCount] = y[i]; }
-      }
-      return arr;
-    };
-    w3.dataObject = {},
-      w3.displayObject = function (id, data) {
-        var htmlObj, htmlTemplate, html, arr = [], a, l, rowClone, x, j, i, ii, cc, repeat, repeatObj, repeatX = "";
-        htmlObj = document.getElementById(id);
-        htmlTemplate = init_template(id, htmlObj);
-        html = htmlTemplate.cloneNode(true);
-        arr = w3.getElementsByAttribute(html, "w3-repeat");
-        l = arr.length;
-        for (j = (l - 1); j >= 0; j -= 1) {
-          cc = arr[j].getAttribute("w3-repeat").split(" ");
-          if (cc.length == 1) {
-            repeat = cc[0];
-          } else {
-            repeatX = cc[0];
-            repeat = cc[2];
-          }
-          arr[j].removeAttribute("w3-repeat");
-          repeatObj = data[repeat];
-          if (repeatObj && typeof repeatObj == "object" && repeatObj.length != "undefined") {
-            i = 0;
-            for (x in repeatObj) {
-              i += 1;
-              rowClone = arr[j];
-              rowClone = w3_replace_curly(rowClone, "element", repeatX, repeatObj[x]);
-              a = rowClone.attributes;
-              for (ii = 0; ii < a.length; ii += 1) {
-                a[ii].value = w3_replace_curly(a[ii], "attribute", repeatX, repeatObj[x]).value;
-              }
-              (i === repeatObj.length) ? arr[j].parentNode.replaceChild(rowClone, arr[j]) : arr[j].parentNode.insertBefore(rowClone, arr[j]);
-            }
-          } else {
-            console.log("w3-repeat must be an array. " + repeat + " is not an array.");
-            continue;
-          }
-        }
-        html = w3_replace_curly(html, "element");
-        htmlObj.parentNode.replaceChild(html, htmlObj);
-        function init_template(id, obj) {
-          var template;
-          template = obj.cloneNode(true);
-          if (w3.dataObject.hasOwnProperty(id)) { return w3.dataObject[id]; }
-          w3.dataObject[id] = template;
-          return template;
-        }
-        function w3_replace_curly(elmnt, typ, repeatX, x) {
-          var value, rowClone, pos1, pos2, originalHTML, lookFor, lookForARR = [], i, cc, r;
-          rowClone = elmnt.cloneNode(true);
-          pos1 = 0;
-          while (pos1 > -1) {
-            originalHTML = (typ == "attribute") ? rowClone.value : rowClone.innerHTML;
-            pos1 = originalHTML.indexOf("{{", pos1);
-            if (pos1 === -1) { break; }
-            pos2 = originalHTML.indexOf("}}", pos1 + 1);
-            lookFor = originalHTML.substring(pos1 + 2, pos2);
-            lookForARR = lookFor.split("||");
-            value = undefined;
-            for (i = 0; i < lookForARR.length; i += 1) {
-              lookForARR[i] = lookForARR[i].replace(/^\s+|\s+$/gm, ''); //trim
-              if (x) { value = x[lookForARR[i]]; }
-              if (value == undefined && data) { value = data[lookForARR[i]]; }
-              if (value == undefined) {
-                cc = lookForARR[i].split(".");
-                if (cc[0] == repeatX) { value = x[cc[1]]; }
-              }
-              if (value == undefined) {
-                if (lookForARR[i] == repeatX) { value = x; }
-              }
-              if (value == undefined) {
-                if (lookForARR[i].substr(0, 1) == '"') {
-                  value = lookForARR[i].replace(/"/g, "");
-                } else if (lookForARR[i].substr(0, 1) == "'") {
-                  value = lookForARR[i].replace(/'/g, "");
-                }
-              }
-              if (value != undefined) { break; }
-            }
-            if (value != undefined) {
-              r = "{{" + lookFor + "}}";
-              if (typ == "attribute") {
-                rowClone.value = rowClone.value.replace(r, value);
-              } else {
-                w3_replace_html(rowClone, r, value);
-              }
-            }
-            pos1 = pos1 + 1;
-          }
-          return rowClone;
-        }
-        function w3_replace_html(a, r, result) {
-          var b, l, i, a, x, j;
-          if (a.hasAttributes()) {
-            b = a.attributes;
-            l = b.length;
-            for (i = 0; i < l; i += 1) {
-              if (b[i].value.indexOf(r) > -1) { b[i].value = b[i].value.replace(r, result); }
-            }
-          }
-          x = a.getElementsByTagName("*");
-          l = x.length;
-          a.innerHTML = a.innerHTML.replace(r, result);
-        }
-      };
-  </script>
-
-  <style>
-    .c-app {
-      display: flex;
-      flex-flow: column;
-      width: 100%;
-    }
-
-    .c-content {
-      flex-grow: 1;
-      flex-basis: auto
-    }
-
-    .c-header,
-    .c-footer {
-      flex-grow: 0;
-      flex-basis: auto
-    }
-  </style>
 
   <div class="c-app">
     <div w3-include-html="components/navbar.html" class="c-header"></div>
@@ -449,8 +30,136 @@
 
               <div w3-include-html="sections/iniciando.html"></div>
 
-              <div w3-include-html="sections/tipografia.html"></div>
+              <section id="tipografia" class="py-4 my-2">
+                <div class="container p-0">
+                  <div class="row">
+                    <div class="col-12 mb-2">
+                      <h2 class="fw-bold"><strong>Tipografia</strong></h2>
+                      <p>Fonte e configurações utilizadas no projeto Objetivo (Curso e Colégio).<br>
+                        Família de Fonte <strong>Nunito</strong>, com peso de 200, 300, 400, 600, 700, 800, 900.<br>
+                        Exemplos de Hierarquia cabrçalho, parágrafos e pesos.</p>
+                    </div>
+                    <article class="row">
+                      <div class="col-12 col-md-5">
+                        <h1 class="fw-bold display-1">Aa</h1>
+                        <p class="border-start ps-2">
+                          <span style="font-weight:200;">Extra-light <small>(200)</small></span><br>
+                          <span style="font-weight:300 ;">Light <small>(300)</small></span><br>
+                          <span style="font-weight:400;">Regular <small>(400)</small></span><br>
+                          <span style="font-weight:600;">Semi-bold <small>(600)</small></span><br>
+                          <span style="font-weight:700;">Bold <small>(700)</small></span><br>
+                          <span style="font-weight:800;">Extra-bold <small>(800)</small></span><br>
+                          <span style="font-weight:900;">Black <small>(900)</small></span>
+                        </p>
+                      </div>
+                      <div class="col-12 col-md-7 d-flex flex-column justify-content-around">
+                        <h1 class="fw-bold">h1. Sistema de Ensino Objetivo</h1>
+                        <h2 class="fw-bold">h2. Sistema de Ensino Objetivo</h2>
+                        <h3 class="fw-bold">h3. Sistema de Ensino Objetivo</h3>
+                        <h4 class="fw-bold">h4. Sistema de Ensino Objetivo</h4>
+                        <h5 class="fw-bold">h5. Sistema de Ensino Objetivo</h5>
+                        <h6 class="fw-bold">h6. Sistema de Ensino Objetivo</h6>
+                      </div>
 
+
+
+                      <div class="col-12 col-md-5">
+                        <a class="btn btn-primary" style="margin-bottom: 10px" data-bs-toggle="collapse"
+                          href="#multiCollapseExample1" role="button" aria-expanded="false"
+                          aria-controls="multiCollapseExample1">Exibir Código</a>
+                      </div>
+                      <div class="col-12 col-md-7">
+
+                        <button class="btn btn-primary" style="margin-bottom: 10px" type="button"
+                          data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2" aria-expanded="false"
+                          aria-controls="multiCollapseExample2">Exibir Código</button>
+                      </div>
+
+                      <div class="row">
+                        <div class="col col-md-5">
+                          <div class="collapse multi-collapse" id="multiCollapseExample1">
+                            <div class="card card-body" style="padding: 0%; background-color: #272a37;">
+
+                              <p style="margin: 0%;"><textarea style="border-radius: 0.25rem" class='lineCounter'
+                                  wrap='off' readonly>1.</textarea><textarea readonly style="border-radius: 0.25rem"
+                                  class='codeEditor' wrap='off'>
+&lt;span style="font-weight:200;"&gt;
+Extra-light &lt;small&gt;(200)&lt;/small&gt;
+&lt;/span&gt;
+
+&lt;span style="font-weight:300;"&gt;
+Light &lt;small&gt;(300)&lt;/small&gt;
+&lt;/span&gt;
+
+&lt;span style="font-weight:200;"&gt;
+Extra-light &lt;small&gt;(200)&lt;/small&gt;
+&lt;/span&gt;
+
+&lt;span style="font-weight:200;"&gt;
+Extra-light &lt;small&gt;(200)&lt;/small&gt;
+&lt;/span&gt;
+
+&lt;span style="font-weight:200;"&gt;
+Extra-light &lt;small&gt;(200)&lt;/small&gt;
+&lt;/span&gt;
+
+&lt;span style="font-weight:200;"&gt;
+Extra-light &lt;small&gt;(200)&lt;/small&gt;
+&lt;/span&gt;
+
+&lt;span style="font-weight:200;"&gt;
+Extra-light &lt;small&gt;(200)&lt;/small&gt;
+&lt;/span&gt;</textarea></p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col col-md-7">
+                          <div class="collapse multi-collapse" id="multiCollapseExample2">
+                            <div class="card card-body" style="padding: 0%; background-color: #272a37;">
+
+                              <p style="margin: 0%;"><textarea style="border-radius: 0.25rem" class='lineCounter'
+                                  wrap='off' readonly>1.</textarea><textarea readonly style="border-radius: 0.25rem"
+                                  class='codeEditor' wrap='off'>
+&lt;h1 class="fw-bold">
+h1. Sistema de Ensino Objetivo
+&lt;/h1&gt;
+
+&lt;h2 class="fw-bold">
+h2. Sistema de Ensino Objetivo
+&lt;/h2&gt;
+
+&lt;h3 class="fw-bold">
+h3. Sistema de Ensino Objetivo
+&lt;/h3&gt;
+
+&lt;h4 class="fw-bold">
+h4. Sistema de Ensino Objetivo
+&lt;/h4&gt;
+
+&lt;h5 class="fw-bold">
+h5. Sistema de Ensino Objetivo
+&lt;/h5&gt;
+
+&lt;h6 class="fw-bold">
+h6. Sistema de Ensino Objetivo
+&lt;/h6&gt;</textarea></p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+
+                      <h2 class="h3 fw-bold mt-2 my-2"><strong>Parágrafo</strong></h2>
+                      <p><strong>Formar o indivíduo para um mundo globalizado</strong> e para os seus novos parâmetros
+                        envolve a capacidade de utilização dos recursos infindáveis da informática, da computação, da
+                        telemática e das infoways, que acenam para uma revolução cultural tão transformadora quanto o
+                        foi,
+                        no seu tempo, a invenção da imprensa.</p>
+
+                    </article>
+                  </div>
+                </div>
+              </section>
               <div w3-include-html="sections/logos.html"></div>
 
               <div w3-include-html="sections/cores.html"></div>
@@ -1770,7 +1479,7 @@
                           class="text-danger">nome</span></strong>
                       (verificar no item <a href="#paleta-cores">Cores</a>),
                       altera a cor do SVG.</p>
-                    <div class="col-12 col-md-8 d-flex flex-column mb-4 mx-auto">
+                    <div class="col-12 col-md-8 d-flex flex-column mb-4 w-100">
                       <div class="border p-4">
                         <div class="icones-tamanho-exemplo d-flex justify-content-around">
                           <svg aria-labelledby="icon-reading-lineal" role="img" viewBox="0 0 512 512"
@@ -1947,46 +1656,48 @@
                         </div>
                       </div>
                       <div>
-                        <pre>
-                <code>
-&lt;<span class="text-success">svg</span> <span class="text-obj-12">viewBox</span>="0 0 512 512" <span class="text-obj-12">xmlns</span>="<u>http://www.w3.org/2000/svg</u>"  <span class="text-obj-12">class</span>="<strong class="fw-bold text-primary bg-warning">svg-1</strong> svg-fill-obj-5"/&gt; 
-&lt;<span class="text-success">path</span>&gt;...&lt;/<span class="text-success">path</span>&gt;
-&lt;/<span class="text-success">svg</span>/&gt;
 
-&lt;<span class="text-success">svg</span> <span class="text-obj-12">viewBox</span>="0 0 512 512" <span class="text-obj-12">xmlns</span>="<u>http://www.w3.org/2000/svg</u>"  <span class="text-obj-12">class</span>="<strong class="fw-bold text-primary bg-warning">svg-2</strong> svg-fill-obj-5"/&gt;
-&lt;<span class="text-success">path</span>&gt;...&lt;/<span class="text-success">path</span>&gt;
-&lt;/<span class="text-success">svg</span>/&gt;
+                        <p>
+                          <a class="btn btn-primary" style="margin-top: 1rem" data-bs-toggle="collapse"
+                            href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            Exibir Código </a>
+                        </p>
 
-&lt;<span class="text-success">svg</span> <span class="text-obj-12">viewBox</span>="0 0 512 512" <span class="text-obj-12">xmlns</span>="<u>http://www.w3.org/2000/svg</u>"  <span class="text-obj-12">class</span>="<strong class="fw-bold text-primary bg-warning">svg-3</strong> svg-fill-obj-5"/&gt;
-&lt;<span class="text-success">path</span>&gt;...&lt;/<span class="text-success">path</span>&gt;
-&lt;/<span class="text-success">svg</span>/&gt;
+                        <div class="collapse" id="collapseExample">
+                          <div class="card card-body" style="padding: 0%; background-color: #272a37;">
 
-&lt;<span class="text-success">svg</span> <span class="text-obj-12">viewBox</span>="0 0 512 512" <span class="text-obj-12">xmlns</span>="<u>http://www.w3.org/2000/svg</u>"  <span class="text-obj-12">class</span>="<strong class="fw-bold text-primary bg-warning">svg-4</strong> svg-fill-obj-5"/&gt;
-&lt;<span class="text-success">path</span>&gt;...&lt;/<span class="text-success">path</span>&gt;
-&lt;/<span class="text-success">svg</span>/&gt;
+                            <p style="margin: 0%;"><textarea style="border-radius: 0.25rem" class='lineCounter'
+                                wrap='off' readonly>1.</textarea><textarea readonly style="border-radius: 0.25rem"
+                                class='codeEditor' wrap='off'>
+&lt;svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"
+class="svg-1 svg-fill-obj-5"/&gt; &lt;path&gt;...&lt;/path&gt;&lt;/svg&gt;
 
-&lt;<span class="text-success">svg</span> <span class="text-obj-12">viewBox</span>="0 0 512 512" <span class="text-obj-12">xmlns</span>="<u>http://www.w3.org/2000/svg</u>"  <span class="text-obj-12">class</span>="<strong class="fw-bold text-primary bg-warning">svg-5</strong> svg-fill-obj-5"/&gt;
-&lt;<span class="text-success">path</span>&gt;...&lt;/<span class="text-success">path</span>&gt;
-&lt;/<span class="text-success">svg</span>/&gt;
+&lt;svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"
+class="svg-2 svg-fill-obj-5"/&gt;&lt;path&gt;...&lt;/path&gt;&lt;/svg&gt;
 
-&lt;<span class="text-success">svg</span> <span class="text-obj-12">viewBox</span>="0 0 512 512" <span class="text-obj-12">xmlns</span>="<u>http://www.w3.org/2000/svg</u>"  <span class="text-obj-12">class</span>="<strong class="fw-bold text-primary bg-warning">svg-6</strong> svg-fill-obj-5"/&gt;
-&lt;<span class="text-success">path</span>&gt;...&lt;/<span class="text-success">path</span>&gt;
-&lt;/<span class="text-success">svg</span>/&gt;
+&lt;svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" 
+class="svg-3 svg-fill-obj-5"/&gt;&lt;path&gt;...&lt;/path&gt;&lt;/svg&gt;
 
-&lt;<span class="text-success">svg</span> <span class="text-obj-12">viewBox</span>="0 0 512 512" <span class="text-obj-12">xmlns</span>="<u>http://www.w3.org/2000/svg</u>"  <span class="text-obj-12">class</span>="<strong class="fw-bold text-dark bg-warning">svg-9</strong> svg-fill-obj-5"/&gt;
-&lt;<span class="text-success">path</span>&gt;...&lt;/<span class="text-success">path</span>&gt;
-&lt;/<span class="text-success">svg</span>/&gt;
+&lt;svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"
+class="svg-4 svg-fill-obj-5"/&gt;&lt;path&gt;...&lt;/path&gt;&lt;/svg&gt;
 
-&lt;<span class="text-success">svg</span> <span class="text-obj-12">viewBox</span>="0 0 512 512" <span class="text-obj-12">xmlns</span>="<u>http://www.w3.org/2000/svg</u>"  <span class="text-obj-12">class</span>="<strong class="fw-bold text-primary bg-warning">svg-7</strong> svg-fill-obj-5"/&gt;
-&lt;<span class="text-success">path</span>&gt;...&lt;/<span class="text-success">path</span>&gt;
-&lt;/<span class="text-success">svg</span>/&gt;
+&lt;svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"
+class="svg-5 svg-fill-obj-5"/&gt;&lt;path&gt;...&lt;/path&gt;&lt;/svg&gt;
 
-&lt;<span class="text-success">svg</span> <span class="text-obj-12">viewBox</span>="0 0 512 512" <span class="text-obj-12">xmlns</span>="<u>http://www.w3.org/2000/svg</u>"  <span class="text-obj-12">class</span>="<strong class="fw-bold text-primary bg-warning">svg-8</strong> svg-fill-obj-5"/&gt;
-&lt;<span class="text-success">path</span>&gt;...&lt;/<span class="text-success">path</span>&gt;
-&lt;/<span class="text-success">svg</span>/&gt;
-          
-                </code>
-            </pre>
+&lt;svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"
+class="svg-6 svg-fill-obj-5"/&gt;&lt;path&gt;...&lt;/path&gt;&lt;/svg&gt;
+
+&lt;svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"
+class="svg-9 svg-fill-obj-5"/&gt;&lt;path&gt;...&lt;/path&gt;&lt;/svg&gt;
+
+&lt;svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"
+class="svg-7 svg-fill-obj-5"/&gt;&lt;path&gt;...&lt;/path&gt;&lt;/svg&gt;
+
+&lt;svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"
+class="svg-8 svg-fill-obj-5"/&gt;&lt;path&gt;...&lt;/path&gt;&lt;/svg&gt;</textarea></p>
+                          </div>
+                        </div>
+
                       </div>
                     </div>
                   </div>
@@ -1994,8 +1705,78 @@
               </section>
 
 
-              <div w3-include-html="sections/botoes.html"></div>
+              <section id="botoes" class="py-4 my-2">
+                <div class="container p-0">
+                  <div class="row">
+                    <div class="col-12 mb-2">
+                      <h2 class="h1 fw-bold"><strong>Botões</strong></h2>
+                    </div>
+                    <div class="d-flex" style="flex-wrap: wrap;">
+                      <p class="px-4">
+                        <a href="#" class="btn btn-lg btn-primary shadow" title="">Conteúdo</a>
+                      </p>
+                      <p class="px-4">
+                        <a href="#" class="btn btn-lg btn-obj-2 shadow" title="">Conteúdo</a>
+                      </p>
+                      <p class="px-4">
+                        <a href="#" class="btn btn-lg btn-success shadow" title="">Conteúdo</a>
+                      </p>
+                      <p class="px-4">
+                        <a href="#" class="btn btn-lg btn-obj-4 shadow" title="">Conteúdo</a>
+                      </p>
+                      <p class="px-4">
+                        <a href="#" class="btn btn-lg btn-warning shadow" title="">Conteúdo</a>
+                      </p>
+                      <p class="px-4">
+                        <a href="#" class="btn btn-lg btn-outline-primary shadow" title="">Conteúdo</a>
+                      </p>
+                    </div>
 
+                    <div class="col-12 col-md-8 d-flex flex-column mb-4 w-100">
+
+                      <p>
+                        <a class="btn btn-primary" style="margin-top: 1rem" data-bs-toggle="collapse"
+                          href="#collapseBtn" role="button" aria-expanded="false" aria-controls="collapseBtn">
+                          Exibir Código </a>
+                      </p>
+
+                      <div class="collapse" id="collapseBtn">
+                        <div class="card card-body" style="padding: 0%; background-color: #272a37;">
+
+                          <p style="margin: 0%;"><textarea style="border-radius: 0.25rem" class='lineCounter' wrap='off'
+                              readonly>1.</textarea><textarea readonly style="border-radius: 0.25rem" class='codeEditor'
+                              wrap='off'>
+&lt;a href="#"
+class="btn btn-lg btn-obj-2 shadow"
+title=""&gt;
+Conteúdo&lt;/a&gt;
+
+&lt;a href="#"
+class="btn btn-lg btn-success shadow"
+title=""/&gt;
+Conteúdo&lt;/a&gt;
+            
+&lt;a href="#"
+class="btn btn-lg btn-obj-4 shadow"
+title=""/&gt;
+Conteúdo&lt;/a&gt;
+            
+&lt;a href="#"
+class="btn btn-lg btn-warning shadow"
+title=""/&gt;
+Conteúdo&lt;/a&gt;
+            
+&lt;a href="#"
+class="btn btn-lg btn-outline-primary shadow"
+title=""/&gt;
+Conteúdo&lt;/a&gt;</textarea>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
             </div>
           </div>
         </div>
@@ -2015,6 +1796,7 @@
   <script>
     w3.includeHTML();
   </script>
+
 </body>
 
 </html>
