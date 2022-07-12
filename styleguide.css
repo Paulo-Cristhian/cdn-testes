@@ -2,7 +2,6 @@
     visibility: hidden;
     max-width: 50px;
     height: 50px;
-    /*margin-left: -125px;*/
     margin: auto;
     background-color: #333;
     color: #fff;
@@ -21,26 +20,17 @@
 #toast #img {
     width: 50px;
     height: 50px;
-
     float: left;
-
     padding-top: 16px;
     padding-bottom: 16px;
-
     box-sizing: border-box;
-
-
     background-color: #111;
     color: #fff;
 }
 
 #toast #desc {
-
-
     color: #fff;
-
     padding: 16px;
-
     overflow: hidden;
     white-space: nowrap;
 }
@@ -157,4 +147,81 @@
         bottom: 60px;
         opacity: 0;
     }
+}
+
+.base-light {
+    background-color: #fff;
+    max-height: 140px;
+    display: flex;
+    justify-content: center;
+}
+
+.base-dark {
+    background-color: #0D3880;
+    max-height: 140px;
+    display: flex;
+    justify-content: center;
+}
+
+.codeEditor,
+.lineCounter {
+    font-family: lucida console, courier new, courier, monospace;
+    margin: 0;
+    padding: 10px 0;
+    height: 71vh;
+    border-radius: 0;
+    resize: none;
+    font-size: 16px;
+    line-height: 1.2;
+    outline: none;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.lineCounter:focus-visible,
+.codeEditor:focus-visible {
+    outline: none;
+}
+
+.lineCounter {
+    display: flex;
+    border-color: transparent;
+    overflow-y: hidden;
+    text-align: right;
+    box-shadow: none;
+    color: #707070;
+    background-color: #d8d8d8;
+    position: absolute;
+    width: 3.5rem;
+    /* Determine appearance of line counter */
+    background-color: #272822;
+    border-color: #272822;
+    color: #928869;
+}
+
+.codeEditor {
+    padding-left: calc(3.5rem + 5px);
+    width: 100%;
+    /* Determine appearance of code editor */
+    background-color: #272a37;
+    border-color: #272a37;
+    color: #ffffff;
+}
+
+.c-app {
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+}
+
+.c-content {
+    flex-grow: 1;
+    flex-basis: auto
+}
+
+.c-header,
+.c-footer {
+    flex-grow: 0;
+    flex-basis: auto
 }
