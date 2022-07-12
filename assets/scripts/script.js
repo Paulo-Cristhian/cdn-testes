@@ -41,8 +41,8 @@ for (let i = 0; i < lineCounter.length; i++) {
                 let codeh = document.querySelector(`#` + codeEditor[i].id)
                 let lineh = document.querySelector(`#` + lineCounter[i].id)
                 outarr[x] = (x + 1) + '.';
-                codeh.style.height = ((x + 1) * 20) + 'px'
-                lineh.style.height = ((x + 1) * 20) + 'px'
+                codeh.style.height = ((x + 1) * 20.20) + 'px'
+                lineh.style.height = ((x + 1) * 20.20) + 'px'
             }
             lineCounter[i].value = outarr.join('\n');
         }

@@ -112,7 +112,7 @@ a:hover {
 .navbar .active,
 .navbar a:hover,
 .navbar li:hover>a {
-    color: #084298;
+    color: #084298 !important;
     background-color: #f4f4f4;
 }
 
