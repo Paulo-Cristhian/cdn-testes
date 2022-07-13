@@ -997,3 +997,23 @@ a:hover {
 .cookie-container.active {
     bottom: 0;
 }
+
+.titleA {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.li-obj svg {
+    width: 25px;
+}
+
+.bg-obj {
+    background-color: #0D3880;
+}
+
+.bg-obj-light {
+    background-color: #fff;
+}
