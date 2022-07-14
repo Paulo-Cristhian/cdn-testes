@@ -449,3 +449,704 @@ w3.dataObject = {},
             a.innerHTML = a.innerHTML.replace(r, result);
         }
     };
+
+//==================+ FORM BACKGROUND ==========================    
+//==============================================================
+
+const LABELS_FORM_BACKGROUND = {
+    'CEP': 'CEP',
+    'Numero': 'Número',
+    'Bairro': 'Bairro',
+    'Cidade': 'Cidade',
+    'Endereco': 'Endereço',
+    'Estado': 'Estado',
+    'Complemento': 'Complemento'
+};
+
+Object.freeze(LABELS_FORM_BACKGROUND);
+
+const loadersFormExemploBackground = {
+    submit: stateLoader('loader-submit-form-exemplo-background'),
+    estados: stateLoader('estados-spinner-form-exemplo-background'),
+    municipios: stateLoader('municipios-spinner-form-exemplo-background'),
+    cep: stateLoader('cep-spinner-form-exemplo-background')
+}
+
+async function submit_formExemploBackground(event) {
+
+    event.preventDefault();
+
+    const form_exemplo_background = document.getElementById('form-exemplo-background')
+    const formulario = await form_data_to_json(form_exemplo_background);
+
+    const { status, messages } = validateRequiredInputs(formulario, [
+        'CEP',
+        'Bairro',
+        'Numero',
+        'Cidade',
+        'Endereco',
+        'Estado',
+    ], LABELS_FORM_BACKGROUND);
+
+    if (!status) {
+        feedback(messages, 'danger');
+        return;
+    }
+
+    loadersFormExemploBackground.submit(true);
+
+    //REMOVER AO UTILIZAR O POST
+    setTimeout(function () {
+        loadersFormExemploBackground.submit(false);
+    }, 3000)
+
+
+    // post(`URL`, formularioTratado)
+    //     .then((data) => {
+    //         feedback(data.avisos.mensagem);
+    //         form_exemplo_background.reset();
+    //         loadersFormExemploBackground.submit(false);
+    //     })
+    //     .catch((error) => {
+    //         feedback(error.avisos.notificacoes, 'danger');
+    //         loadersFormExemploBackground.submit(false);
+    // });   
+
+}
+
+window.onload = function () {
+    popula_estados('form-estado', 'form-cidade', { loaderEstado: loadersFormExemploBackground.estados, loaderMunicipio: loadersFormExemploBackground.municipios });
+    popula_cep({
+        cep: 'form-cep',
+        estado: 'form-estado',
+        municipio: 'form-cidade',
+        bairro: 'form-bairro',
+        endereco: 'form-endereco'
+    }, { loaderCep: loadersFormExemploBackground.cep, loaderMunicipio: loadersFormExemploBackground.municipios });
+    validateLength()(
+        'form-estado',
+        'form-cidade',
+        'form-endereco',
+    );
+
+    validateLength(9)(
+        'form-cep'
+    );
+
+    mascara('#####-###', 'form-cep');
+    enderecoValidator('form-bairro');
+    enderecoValidator('form-endereco');
+    enderecoComplementoValidator('form-complemento');
+
+
+    //===========================================
+    //============= FORM EXEMPLO ================
+
+    validateLength()(
+        'form-indicacao'
+    );
+    validateLength(14)(
+        'form-cpf'
+    );
+    nameValidator('form-nomeResponsavel');
+
+    telefoneValidator('form-telefone');
+    mascara_telefone('form-telefone');
+    telefoneValidator('form-celular');
+    mascara_telefone('form-celular');
+    emailValidator('form-email');
+    mascara('###.###.###-##', 'form-cpf');
+}
+//========================================================================
+
+//==================+ FORM EXEMPLO ==========================    
+//==============================================================
+
+const loaders_form_exemplo = {
+    submit: stateLoader('loader-submit-form-exemplo')
+}
+
+const LABELS_FORM_EXEMPLO = {
+    'NomeResponsavel': 'Nome do Responsável',
+    'Cpf': 'CPF',
+    'Email': 'E-mail',
+    'Telefone': 'Telefone',
+    'Celular': 'Celular',
+    'Indicacao': 'Indicação',
+};
+
+
+async function submitFormExemplo(event) {
+    event.preventDefault();
+    const form_exemplo = _pegar_elemento('form-exemplo');
+    const formulario = await form_data_to_json(form_exemplo);
+    const { status, messages } = validateRequiredInputs(formulario,
+        [
+            'NomeResponsavel',
+            'Cpf',
+            'Email',
+            'Telefone',
+            'Celular',
+            'Indicacao'
+        ], LABELS_FORM_EXEMPLO);
+
+    if (!status) {
+        feedback(messages, 'danger');
+        return;
+    }
+
+
+    const objPost = {
+        nome: formulario.NomeResponsavel,
+        cpf: formulario.Cpf,
+        email: formulario.Email,
+        telefone: formulario.Telefone,
+        celular: formulario.Celular,
+        indicacao: formulario.Indicacao,
+    }
+
+    loaders_form_exemplo.submit(true);
+
+    //REMOVER AO UTILIZAR O POST
+    setTimeout(function () {
+        loaders_form_exemplo.submit(false);
+    }, 3000)
+
+    // post(`URL`, objPost)
+    //     .then((data) => {
+    //         feedback(data.avisos.mensagem);
+    //         form_exemplo.reset();
+    //     })
+    //     .catch((error) => feedback(error.avisos.notificacoes, 'danger'))
+    //     .finally(() => loaders_form_exemplo.submit(false));
+
+}
+
+
+//==============================================================
+
+Url = "https://api.objetivo.br/site/v1/"
+ChavePublica = "5h9Bb71nB0v1Rj4gvhd1CLzDaPdU0LQUjQ9uElcU26amZSo3wZ3Zloce93RUWkqhelBUgVSyzImAaVXF8l3YcmLsJReDBxwvQcBD";
+
+
+
+url_base = Url;
+
+async function get(url) {
+    return new Promise((resolve, reject) => {
+        var request = new XMLHttpRequest();
+        request.open('GET', `${url_base}${url}`, true);
+        request.setRequestHeader("Content-Type", "application/json");
+        request.setRequestHeader("Chave-Publica", `${ChavePublica}`);
+        request.onload = function () {
+            if (this.status >= 200 && this.status < 400) {
+                // sucesso
+                var data = JSON.parse(this.response);
+                resolve(data);
+            }
+            else {
+                // Erro podendo retornar algo
+                reject(this.response);
+            }
+        };
+        request.onerror = function (e) {
+            reject(e);
+        };
+        request.send();
+    });
+}
+
+async function post(url, data) {
+    return new Promise((resolve, reject) => {
+        var request = new XMLHttpRequest();
+        request.open('POST', `${url_base}${url}`, true);
+        request.setRequestHeader("Content-Type", "application/json");
+        request.setRequestHeader("Chave-Publica", `${ChavePublica}`);
+        request.onload = function () {
+            if (this.status >= 200 && this.status < 400) {
+                // sucesso
+                let retorno = JSON.parse(this.response);
+                resolve(retorno);
+            }
+            else {
+                // Erro podendo retornar algo
+                reject(JSON.parse(this.response));
+            }
+        };
+        request.onerror = function (e) {
+            reject(e);
+        };
+        request.send(JSON.stringify(data));
+    });
+}
+
+async function put(url, data) {
+    return new Promise((resolve, reject) => {
+        var request = new XMLHttpRequest();
+        request.open('PUT', `${url_base}${url}`, true);
+        request.setRequestHeader("Content-Type", "application/json");
+        request.setRequestHeader("Chave-Publica", `${ChavePublica}`);
+        request.onload = function () {
+            if (this.status >= 200 && this.status < 400) {
+                // sucesso
+                let retorno = JSON.parse(this.response);
+                resolve(retorno);
+            }
+            else {
+                // Erro podendo retornar algo
+                reject(JSON.parse(this.response));
+            }
+        };
+        request.onerror = function (e) {
+            reject(e);
+        };
+        request.send(JSON.stringify(data));
+    });
+}
+
+// Tratamento do formulário
+
+async function form_data_to_json(form) {
+    const form_data = new FormData(form);
+    return new Promise((resolve, reject) => {
+        try {
+            let object = {};
+            form_data.forEach((value, key) => {
+                if (!Reflect.has(object, key)) {
+                    object[key] = value;
+                    return;
+                }
+                if (!Array.isArray(object[key])) {
+                    object[key] = [object[key]];
+                }
+                object[key].push(value);
+            });
+            resolve(object);
+        } catch (error) {
+            reject(error);
+        };
+    });
+};
+
+function feedback(mensagem, tipo = 'success') {
+    console.log(mensagem);
+    let exibicao = mensagem;
+    if (Array.isArray(mensagem)) {
+        exibicao = mensagem.map(e => `${e.mensagem} ${e.referencia ?? ""}`).join("<br>")
+    }
+    const alert = `<div class="alert text-center alert-${tipo}" role="alert">
+                  ${exibicao}
+                </div>`;
+    const alert_box = document.getElementById('alert-box');
+    alert_box.innerHTML = alert;
+}
+
+function stateLoader(loader) {
+    return (state = false) => {
+        state ? document.getElementById(loader).classList.remove('visually-hidden')
+            : document.getElementById(loader).classList.add('visually-hidden')
+    }
+}
+
+const ordena_objetos = (arr, campo = 'nome') => arr.sort((a, b) => ((a[campo]?.trim())?.localeCompare(b[campo]?.trim())));
+
+async function popula_estados(id_estado, id_municipio, loaders = { loaderEstado: () => { }, loaderMunicipio: () => { } }, campoValue = 'ibge') {
+    const select_estado = document.getElementById(id_estado);
+    const select_municipio = document.getElementById(id_municipio);
+
+    const { loaderEstado, loaderMunicipio } = loaders;
+
+    loaderEstado(true);
+    const { dados: { resultadosDaPaginaAtual } } = await get('servico/unidade/estado')
+        .catch(error => {
+            console.log(error);
+        })
+        .finally(() => {
+            loaderEstado();
+            disable(select_estado, false);
+
+        });
+    if (!resultadosDaPaginaAtual) return;
+
+    const estados = ordena_objetos(resultadosDaPaginaAtual);
+
+    _popula_select(estados, select_estado, 'sigla', 'nome');
+
+    select_estado.onchange = (ev) => popula_municipios(ev.target.value, select_municipio, loaderMunicipio, campoValue);
+}
+
+function ativarChange(select) {
+    const e = new Event("change");
+    select.dispatchEvent(e);
+}
+
+async function popula_municipios(sigla, select_municipio, loaderMunicipio = () => { }, campoValue) {
+    disable(select_municipio);
+    select_municipio.innerHTML = `<option value="">Selecione</option>`;
+    ativarChange(select_municipio);
+    if (!sigla) return;
+    loaderMunicipio(true);
+    const { dados: { resultadosDaPaginaAtual } } = await get(`servico/unidade/municipio?uf=${sigla}&maximo=0`)
+        .catch(error => console.error(error))
+        .finally(() => {
+            loaderMunicipio();
+            disable(select_municipio, false);
+        });
+    loaderMunicipio();
+    if (!resultadosDaPaginaAtual) return;
+
+    const municipios = ordena_objetos(resultadosDaPaginaAtual);
+
+    _popula_select(municipios, select_municipio, campoValue, 'nome');
+}
+
+function disable(campo, valor = true) {
+    valor ? campo.setAttribute('disabled', true) : campo.removeAttribute('disabled');
+}
+
+function _popula_select(arr, select, value, text) {
+    if (arr.length == 0) {
+        const option = document.createElement("option");
+        option.text = "Nenhum " + text + " encontrado";
+        select[0] = option;
+        return
+    }
+    arr.forEach(elem => {
+        if (!elem[value] || !elem[text]) return;
+        const option = document.createElement("option");
+        if (value === text) option.value = (elem[value]?.toLowerCase())?.trim();
+        else option.value = elem[value];
+        option.text = elem[text];
+        select.append(option);
+    });
+}
+
+function popula_cep(input_ids, loader_municipio) {
+
+    const cep = _pegar_elemento(input_ids.cep);
+    let valorAntigo = undefined;
+
+    cep.addEventListener('blur', function () {
+        if (cep.value.length === 9 && valorAntigo != cep.value) {
+            valorAntigo = cep.value;
+            _buscar_cep(input_ids, cep.value, loader_municipio);
+        };
+    });
+}
+
+async function _buscar_cep(input_ids, valor_cep, loaders) {
+
+    const { loaderCep, loaderMunicipio } = loaders;
+
+    loaderCep(true);
+    const { dados } = await get(`servico/logradouro/cep/${valor_cep}`)
+        .catch(error => console.error(error))
+        .finally(() => {
+            loaderCep();
+        });
+
+    _preencher_campos_cep(input_ids, dados, loaderMunicipio);
+}
+
+async function _preencher_campos_cep(input_ids, valor, loader_municipio) {
+    const { estado, municipio, bairro, endereco } = _pegar_elemento(input_ids)
+    estado.value = valor.municipio.estado.sigla || "";
+    bairro.value = valor.bairro || "";
+    endereco.value = valor.nome || "";
+    await popula_municipios(estado.value || "", municipio, loader_municipio, 'ibge');
+    municipio.value = valor.municipio.ibge || "";
+}
+
+function _pegar_elemento(id_elem) {
+    if (typeof id_elem == 'object') {
+        const campos = {};
+        for (let element in id_elem) {
+            campos[element] = document.getElementById(id_elem[element]);
+        }
+        return campos;
+    }
+
+    return document.getElementById(id_elem);
+}
+
+
+//====================================================
+
+/*
+  Atribui uma função no evento 'Blur' do JQuery 
+    1° param é o id do input no qual será colocado o blur
+    2º param é a função que será executada no callback do blur
+    Param da função de retorno é opcional, é para o caso da função que foi passada também necessite de parametros 
+*/
+function _onBlur(input, fn) {
+    return (...params) => {
+        const input_doc = document.getElementById(input);
+        input_doc.addEventListener('blur', function () {
+            fn(...params);
+        }, false);
+    };
+};
+
+/*
+    Alteração das classes de acordo com a validação do length do input
+*/
+function _toggleLengthValidClass(input, length) {
+    const input_doc = document.getElementById(input);
+    if (input_doc.value.length < length) {
+        _setInvalid(input);
+    } else {
+        input_doc.classList.remove('is-invalid');
+    };
+}
+
+/*
+    Alteração das classes de acordo com a validação da RegExp do input
+*/
+function _testRegExp(exp, input) {
+    const input_doc = document.getElementById(input);
+    const result = exp.test(input_doc.value);
+    if (result) {
+        input_doc.classList.remove('is-invalid');
+    } else {
+        _setInvalid(input);
+    };
+};
+
+function _setInvalid(input) {
+    const input_doc = document.getElementById(input);
+    input_doc.classList.add('is-invalid');
+    input_doc.classList.remove('is-valid');
+}
+
+function validateLength(length = 1) {
+    return (...inputIds) => {
+        (inputIds || []).forEach(input => {
+            if (length > 1) {
+                const input_doc = document.getElementById(input);
+                input_doc.setAttribute('pattern', `^.{${length},}$`);
+            }
+            _onBlur(input, _toggleLengthValidClass)(input, length);
+        });
+    };
+};
+
+/*
+    Validação do input de email
+*/
+function emailValidator(input) {
+    _onBlur(input, _testRegExp)(/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/, input);
+    const input_doc = document.getElementById(input);
+    input_doc.setAttribute('pattern', '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}$');
+}
+
+/*
+    Validação do input de Escola/Empresa
+*/
+function nameValidator(input) {
+    _onBlur(input, _testRegExp)(/^[A-zÀ-ÿ'0-9]+[\s\.]?([A-zÀ-ÿ'0-9][\s\.]?)*[A-zÀ-ÿ'0-9]+$/, input);
+    const input_doc = document.getElementById(input);
+    input_doc.setAttribute('pattern', `^[A-zÀ-ÿ'0-9]+[\\s\\.]?([A-zÀ-ÿ'0-9][\\s\\.]?)*[A-zÀ-ÿ'0-9]+$`);
+};
+
+/*
+    Validação do input de Endereços
+*/
+function enderecoValidator(input) {
+    _onBlur(input, _testRegExp)(/^[A-zÀ-ÿ'0-9]+[.,-]?(\s-)?[\s\.]?([A-zÀ-ÿ'0-9][.,-]?(\s-)?[\s\.]?)*[A-zÀ-ÿ'0-9]+$/, input);
+    const input_doc = document.getElementById(input);
+    input_doc.setAttribute('pattern', `^[A-zÀ-ÿ'0-9]+[\\.,-]?(\\s-)?[\\s\\.]?([A-zÀ-ÿ'0-9][\\.,-]?(\\s-)?[\\s\\.-]?)*[A-zÀ-ÿ'0-9]+$`);
+};
+
+function enderecoComplementoValidator(input) {
+    _onBlur(input, _testRegExp)(/^[A-zÀ-ÿ0-9]?[.,-]?(\s-)?[\s\.]?([A-zÀ-ÿ0-9][.,-]?(\s-)?[\s\.]?)*[A-zÀ-ÿ0-9]?$/, input);
+    const input_doc = document.getElementById(input);
+    input_doc.setAttribute('pattern', `^[A-zÀ-ÿ'0-9]?[\\.,-]?(\\s-)?[\\s\\.]?([A-zÀ-ÿ'0-9][\\.,-]?(\\s-)?[\\s\\.-]?)*[A-zÀ-ÿ'0-9]?$`);
+};
+
+/*
+    Validação do input do RA de alunos
+*/
+function raValidator(input) {
+    _onBlur(input, _testRegExp)(/^[0-9a-zA-ZA-ZáàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ][0-9a-zA-ZA-ZáàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ\s]+$/, input);
+    const input_doc = document.getElementById(input);
+    input_doc.setAttribute('pattern', '^[0-9a-zA-ZA-ZáàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ][0-9a-zA-ZA-ZáàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ\\s]+$');
+};
+
+/*
+    Validação do input de pessoas
+*/
+function nameSobrenomeValidator(input) {
+    _onBlur(input, _testRegExp)(/^[A-zÀ-ÿ']+\s?([A-zÀ-ÿ']\s?)*[A-zÀ-ÿ']+$/, input);
+    const input_doc = document.getElementById(input);
+    input_doc.setAttribute('pattern', `^[A-zÀ-ÿ']+\\s?([A-zÀ-ÿ']\\s?)*[A-zÀ-ÿ']+$`);
+}
+
+/*
+    Validação do input de Telefone caso tenha algum caractere
+*/
+function telefoneValidator(input) {
+    const input_doc = document.getElementById(input);
+    input_doc.setAttribute('pattern', `^.{14,}$`);
+    input_doc.addEventListener("blur", function () {
+
+        var result = input_doc.value;
+
+        if (result.toString() != '' && result.toString() != '(') {
+            var exp = /^.{14,}$/;
+            const result_exp = exp.test(result);
+            if (result_exp) {
+                input_doc.classList.remove('is-invalid');
+            } else {
+                input_doc.classList.add('is-invalid');
+            };
+        } else if (result.toString() === '(') {
+            input_doc.value = '';
+        }
+        else if (result.toString() == '') {
+            input_doc.classList.add('is-invalid');
+        }
+        else {
+            input_doc.removeAttribute('required');
+            input_doc.classList.remove('is-invalid');
+        };
+    });
+};
+
+/*
+    Função criadora de máscaras
+*/
+function mascara(m, input) {
+    let t = document.getElementById(input);
+    t.addEventListener('keyup', function (e) {
+        let cursor = t.selectionStart;
+        let texto = t.value;
+        let texto_length = texto.length;
+        let mask_length = m.length;
+        let livre = false;
+
+        texto = texto.replace(/\D/g, '');
+        if (window.event) {
+            id = e.keyCode;
+        } else if (e.which) {
+            id = e.which;
+        }
+        cursorfixo = false;
+        if (cursor < texto_length) cursorfixo = true;
+        if (id == 16 || id == 19 || (id >= 33 && id <= 40)) livre = true;
+        ii = 0;
+        mm = 0;
+        if (!livre) {
+            if (id != 8) {
+                t.value = "";
+                j = 0;
+                for (i = 0; i < mask_length; i++) {
+                    if (m.substr(i, 1) == "#") {
+                        t.value += texto.substr(j, 1);
+                        j++;
+                    } else if (m.substr(i, 1) != "#") {
+                        t.value += m.substr(i, 1);
+                    }
+                    if (id != 8 && !cursorfixo) cursor++;
+                    if ((j) == texto_length + 1) break;
+
+                }
+            }
+        }
+        if (cursorfixo && !livre) cursor--;
+        t.setSelectionRange(cursor, cursor);
+    });
+
+}
+
+
+function _applyMask(input, fn) {
+    setTimeout(() => {
+        input.value = fn(input.value);
+    }, 1)
+}
+
+const _telefoneModel = (value) => {
+    return value.replace(/\D/g, "")                        //Remove tudo o que não é dígito
+        .replace(/^(\d{2})(\d)/g, "($1) $2")       //Coloca parênteses em volta dos dois primeiros dígitos
+        .replace(/(\d)(\d{4})$/, "$1-$2");         //Coloca hífen entre o quarto e o quinto dígitos
+}
+
+const _numeroModel = (value) => {
+    return value.replace(/\D/g, "")                         // Remove tudo o que não é dígito
+        .replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.") // Adiciona . na unidade de milhar
+}
+
+const _stringModel = (value) => {
+    return value.replace(/[^a-zÀ-ÿ\s]/gi, "")                         // Remove tudo o que não é dígito
+};
+
+/* 
+    Função criadora de máscaras de celular/telefone
+*/
+function mascara_telefone(input) {
+    const form_doc = document.getElementById(input);
+    form_doc.setAttribute('maxlength', 15);
+    form_doc.onkeypress = function () {
+        _applyMask(this, _telefoneModel);
+    }
+}
+
+/* 
+    Função criadora de máscaras de números
+*/
+function mascara_numeros(...inputs) {
+    (inputs || []).forEach(input => {
+        const form_doc = document.getElementById(input);
+        form_doc.onkeypress = function () {
+            _applyMask(this, _numeroModel);
+        }
+    });
+}
+
+function mascara_string(...inputs) {
+    (inputs || []).forEach(input => {
+        const form_doc = document.getElementById(input);
+        form_doc.onkeypress = function () {
+            _applyMask(this, _stringModel);
+        }
+    });
+}
+
+
+// CONVERSÕES DE VALORES E VALIDAÇÕES
+
+const _onlyNumber = (value) => value ? value.replace(/\D/g, "") : 0;
+const _stringToNumber = (string) => parseInt(_onlyNumber(string));
+
+function _percorreCampos(fn) {
+    return (form, inputs, labels) => {
+        return fn(form, inputs, labels);
+    }
+}
+
+//Converte velores dos inputs de string para Number
+const inputValueNumbers = _percorreCampos((form, inputs, _) => {
+    const formulario = (inputs || []).reduce((acc, input) => ({
+        ...acc,
+        [input]: _stringToNumber(form[input])
+    }), form)
+
+    return formulario;
+});
+
+//Valida os campos que são 'Required'
+const validateRequiredInputs = _percorreCampos((form, inputs, labels) => {
+    let status = { status: true, messages: "" };
+    let messages = "";
+
+    for (input of inputs) {
+
+        if (form[input] === null || form[input] === undefined || form[input].length === 0 || form[input].trim().length === 0) {
+            document.getElementsByName(input)[0].classList.add('is-invalid');
+            messages += `O campo ${labels[input]} não pode ser vazio. <br>`;
+            Object.assign(status, { status: false, messages });
+        }
+    }
+
+    return status;
+});
